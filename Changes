@@ -1,0 +1,6 @@
+Revision history for Perl extension XBRL.
+
+0.01  Sat Sep 17 15:23:26 2011
+	- original version; created by h2xs 1.23 with options
+		-AXc -n XBRL
+

@@ -1,0 +1,64 @@
+package XBRL::Context;
+
+use strict;
+use warnings;
+use Date::Calc qw( Delta_YMD );
+use Date::Manip::Date;
+
+use base qw( Class::Accessor );
+
+XBRL::Context->mk_accessors( qw(id scheme identifier startDate endDate instant label) );
+		
+		
+sub new() {
+	my ($class, $xml) = @_;
+	my $self = {};
+	bless $self, $class;
+
+	if ($xml) {
+		&parse($self, $xml);
+	}
+
+	return $self;
+}
+
+
+sub parse() {
+	my ($self, $in_xml) = @_;
+
+	$self->{'id'} = $in_xml->getAttribute( 'id' );
+	my @nodes = $in_xml->getElementsByTagName('xbrli:identifier'); 
+	$self->{'scheme'} = $nodes[0]->getAttribute( 'scheme' );
+	$self->{'identifier'} = $nodes[0]->textContent();
+	my @starts = $in_xml->getElementsByTagName('xbrli:startDate'); 
+
+	if ($starts[0]) {
+		$self->{'startDate'} = $starts[0]->textContent(); 
+	}	
+	
+	my @ends = $in_xml->getElementsByTagName('xbrli:endDate');
+
+	if ($ends[0]) {
+		$self->{'endDate'} = $ends[0]->textContent();
+	}
+
+	my @times = $in_xml->getElementsByTagName('xbrli:instant');
+
+	if ($times[0]) {
+		$self->{'instant'} = $times[0]->textContent();
+	}
+
+	if ($self->{'instant'}) {
+		$self->{'label'} = $self->{'instant'};
+	}
+	else {
+		my @start = split("-", $self->{'startDate'});
+		my @end = split("-", $self->{'endDate'});
+		my ($delta_year, $delta_month, $delta_days) = &Delta_YMD($start[0], $start[1], $start[2], $end[0], $end[1], $end[2]);
+		$delta_month = $delta_month + 1;	
+		$self->{'label'} = "$delta_month months ending $self->{'endDate'}";	
+	}
+}
+
+1;
+
