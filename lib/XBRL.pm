@@ -12,6 +12,9 @@ use XBRL::Unit;
 use XBRL::Item;
 use XBRL::Schema;
 use XBRL::Taxonomy;
+use XBRL::Dimension;
+use XBRL::Table;
+
 use LWP::UserAgent;
 use File::Spec qw( splitpath );
 
@@ -114,7 +117,6 @@ sub parse_file() {
 sub get_taxonomy() {
 	my ($self) = @_;
 	return $self->{'taxonomy'};
-
 }
 
 
@@ -178,10 +180,9 @@ sub get_unit() {
 sub get_item() {
 	my ($self, $name, $context) = @_;
 	my $item_number = $self->{'item_index'}->{$name}->{$context}; 
-
 	unless (defined($item_number)) { $item_number = -1; } 	
-
 	return($self->{'items'}[$item_number]); 
+
 }
 
 sub get_all_items() {
@@ -319,225 +320,50 @@ sub get_file() {
 	}
 }
 
-sub expand_axis() {
-	my ($self, $elements) = @_;
-	my @out_array = ();
-	
-	my $all_contexts =  &get_all_contexts($self);
 
-	for my $element (@{$elements}) {
-			my $e_id = $element->id();
-			$e_id =~ s/\_/\:/;	
-			if ($element->subGroup() =~ m/dimensionItem/) {
-				#Do the expansion 	
-				for my $context_id (keys %{$all_contexts}) {
-					my %seen = ();	
-					my $context = &get_context($self, $context_id); 
-					if ($context->is_dim_member($e_id)) {
-						my $items = &get_item_by_contexts($self, $context->id()); 
-						for my $item (@{$items}) {
-							if (! $seen{$item->name()} ) {
-								$seen{$item->name()}++;	
-								my $item_id = $item->name();	
-								$item_id =~ s/\:/\_/;	
-								#print "$item_id \n";	
-								my $element = $self->{'taxonomy'}->get_elementbyid($item_id);	
-								if ($element) {	
-									push(@out_array, $element); 
-								}	
-							}			
-						}	
-					}
-				}
-			}
-			else {
-				push(@out_array, $element);
+sub get_html_report() {
+	my ($self) = @_;
+	my $html = "<html><head><title>Sample</title></head><body>\n";
+
+	my $tax = $self->{'taxonomy'}; 
+
+	my $sections = $tax->get_sections();
+		
+	for my $sect (@{$sections}) {
+		if ($tax->in_def($sect->{'uri'})) {
+			#Dimension table 	
+			$html = $html . "\n<h2>" . $sect->{'def'} . "</h2>\n";
+			my $dim = XBRL::Dimension->new($self, $sect->{'uri'});	
+			my $final_table;	
+			$final_table = $dim->get_html_table($sect->{'uri'}); 	
+		
+			if ($final_table) {	
+				$html = $html . $final_table;	
 			}	
-	}
-	return \@out_array;
-}
-
-sub report_html() {
-	my ($self, $html_file) = @_;
-	
-
-	my $html = "<html><head><title>Test Doc</title></head><body>\n"; 
-
-	my $sections = $self->{'taxonomy'}->get_sections();
-
-	for (@$sections) {
-#		my @table_rows = ();	
-		my $def_node = $_->{'def'};	
-		my $role_uri = $_->{'uri'};	
-		print "$def_node \n";
-		$self->{'taxonomy'}->debug_subsects($role_uri); 
-#	
-#		
-#		$html = $html . '<h2>' . $def_node . '<h2>' . "\n";
-#		
-#		print "$def_node\n";   
-#		
-#		my $elements = &expand_axis($self, $self->{'taxonomy'}->get_pre_elems2($role_uri)); 
-#
-#		my @section_contexts;
-#		my %section_labels = ();
-#		my %rows = ();
-#
-#		my $t_headers = &get_table_headers($self, $elements);
-#
-#		my $table = '<table border="2">';	
-#		
-#		my $table_header = '<tr><td></td>' . "\n";
-#
-#		for my $context (@{$t_headers}) {
-#			$table_header = $table_header . '<th>' . $context->label() . '</th>' . "\n"; 
-#		}
-#
-#		$table_header = $table_header . '</tr>';
-#
-#		for my $element (@$elements) {
-#			my $e_id = $element->id();
-#			$e_id =~ s/\_/\:/;
-#			if ($element->type =~ m/textBlock/) {
-#				for my $context (@$t_headers) {
-#					my $item = &get_item($self, $e_id, $context->id()); 
-#					$table = $table  . $item->value();	
-#				}
-#				next;	
-#			}
-#			
-#			my @item_array = ();
-#			my %dim_hash = ();	
-#
-#				my $items = &get_item_all_contexts($self, $e_id);
-#				for my $header_context (@{$t_headers}) {
-#					my $value;	
-#					for my $item (@{$items}) {
-#						my $item_context = &get_context($self, $item->context());
-#						my $dims = $item_context->dimension(); 	
-#						if (($header_context->label() eq $item_context->label()) && 
-#							(! $dims->[0] )) {
-#							$value = $item->value();	
-#						}
-#					}
-#					if ($value) {
-#						push(@item_array, $value); 
-#					}
-#					else {
-#						push(@item_array, '&nbsp;');
-#					}	
-#				}
-#			$rows{$element->name()} = \@item_array;
-#		
-#		}
-#
-#
-#
-#		$table = $table . $table_header;		
-#
-#		for my $element (@{$elements}) {
-#			my $e_id = $element->id();
-#			$e_id =~ s/\_/\:/;
-#			$table = $table . '<tr><td>' . $e_id . '</td>' . "\n";	
-#			my $items = $rows{$element->name()};
-#			for my $item (@{$items}) {
-#				$table = $table . '<td>' . $item . '</td>' . "\n"; 
-#			}
-#		}
-#
-#	
-#	$table = $table . "</table>";
-#	$html = $html . $table;
-
-	}
-	
-	$html = $html . "</body></html>";
-	open(my $fh, ">$html_file") or croak "can't open $html_file because: $! \n";
-	print $fh $html;
-	close($fh);
-
-}
-
-
-sub get_table_headers() {
-	my ($self, $table_elements) = @_;
-	my @out_array = ();
-	my %labels = ();	
-	my @all_contexts = ();	
-	for my $element (@{$table_elements}) {
-					#print $element->id() . "\n";
-		if (!$element) {
-			print Dumper($element);	
-						croak "There isn't an element \n"; 
-		}	
-		my $e_id = $element->id();
-		$e_id =~ s/\_/\:/;	
-		if ($element->subGroup eq 'xbrldt:dimensionItem') {
-						#$self->{'contexts'}->{ $cont->id() } = $cont;	
-			my $contexts =  &get_all_contexts($self); 
-			for my $context_id (keys %{$contexts}) {
-				my $context = &get_context($self, $context_id); 
-						if ($context->is_dim_member($e_id)) {
-										#$labels{$context->label()}++;	
-							push(@all_contexts, $context);	
-						}	
-			}	
-		}	
-		else {	
-			my $items = &get_item_all_contexts($self, $e_id);
-			for my $item (@$items) {
-						#print "\t" . $item->name() . "\t" . $item->context() . "\n";
-				my $context = &get_context($self, $item->context());	
-				#$labels{$context->label()}++;	
-				push(@all_contexts, $context);	
-			}
-		}	
-	}	
-	#get the unique based on label  	
-	
-	my %seen = ();
-	my @uniq = ();
-	foreach my $context (@all_contexts) {
-    unless ($seen{$context->label()}) {
-        # if we get here, we have not seen it before
-        $seen{$context->label()} = 1;
-        push(@uniq, $context);
-    }
-	}
-	#sort the buggers 
-	my (@dur, @per) = ();
-	for (@uniq) {
-		if ($_->duration()) {
-			push(@dur, $_);
 		}
 		else {
-			push(@per, $_); 
+			#Dealing with a regular table 
+			#if (&is_text_block($self, $sect->{'uri'})) {
+			my $norm_table = XBRL::Table->new($self, $sect->{'uri'});	
+			my $textblock = $norm_table->is_textblock($sect->{'uri'});	
+			#if ($norm_table->is_textblock($sect->{'uri'})) {	
+			if ($textblock) {	
+				$html = $html . "\n<h2>" . $sect->{'def'} . "</h2>\n";
+				#$html = $html . "<p>Is a Text Block Section</p>\n";
+				$html = $html . $textblock;	
+			}
+			else {
+				$html = $html . "\n<h2>" . $sect->{'def'} . "</h2>\n";
+				$html = $html . $norm_table->get_html_table($sect->{'uri'});
+			}
 		}
 	}
-
-	my @sorted_dur = sort { $a->duration() cmp $b->duration() 
-																				|| 
-													$b->endDate()->cmp($a->endDate()) } @dur;
-
-
-	my @sorted_per = sort { $b->endDate()->cmp($a->endDate()) } @per; 
-
-	push(@out_array, @sorted_dur);
-	push(@out_array, @sorted_per); 
-	return \@out_array;
-}
-
-
-
-sub is_table() {
-	my ($self, $pres_link) = @_;
+	
+	$html = $html . "</body></html>\n";
 
 }
 
-sub build_table() {
-	my ($self, $pres_link) = @_;
 
-}
 
 
 1;

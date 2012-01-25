@@ -4,7 +4,7 @@
       "Mark Gannon <mark@truenorth.nu>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "ExtUtils::MakeMaker version 6.58, CPAN::Meta::Converter version 2.110930",
+   "generated_by" : "ExtUtils::MakeMaker version 6.59, CPAN::Meta::Converter version 2.112621",
    "license" : [
       "unknown"
    ],

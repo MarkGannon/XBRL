@@ -99,20 +99,62 @@ sub parse() {
 
 }
 
+sub get_dimension() {
+	#take a domain and return the context's dimension for that domain	
+	my ($self, $domain) = @_;
+	$domain =~ s/\_/\:/;
+	for my $dim (@{$self->{'dimension'}}) {
+		if ($domain eq $dim->{'val'}) {
+			return $dim->{'dim'};
+		}
+
+	}
+
+}
+
+
 sub is_dim_member() {
 	my ($self, $dim_name ) = @_; 
-
+	$dim_name =~ s/\_/:/;
 	if (!$self->{'dimension'}) {
-		return 0;
+		return undef;
 	}
 
 	#print "Self: \t" . $self->{'dimension'} . "\n";	
 	for my $dim (@{$self->{'dimension'}}) {
-		if ($dim_name = $dim->{'dim'}) {
-			return 1;
+		if ($dim_name eq $dim->{'dim'}) {
+			return $dim_name;
 		}
 	}
+	return undef;
 }
+
+sub get_dim_value() {
+	my ($self, $dim_name) = @_;
+	$dim_name =~ s/\_/:/;
+	
+	for my $dim (@{$self->{'dimension'}}) {
+		if ($dim_name eq $dim->{'dim'}) {
+			return $dim->{'val'};
+		}
+	}
+
+}
+
+sub has_dim() {
+	my ($self) = @_;
+
+	my $dims = $self->{'dimension'};
+
+	if ($dims->[0]) {
+		return "dimension";
+	}
+	else {
+		return undef;
+	}
+
+}
+
 
 
 1;

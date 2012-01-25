@@ -5,8 +5,12 @@ use warnings;
 use Carp;
 use XML::LibXML; 
 use XML::LibXML::XPathContext; 
+use XML::LibXML::NodeList; 
 use XBRL::Element;
+use XBRL::Label;
 use Data::Dumper;
+use Scalar::Util qw(reftype blessed); 
+
 
 our $VERSION = '0.01';
 our $agent_string = "Perl XBRL Library $VERSION";
@@ -59,6 +63,16 @@ sub parse() {
 			}	
 		}
 
+		my $main_element_list = $main_schema_xpath->findnodes("//*[local-name() = 'element']");
+
+		for my $element_xml (@{$main_element_list}) {
+			my $e = XBRL::Element->new($element_xml);
+			if ($e->id()) {
+				$self->{'elements'}->{$e->id()} = $e;	
+			}
+		}
+
+
 
 	}
 
@@ -89,15 +103,53 @@ sub parse() {
 	
 	}
 
-	#Load the elements array 
-	my $elements = $main_schema_xpath->findnodes("//*[local-name() = 'element']");
-	
-	for my $element (@$elements) {
-		my $e = XBRL::Element->new($element);
-		$self->{'elements'}->{$e->id()} = $e;	
-	}
-}
 
+
+	#Load the array of labels 
+
+	my $label_arcs = $self->{'lab'}->findnodes("//*[local-name() =  'labelArc']");
+	my $label_locs =  $self->{'lab'}->findnodes("//*[local-name() =  'loc']"); 
+	my $label_labels =   $self->{'lab'}->findnodes("//*[local-name() =  'label']"); 
+
+	my @label_array;
+
+	for my $arc (@{$label_arcs}) {
+		for my $loc (@{$label_locs}) {
+			if ($arc->getAttribute('xlink:from') eq $loc->getAttribute('xlink:label')) {
+				for my $label_node (@{$label_labels}) {
+					if ( $arc->getAttribute('xlink:to') eq $label_node->getAttribute('xlink:label') ) {
+							my $label = XBRL::Label->new();	
+							my $href = $loc->getAttribute('xlink:href');	
+							$href =~ m/\#([A-Za-z0-9_-].+)$/; 	
+							$label->name($1);	
+							$label->role($label_node->getAttribute('xlink:role'));
+							$label->lang($label_node->getAttribute('xml:lang'));	
+							$label->id($label_node->getAttribute('id'));
+							$label->value( $label_node->textContent() );
+							push(@label_array, $label);	
+					}
+
+				}
+			}
+		}
+
+	}
+
+
+
+#	my $labelLinkNodes = $self->{'lab'}->findnodes("//*[local-name() = 'labelLink']");
+#
+#	my @label_array = ();
+#
+#	for my $labelLink (@{$labelLinkNodes}) {
+#		my $label =  XBRL::Label->new($labelLink);	
+#		push(@label_array,$label);
+#	}
+#
+	$self->{'labels'} =\@label_array; 
+
+
+}
 
 sub get_elementbyid() {
 	my ($self, $e_id) = @_;
@@ -212,9 +264,14 @@ sub get_sections() {
 	for my $section (@$sections) {
 		my $uri = $section->getAttribute('roleURI');	
 		my $def = $section->findnodes('link:definition');
-		push(@out_array, { def => $def, uri => $uri }); 
+		$def =~ m/(^\d+\d)/;	
+		my $order = $1;	
+		push(@out_array, { def => $def, uri => $uri, order => $order }); 
 	}
-	return \@out_array;
+	
+	my @sorted_array = sort { $a->{'order'} <=> $b->{'order'} } @out_array;	
+	
+	return \@sorted_array;
 }
 
 
@@ -248,6 +305,23 @@ sub debug_subsects() {
 }
 
 
+sub in_def() {
+	#take a section uri and check if there is a 
+	#section for it in the definition link base
+	#return nodelist of def  if true,  undef if not
+	my ($self, $sec_uri) = @_; 
+
+	my $d_link = $self->{'def'}->findnodes("//*[local-name() = 'definitionLink'][\@xlink:role = '" . $sec_uri . "' ]"); 
+
+	if ($d_link) {
+		return $d_link;
+	}
+	else {
+		return undef;
+	}
+
+}
+
 sub get_pre_elems2() {
 	my ($self, $sec_uri) = @_;
 	my @out_array = ();
@@ -262,13 +336,7 @@ sub get_pre_elems2() {
 		my %subsections = (); 
 		my @subsec_array = ();
 		for (@{$loc_list}) {
-			#print $_->toString() . "\n";
 			my $element_uri = $_->getAttribute('xlink:href');
-			$element_uri =~ m/\#([A-Za-z0-9_-].+)$/; 	
-			my $element_id = $1;
-			#$element_id =~ s/\_/\:/;	
-			my $element = $self->get_elementbyid($element_id);
-			unless ($element) { croak "can't find id for $element_id\n"; }	
 			$subsections{$element_uri}++;
 		}
 				
@@ -363,6 +431,92 @@ sub get_pre_elems2() {
 #	}
 #	return \@out_array;
 #}
+
+#sub get_label() {
+#	#takes an element and finds the correct label for it
+#	#via xpath search of the label linkbase
+#	my ($self, $search_id) = @_;
+#	my $lang = 'en-US';
+#
+#	if (!$search_id) {
+#		croak "set_label called without an xbrl element id\n";
+#	}
+#
+#	my $loc_nodes = $self->{'lab'}->findnodes("//*[local-name() = 'loc']");
+#	my $label_nodes = $self->{'lab'}->findnodes("//*[local-name() = 'label'][\@xlink:role = 'http://www.xbrl.org/2003/role/label'][\@xml:lang = 'en-US'] ");	
+#	my $label_arc_nodes = $self->{'lab'}->findnodes("//*[local-name() = 'labelArc']");	
+#
+#	if (!$label_nodes) {
+#		croak "no loc nodes for: " . $search_id->id() . "\n";
+#	}
+#
+#	my $arc_locator;
+#	for my $loc (@{$loc_nodes}) {
+#		my $href = $loc->getAttribute('xlink:href');	
+#		my $id = $href;
+#		$id =~ m/\#([A-Za-z0-9_-].+)$/; 	 
+#		my $arc_id = $1;	
+#
+#		if ($arc_id eq $search_id) {
+#			$arc_locator = $loc->getAttribute('xlink:label');
+#		}
+#	}
+#
+#	#if (!$arc_locator) { croak "no arc locator for " . $search_id->id() . "\n"; }
+#	if (!$arc_locator) { return undef; }
+#	
+#	my $label_loc;
+#	for my $label_arc (@{$label_arc_nodes}) {
+#		my $from = $label_arc->getAttribute('xlink:from');	
+#		if ($from eq $arc_locator) {
+#			$label_loc = $label_arc->getAttribute('xlink:to');
+#		}
+#	}
+#
+#
+#	#if (!$label_loc) {croak "no label locator for " . $search_id->id() . "\n"; } 
+#	if (!$label_loc) {return undef; } 
+#
+#	my $label_text;
+#	for my $label_node (@{$label_nodes}) {
+#		my $link = $label_node->getAttribute('xlink:label');
+#		if ($link eq $label_loc) {
+#			$label_text = $label_node->textContent();
+#		}
+#	}
+#	if ($label_text) {
+#		return $label_text;
+#	}
+#	else {
+#		return $search_id;
+#	}
+#}
+
+
+sub get_label() {
+	my ($self, $search_id, $role) = @_;
+
+	if (!$role) {
+		$role = 'http://www.xbrl.org/2003/role/label';
+	}
+
+	for my $label (@{$self->{'labels'}}) {
+		if (($label->name() eq $search_id) && ($label->role() eq $role)) {
+			return $label->value();
+		}
+	}
+	
+	$role = 'http://www.xbrl.org/2003/role/label';
+	
+	for my $label (@{$self->{'labels'}}) {
+		if (($label->name() eq $search_id) && ($label->role() eq $role)) {
+			return $label->value();
+		}
+	}
+
+
+}
+
 
 
 
