@@ -1,0 +1,32 @@
+Refactor code
+	is everything in the right class?
+	Fix downloading xbrl taxes not included Linux/Windows/Mac  	
+	Rework it so a standard XML is output
+	HTML is created from the XML 
+	Fix Code to call xml files from the t directory 
+
+Check that all the necessary cpan modules are included in the build 
+
+HTML Classes and color scheme 
+
+Documentation
+
+Non ASCII Character Sets 
+
+Redo Tests 
+	Create example XBRL to provide concise tests 
+
+CPAN Account 
+
+Make sure the 
+
+Test on ec2 
+
+Add support for output in ODF/Gnumeric/Excel
+
+Output Financial Statement (Balance Sheet/ Income Statement/ Cashflow) 
+
+
+
+
+
