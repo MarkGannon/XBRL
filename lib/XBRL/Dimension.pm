@@ -3,6 +3,10 @@ package XBRL::Dimension;
 use strict;
 use warnings;
 use Carp;
+use XML::LibXML; #::Element; 
+use XML::LibXML::NodeList;
+use XBRL::Arc;
+use Data::Dumper;
 
 require Exporter;
 
@@ -26,12 +30,14 @@ sub new() {
 								uri => $uri };
 	bless $self, $class;
 	
+	$self->{'def_arcs'} = &parse_def_arcs($self);	
+	$self->{'pre_arcs'} = &parse_pre_arcs($self);	
 	return $self;
 }
 
 sub get_html_table() {
 	my ($self, $uri) = @_;
-	
+	print "URI: $uri \n";	
 	my $table;
 	if (&is_landscape($self, $uri)) {
 			$table = &make_land_table($self, $uri); 	
@@ -49,43 +55,91 @@ sub make_port_table() {
 	my $xbrl_doc = $self->{'xbrl'};
 	my $tax = $xbrl_doc->get_taxonomy();
 	my $table = HTML::Table->new(-border => 1);
-
-	my $header_contexts = &get_header_contexts($self, $uri); 
-
+	print "Portrait Table \n";
 	
+	my $header_contexts	= &get_header_contexts($self); 
 	my @col_labels;
+	my $hypercubes = &get_hypercubes($self);
+	
 	for my $context (@{$header_contexts}) {
 		push(@col_labels, $context->label());	
 	}
 	$table->addRow('&nbsp;', @col_labels); 	
 
-	my $domain_names = &get_domain_names($self, $uri);	
-	my $row_elements = &get_row_elements($self, $uri);  
-
-	for my $domain (@{$domain_names}) {
-		my $d_label = $tax->get_label($domain);	
-		$table->addRow($d_label);	
-		for my $thingie (@{$row_elements}) {
-			my @row_items;	
-			my $items = &get_domain_item($self, $domain, $thingie->{'id'});
-			next unless ($items->[0]);	
-			for my $h_context (@{$header_contexts}) {
-				my $value;	
-				for my $item (@{$items}) {
-					my $item_context = $xbrl_doc->get_context($item->context());
-					if ($item_context->label() eq $h_context->label()) {
-						$value = $item->adjValue();	
-						push(@row_items, $item->adjValue());
-					}
-				}
-				if (!$value) {	
-					push(@row_items, '&nbsp;');
-				}	
+	#my (@domain_names, @row_elements);	
+	for my $hcube (@{$hypercubes}) {
+		print "Working on hypercube: " . $hcube->from_short . "\n";	
+		my $domain_names = &get_domain_names($self, $hcube);	
+		my $row_elements = &get_row_elements($self, $hcube);	
+		if ($domain_names->[0]) {	
+			print "Domain Names: \n";
+			for my $dom (@{$domain_names}) {
+				print "\t" . $dom . "\n";
 			}	
-			my $row_label = $tax->get_label($thingie->{'id'}, $thingie->{'pref'}); 	
-			$table->addRow($row_label, @row_items);	
-		}
-	}
+			print "Element Names: \n";
+			for my $row (@{$row_elements}) {
+				print "\t" . $row . "\n";
+			}
+	
+	
+			for my $domain (@{$domain_names}) {
+				my $d_label = $tax->get_label($domain);	
+				$table->addRow($d_label);	
+				for my $thingie (@{$row_elements}) {
+					my @row_items;	
+					my $items = &get_domain_item($self, $domain, $thingie);
+					print "Items: \n";
+					for my $item (@{$items}) {
+						print "\t" . $item->name() . "\n";
+					} 	
+					next unless ($items->[0]);	
+					for my $h_context (@{$header_contexts}) {
+						my $value;	
+						for my $item (@{$items}) {
+							my $item_context = $xbrl_doc->get_context($item->context());
+							if ($item_context->label() eq $h_context->label()) {	
+								$value = $item->adjValue();	
+								push(@row_items, $item->adjValue());
+							}
+						}
+						if (!$value) {	
+							push(@row_items, '&nbsp;');
+						}	
+					}	
+					$table->addRow($thingie, @row_items);	
+				}
+			}
+		}	
+		else {
+			print "No top domain names for this hypercube\n";
+			print "Element Names: \n";
+			for my $row (@{$row_elements}) {
+				print "\t" . $row . "\n";
+				my @row_elements;
+				my $items = &get_free_items($self, $row);  
+				#for my $item (@{$items}) {
+				#	print $item->adjValue() . "\t";
+				#}
+				#print "\n";
+				for my $h_context (@{$header_contexts}) {
+					my $value;	
+					for my $item (@{$items}) {
+						my $item_context = $xbrl_doc->get_context($item->context());
+						if ($h_context->label() eq $item_context->label()) {
+							$value = $item->adjValue();	
+							push(@row_elements, $item->adjValue());
+						}	
+					}	
+					if (!$value) {
+						push(@row_elements, '&nbsp;');
+					}	
+				}	
+				$table->addRow($row, @row_elements);	
+			}
+		}	
+	}	
+	
+	&set_row_labels($self, $table, $uri);	
 
 	return $table->getTable();
 }
@@ -95,22 +149,28 @@ sub make_land_table() {
 	my ($self, $uri) = @_;
 	my $xbrl_doc = $self->{'xbrl'};
 	my $tax = $xbrl_doc->get_taxonomy();
-
+	print "Landscape Table \n";
 	my $table = HTML::Table->new(-border => 1);
 
-	my $row_elements = &get_row_elements($self, $uri);
-	my $col_elements = &get_domain_names($self, $uri);
-	$table->addRow('&nbsp;', @{$col_elements});
+	my @row_elements;
+	my @col_elements;
+	my $hcubes = &get_hypercubes($self);
+	for my $hypercube (@{$hcubes}) {	
+		my $tmp_row = &get_row_elements($self, $hypercube);
+		push(@row_elements, @{$tmp_row});	
+		my $tmp_cols = &get_domain_names($self, $hypercube);
+		push(@col_elements, @{$tmp_cols});	
+	}	
 
+	$table->addRow('&nbsp;', @col_elements);
 
-
-	for my $e (@{$row_elements}) {
-		$table->addRow($e->{'id'});	
+	for my $e (@row_elements) {
+		$table->addRow($e);	
 	}
 
 	my $col_counter = 2;	
-	for my $domain ( @{$col_elements} ) {
-		my $items = &get_member_items($self, $domain, $row_elements); 
+	for my $domain ( @col_elements ) {
+		my $items = &get_member_items($self, $domain, \@row_elements); 
 		my $row_nums = $table->getTableRows();	
 
 		my $item_counter = 0;	
@@ -122,15 +182,16 @@ sub make_land_table() {
 	}
 
 	#Set the row level labels 
-	my $count = 2;	
-	for my $label (@{$row_elements}) {
-		my $prefLbl = $label->{'prefLabel'};
-		my $id = $table->getCell($count, 1);
-		my $label = $tax->get_label($id, $prefLbl);
-		$table->setCell($count, 1, $label);
-		$count++;
-	}
+	#my $count = 2;	
+	#for my $label (@row_elements) {
+	#	my $prefLbl = $label->{'prefLabel'};
+	#	my $id = $table->getCell($count, 1);
+	#	my $label = $tax->get_label($id, $prefLbl);
+	#	$table->setCell($count, 1, $label);
+	# $count++;
+	#}
 
+	&set_row_labels($self, $table, $uri);	
 
 	#Set the labels for the column headers 	
 	my $num_cols = $table->getTableCols();	
@@ -142,6 +203,29 @@ sub make_land_table() {
 
 	return $table->getTable();
 }
+
+sub set_row_labels() {
+	my ($self, $table, $uri) = @_;
+	my $xbrl_doc = $self->{'xbrl'};
+	my $tax = $xbrl_doc->get_taxonomy();
+	my @p_arcs = @{$self->{'pre_arcs'}}; 
+	#TODO Deal with different preferred labels for the same id in the same table
+	#this code just takes the first one for every instance.
+	for (my $i = 1; $i <= $table->getTableRows; $i++) {
+		my $id = $table->getCell($i,1);
+		$id =~ s/\:/\_/;	
+		for (my $k = 0; $k < @p_arcs; $k++) {
+				if ($id eq $p_arcs[$k]->to_short()) {
+				#Get the label delete the entry from the the array
+					my $label = $tax->get_label($id, $p_arcs[$k]->prefLabel());				
+					$table->setCell($i, 1, $label);	
+					#delete $p_arcs[$k];	
+			}
+		}
+	}
+
+}
+
 
 sub get_domain_item() {
 	my ($self,  $domain, $id ) = @_;
@@ -156,26 +240,40 @@ sub get_domain_item() {
 
 	for my $context_id (keys %{$all_contexts}) {
 		my $context = $all_contexts->{$context_id};
-		my $dimension = $context->get_dimension($domain); 	
+		#my $dimension = $context->get_dimension($domain); 	
+		my @tmp_array;
+		push(@tmp_array, $domain);	
+		my $dimension = $context->check_dims(\@tmp_array);	
 		if ($dimension ) { 
-			#print "context has $dimension\n";	
 			push(@dom_contexts, $context);	
 		}	
 	}
 
-
 	my $all_items = $xbrl_doc->get_all_items();
 	my @dom_items;	
-	for my $context (@dom_contexts) {	
-		for my $item (@{$all_items}) {
-			#print $context->id() . "\t" . $item->context() . "\t" . $item->name() . "\t" . $id ."\n";	
-			if (($context->id() eq $item->context()) && ($item->name() eq $id)) {
+	
+	for my $item (@{$all_items}) {
+			if ($id eq $item->name()) {
 				push(@dom_items, $item);
 			}
+	}	
+
+
+	my @out_array;
+
+	for my $item (@dom_items) {
+		for my $context (@dom_contexts) {	
+			my $item_context = $all_contexts->{$item->context()};	
+						if ($item_context->id() eq $context->id()) {
+							push(@out_array, $item);	
+						}
+						#my $val = $context->endDate()->cmp($item_context->endDate()); 
+						#if ($val == 0) {	
+						#push(@out_array, $item);
+						#}
+			}
 		}
-	}
-	
-	return \@dom_items;
+	return \@out_array;
 }
 
 sub get_member_items() {
@@ -184,13 +282,14 @@ sub get_member_items() {
 	my $tax = $xbrl_doc->get_taxonomy();
 		
 	my @e_ids;
-
+	#move the name/id to the @e_ids array 
 	for my $thingie (@{$id_list}) {
-		push(@e_ids, $thingie->{'id'});
+					push(@e_ids, $thingie);
+					#push(@e_ids, $thingie->{'id'});
 	}
 
+	#find contexts specifically linked to that domain	
 	my $contexts = $xbrl_doc->get_all_contexts();
-
 	my @domain_contexts;
 	for my $context_id (keys %{$contexts}) {
 		my $context = $contexts->{$context_id}; 
@@ -205,7 +304,7 @@ sub get_member_items() {
 
 	my @domain_items;
 
-
+	#this gets rid of duplicate ids.  Not sure why there are dups 
 	my %seen = ();
 	my @uniq = ();
 	foreach my $id (@e_ids) {
@@ -217,8 +316,8 @@ sub get_member_items() {
 
 	my $sorted_contexts = &sort_contexts($self, \@domain_contexts);
 
+	#get the item value for that id and context	
 	my %data_struct;
-	
 	for my $uni (@uniq) {
 		#print $_->id() . "\n";
 		my @items;	
@@ -228,12 +327,16 @@ sub get_member_items() {
 				push(@items, $item);	
 			#	print "\t" . $item->name() . "\t" . $item->value() . "\n";
 			}	
+			else {
+							#warn "No item found for $uni with domain $domain at: " . $context->endDate() . "\n"
+			}
 		}
 		$data_struct{$uni} = \@items;	
 	}
 	
 	my @out_array;
 
+	#iterate through the results and create an array of values or blanks
 	for my $label (@e_ids) {
 		my $items = $data_struct{$label};
 		my $value = shift(@{$items});	
@@ -265,149 +368,161 @@ sub get_item() {
 	$item_id =~ s/\_/\:/;
 
 	my $all_items = $xbrl_doc->get_all_items();
-	
+
+	my $search_context = $xbrl_doc->get_context($context_id);
+
+
 	for my $item (@{$all_items}) {
-		if (($item->context() eq $context_id) && ($item->name() eq $item_id)) {
+		my $item_context = $xbrl_doc->get_context($item->context());	
+		if (($item_context->id() eq $search_context->id()) && ($item->name() eq $item_id)) {
+		#the following doesn't work
+		#you end up with the same value across each cell in row	
+		#if (($item_context->endDate()->cmp($search_context->endDate())) && ($item->name() eq $item_id)) {
 			return $item;	
 		}
 	}
 	return undef;
 }
 
+sub get_free_items() {
+	#take an element id and return and array ref 
+	#of all the items that aren't associated with a domain
+	my ($self, $id) = @_; 
+	
+	my $xbrl_doc = $self->{'xbrl'};	
+	$id =~ s/\_/\:/;
+
+	my $all_items = $xbrl_doc->get_all_items();
+
+	my @out_items;
+	for my $item (@{$all_items}) {
+		if ($item->name() eq $id) {
+			my $item_context = $xbrl_doc->get_context($item->context());
+			if (! $item_context->has_dim()) {
+				push(@out_items, $item);
+			}	
+		}		
+	}
+	
+	return \@out_items;
+
+}
+
 
 sub get_domain_names() {
 	#take the uri and return an array of col elements + names in anon hash 	
 	#for landscape dimension tables  
-	my ($self, $uri) = @_;
-	my $xbrl_doc = $self->{'xbrl'};
-	my $tax = $xbrl_doc->get_taxonomy();
-	my @out_array;
-	#push(@out_array, '&nbsp;');
-	my $defLB = $tax->def(); 
-	
-	my $d_link = $defLB->findnodes("//*[local-name() = 'definitionLink'][\@xlink:role = '" . $uri . "' ]"); 
+	my ($self, $hcube) = @_;
+	my $arcs = $self->{'def_arcs'};
+	my @top_domains;
+	my @sub_domains;
+	my @middle_domains;
 
-	unless ($d_link) { return undef };
+	unless($arcs) { return undef; } 
 
-	my $loc_list = $d_link->[0]->getChildrenByLocalName('loc');
-	my $arc_list = $d_link->[0]->getChildrenByLocalName('definitionArc');	
+		my $arc_all;	
+		my $dimension_default;
+		my $dimension_domain;	
 		
-	my %subsections = (); 
-
-	my $dimension;
-
-	for my $arc (@{$arc_list}) {
-		if ($arc->getAttribute('xlink:arcrole') eq  'http://xbrl.org/int/dim/arcrole/dimension-domain') {
-			$dimension = "true";
-		}
-		if (($dimension) && ($arc->getAttribute('xlink:arcrole') eq  'http://xbrl.org/int/dim/arcrole/domain-member')) {
-			for my $loc (@{$loc_list}) {
-				if ($loc->getAttribute('xlink:label') eq $arc->getAttribute('xlink:to') ) {
-					my $element_uri = $loc->getAttribute('xlink:href');
-					$element_uri =~ m/\#([A-Za-z0-9_-].+)$/; 	
-					my $e_id = $1;
-					push(@out_array, $e_id);
-				}
+		for my $arc (@{$arcs}) {
+			if ( ($arc->arcrole() eq 'http://xbrl.org/int/dim/arcrole/all') && ($arc->to_short() eq $hcube->from_short() ) ) {
+				$arc_all = $arc;	
+			}	
+			elsif ( ($arc->arcrole() eq 'http://xbrl.org/int/dim/arcrole/dimension-domain') && ( $arc->from_short() eq $hcube->to_short() )) {
+				$dimension_domain = $arc;
+			}	
+			elsif ( ( $arc->arcrole() eq 'http://xbrl.org/int/dim/arcrole/dimension-default' ) && ($hcube->to_short() eq $arc->from_short() ) ) {
+				$dimension_default = $arc;
 			}
-
 		}	
+		for my $arc (@{$arcs}) {
+			if (($arc->arcrole() eq 'http://xbrl.org/int/dim/arcrole/domain-member') &&   ($arc->from_short() eq $arc_all->from_short() )) {
+						push(@sub_domains, $arc->to_short());	
+			}
+			elsif ($arc->arcrole() eq 'http://xbrl.org/int/dim/arcrole/domain-member') { 
+			#elsif (($arc->arcrole() eq 'http://xbrl.org/int/dim/arcrole/domain-member') &&   ($arc->from_short() eq $dimension_domain->to_short() )) {
+							#push(@top_domains, $arc->to_short());
+				push(@middle_domains, $arc);	
+			}	
+		}	
+
+		my %unique = ();	
+		my @arc_array;	
+		&test_recursion($dimension_domain->to_short(), \@middle_domains, \%unique, \@arc_array);	
+
+	my @ordered_array = sort { $a->order() <=> $b->order() } @arc_array;	
+	my @out_array;
+
+	for my $arc (@ordered_array) {
+		push(@out_array, $arc->to_short());
 	}
 	
-	return \@out_array;
+
+	return \@out_array; 
+}
+
+sub test_recursion() {
+	my ($domain_finder, $arc_queue, $unique_hash, $final_array  ) = @_;
+	
+
+	for my $incoming (@{$arc_queue}) {
+		if ($domain_finder eq $incoming->from_short) {
+			if (! $unique_hash->{$incoming->to_short} ) {
+				$unique_hash->{$incoming->to_short}++;
+				push(@{$final_array}, $incoming);	
+				&test_recursion($incoming->to_short(), $arc_queue, $unique_hash, $final_array);	
+			}	
+		}
+	}
 }
 
 
 
 sub get_row_elements() {
-	#take a uri and return an array of element id + pref label
+	#take a uri and return an array of anonymous hash with element id + pref label
 	#for landscape dimension tables 	
-	my ($self, $uri) = @_;
-	my $xbrl_doc = $self->{'xbrl'};	
-	my $tax = $xbrl_doc->get_taxonomy();	
-	
-	my $preLB = $tax->pre();
-
-	my @out_array;
-	
-	my $p_link = $preLB->findnodes("//*[local-name() = 'presentationLink'][\@xlink:role = '" . $uri . "' ]"); 
-
-	if ($p_link) {	
-
-		my $loc_list = $p_link->[0]->getChildrenByLocalName('loc');
-		my $arc_list = $p_link->[0]->getChildrenByLocalName('presentationArc');	
+	my ($self, $hcube) = @_;
+	my $arcs = $self->{'def_arcs'};
+		my $arc_all;	
+		my $dimension_default;
+		my $dimension_domain;	
 		
-		
-		my %subsections = (); 
-		my @subsec_array = ();
-		for (@{$loc_list}) {
-			my $element_uri = $_->getAttribute('xlink:href');
-			$element_uri =~ m/\#([A-Za-z0-9_-].+)$/; 	
-			my $element_id = $1;
-			my $element = $tax->get_elementbyid($element_id);
-			unless ($element) { croak "can't find id for $element_id\n"; }	
-			$subsections{$element_uri}++;
+		for my $arc (@{$arcs}) {
+			if ( ($arc->arcrole() eq 'http://xbrl.org/int/dim/arcrole/all') && ($arc->to_short() eq $hcube->from_short() ) ) {
+				$arc_all = $arc;	
+			}	
+			elsif ( ($arc->arcrole() eq 'http://xbrl.org/int/dim/arcrole/dimension-domain') && ( $arc->from_short() eq $hcube->to_short() )) {
+				$dimension_domain = $arc;
+			}	
+			elsif ( ( $arc->arcrole() eq 'http://xbrl.org/int/dim/arcrole/dimension-default' ) && ($hcube->to_short() eq $arc->from_short() ) ) {
+				$dimension_default = $arc;
+			}
+		}	
+						#if (($arc->arcrole() eq 'http://xbrl.org/int/dim/arcrole/domain-member') &&   ($arc->from_short() eq $arc_all->from_short() )) {
+
+	my @dm_arcs;
+	for my $arc (@{$arcs}) {	
+		if ($arc->arcrole() eq 'http://xbrl.org/int/dim/arcrole/domain-member') { 
+			push(@dm_arcs, $arc);
 		}
-				
-		for my $loc (@{$loc_list}) {
-			my $href = $loc->getAttribute('xlink:href');
-			if (($subsections{$href}) && ($subsections{$href} > 0)) {
-				push(@subsec_array, $href);
-				delete $subsections{$href};
-			}
-		}
-		
-		for my $section (@subsec_array) {
-			my @section_array = ();	
-			#iterate through all the locs and find ones that match the section names
-			for my $loc (@$loc_list) {
-				my $xlink = $loc->getAttribute('xlink:href');
-				if ($xlink eq $section) {
-					my $loc_label = $loc->getAttribute('xlink:label');	
-						for my $arc (@{$arc_list}) {
-							my $arc_from = $arc->getAttribute('xlink:from');	
-							my $arc_to = $arc->getAttribute('xlink:to');	
-							
-							if ($arc_from eq $loc_label ) { 	
-								my $order = $arc->getAttribute('order');	
-								my $pref_label = $arc->getAttribute('preferredLabel');	
-								for my $el_loc (@{$loc_list}) {
-									my $label = $el_loc->getAttribute('xlink:label');
-									if ($arc_to eq $label) {
-										my $el_link = $el_loc->getAttribute('xlink:href');
-										$el_link =~ m/\#([A-Za-z0-9_-].+)$/; 		
-										my $el_id = $1;	
-										if (($el_id !~ /axis$/i) && ($el_id !~ m/abstract$/i) && ($el_id !~ m/member/i) 
-										&& ($el_id !~ m/domain$/i) && ($el_id !~ m/lineitems/i)) {	
-											push(@section_array, { section => $section,
-																					order => $order,
-																					element_id => $el_id,
-																					pref => $pref_label } );
-										}	
-									}
-								}
-							}	
-						}
-				}
-			}
-
-		
-		my @ordered_array = sort { $a->{'order'} <=> $b->{'order'} } @section_array;	
-			for my $item (@ordered_array) {
-				#$item->{'element_id'} =~ s/\:/\_/g;	
-				#print "\t" . $item->{'order'} . "\t" . $item->{'element_id'} . "\n";
-				my $e = $tax->get_elementbyid($item->{'element_id'});
-				if (! $e ) {
-					croak "Couldn't find element for: " . $item->{'element_id'} . "\n";
-				}
-				push(@out_array, { id => $item->{'element_id'}, 
-													prefLabel => $item->{'pref'} } );  
-			}
-		}		
-
 	}
-	return \@out_array;
+	my %unique_list;
+	my @arclist;
+
+	&test_recursion($arc_all->from_short(), \@dm_arcs, \%unique_list, \@arclist);	
+
+#	my @ordered_array = sort { $a->order() <=> $b->order() } @arclist;	
+	my @out_array;
+
+	#for my $arc (@ordered_array) {
+	for my $arc (@arclist) {
+		push(@out_array, $arc->to_short());
+	}
+
+
+	return \@out_array;	
 }
-	
+
 
 
 sub is_landscape() {
@@ -434,79 +549,64 @@ sub is_landscape() {
 
 
 sub get_header_contexts() {
-	my ($self, $uri) = @_;
+	my ($self) = @_;
 	my $xbrl_doc = $self->{'xbrl'};
-	my $tax = $xbrl_doc->get_taxonomy();
 
-	print "Getting Headers for: $uri \n";
-
-	my $defLB = $tax->def();
-
-	my $d_link = $defLB->findnodes("//*[local-name() = 'definitionLink'][\@xlink:role = '" . $uri . "' ]"); 
-
-	unless ($d_link) { return undef };
-
-
-	my @loc_links = $d_link->[0]->getChildrenByLocalName('loc'); 
-	my @arc_links = $d_link->[0]->getChildrenByLocalName('definitionArc'); 
-
-
-
-	my @context_ids = ();
-
-
-	my @dim_names;
-
-	for my $arc (@arc_links) {
-		my $arcrole = $arc->getAttribute('xlink:arcrole');
-		if ( $arcrole eq 'http://xbrl.org/int/dim/arcrole/dimension-domain' ) {
-
-#		if ( $arcrole eq 'http://xbrl.org/int/dim/arcrole/dimension-default' ) {
-			my $link_from = $arc->getAttribute('xlink:from');
-			for my $loc (@loc_links) {
-				if ( $loc->getAttribute('xlink:label') eq $link_from ) {
-						my $whole_uri = $loc->getAttribute('xlink:href');
-						$whole_uri =~ m/\#([A-Za-z0-9_-].+)$/; 	 
-						my $dim = $1;	
-						push(@dim_names,$dim);	
-				}
-			}
-		}
-	}
-
-
-	my $domains = &get_domain_names($self, $uri);
-
+	my $arcs = $self->{'def_arcs'}; 
+	
 	my $all_contexts = $xbrl_doc->get_all_contexts();	
 
-	my @dim_contexts = ();
-	#TODO add warning for case where there are no 
-	#contexts for a specified dimension 
-	for my $dim_name (@dim_names) {	
-		print "\tDimension: $dim_name\n";	
-		for my $domain_name (@{$domains}) {
-			$domain_name =~ s/\_/:/;	
-			print "\t\tDomain Name: $domain_name\n";	
-			for my $context_id (keys %{$all_contexts}) {
-				my $context = $all_contexts->{$context_id};
-				if ($context->is_dim_member($dim_name)) {
-					my $value = $context->get_dim_value($dim_name); 
-					#print "\t\t\tValue: $value\n";	
-					if ($value eq $domain_name) {
-						print "\t\t\t matched \n";	
-						push(@dim_contexts, $context);
-					}
-				}
-				
+	my @dimensions;
+
+		for my $arc (@{$arcs}) {
+			if ($arc->arcrole() eq 'http://xbrl.org/int/dim/arcrole/dimension-domain') {
+				push(@dimensions, $arc->from_short()); 
 			}
 		}
-	
-	
+
+	my @dim_contexts;
+	for my $dim (@dimensions) {
+		for my $cont_id (keys %{$all_contexts}) {
+			my $context = $all_contexts->{$cont_id};
+			if (($context) && ($context->is_dim_member($dim))) {
+				push(@dim_contexts, $context);
+			}	
+		}	
+	}	
+
+	my @item_names;
+	for my $arc(@{$arcs}) {
+		if ($arc->arcrole() eq 'http://xbrl.org/int/dim/arcrole/domain-member') {
+			push(@item_names, $arc->to_short()); 
+		}
 	}
+	my @item_contexts;
+	my $all_items = $xbrl_doc->get_all_items();			
+	my @items;	
+	for my $item_name (@item_names) {
+		$item_name =~ s/\_/\:/g;	
+		for my $item (@{$all_items}) {
+			if ($item_name eq $item->name()) {
+				my $item_context = $all_contexts->{$item->context()};
+				push(@item_contexts, $item_context);	
+			}
+		}		
+	}	
 	
+	my @table_contexts;
+	for my $item_context (@item_contexts) {
+		for my $dim_context (@dim_contexts) {	
+			my $val = $item_context->endDate()->cmp($dim_context->endDate()); 
+			if ($val == 0) {
+				push(@table_contexts, $item_context);
+			}	
+		}	
+	}
+
+
 	my %seen = ();
 	my @uniq = ();
-	foreach my $context (@dim_contexts) {
+	foreach my $context (@item_contexts) {
     unless ($seen{$context->label()}) {
         # if we get here, we have not seen it before
         $seen{$context->label()} = 1;
@@ -518,7 +618,7 @@ sub get_header_contexts() {
 	#sort the buggers 
 	my (@dur, @per) = ();
 	for (@uniq) {
-		print "\t" . $_->label() . "\n";	
+					#print "\t" . $_->label() . "\n";	
 		if ($_->duration()) {
 			push(@dur, $_);
 		}
@@ -540,7 +640,135 @@ sub get_header_contexts() {
 
 }
 
+sub get_def_section() {
+	my ($self, $uri) = @_;
+	#take the uri and return xml that includes all of the 
+	#sections for that uri 
+	my $xbrl_doc = $self->{'xbrl'};
+	my $tax = $xbrl_doc->get_taxonomy();
+	my @out_array;
+	#push(@out_array, '&nbsp;');
+	my $defLB = $tax->def(); 
+	#TODO Need to improve this 	
+	my $d_link = $defLB->findnodes("//*[local-name() = 'definitionLink'][\@xlink:role = '" . $uri . "' ]"); 
 
+	unless ($d_link) { return undef };
+
+
+	return $d_link;
+}
+
+
+
+sub parse_pre_arcs() {
+	my ($self) = @_;
+	my @out_array;	
+	my $xbrl_doc = $self->{'xbrl'};
+	my $uri = $self->{'uri'};
+	my $tax = $xbrl_doc->get_taxonomy();
+	my $preLB = $tax->pre(); 
+	
+	my $p_link = $preLB->findnodes("//*[local-name() = 'presentationLink'][\@xlink:role = '" . $uri . "' ]"); 
+	
+	unless ($p_link) {return undef; }
+
+	my @loc_links = $p_link->[0]->getChildrenByLocalName('loc'); 
+	my @arc_links = $p_link->[0]->getChildrenByLocalName('presentationArc'); 
+
+	for my $arc_xml (@arc_links) {
+		my $arc = XBRL::Arc->new();
+		$arc->order($arc_xml->getAttribute('order'));	
+		$arc->arcrole($arc_xml->getAttribute('xlink:arcrole'));
+		$arc->prefLabel($arc_xml->getAttribute('preferredLabel')); 	
+		
+		for my $loc_xml (@loc_links) {
+				
+			if ($loc_xml->getAttribute('xlink:label') eq $arc_xml->getAttribute('xlink:to')) {
+				#This is the destination loc link
+				my $href = $loc_xml->getAttribute('xlink:href');	
+				$arc->to_full($href);				
+				$href =~ m/\#([A-Za-z0-9_-].+)$/; 	
+				$arc->to_short($1);	
+			
+			}
+			elsif ($loc_xml->getAttribute('xlink:label') eq $arc_xml->getAttribute('xlink:from')  ) {
+				#this is the from link
+				my $href = $loc_xml->getAttribute('xlink:href');	
+				$arc->from_full($href);				
+				$href =~ m/\#([A-Za-z0-9_-].+)$/; 	
+				$arc->from_short($1);	
+			
+			}
+
+		}
+		push(@out_array, $arc);
+	}
+
+	return \@out_array;
+}
+
+
+sub parse_def_arcs() {
+	my ($self) = @_;
+	my @out_array;	
+	my $xbrl_doc = $self->{'xbrl'};
+	my $uri = $self->{'uri'};
+	my $tax = $xbrl_doc->get_taxonomy();
+	my $defLB = $tax->def(); 
+	my $d_link = $defLB->findnodes("//*[local-name() = 'definitionLink'][\@xlink:role = '" . $uri . "' ]"); 
+	
+	unless ($d_link) {return undef; }
+
+	my @loc_links = $d_link->[0]->getChildrenByLocalName('loc'); 
+	my @arc_links = $d_link->[0]->getChildrenByLocalName('definitionArc'); 
+
+	for my $arc_xml (@arc_links) {
+		my $arc = XBRL::Arc->new();
+		$arc->order($arc_xml->getAttribute('order'));	
+		$arc->arcrole($arc_xml->getAttribute('xlink:arcrole'));
+		$arc->closed($arc_xml->getAttribute('xbrldt:closed'));
+		$arc->usable($arc_xml->getAttribute('xbrldt:usable'));
+		$arc->contextElement($arc_xml->getAttribute('xbrldt:contextElement'));
+	
+		for my $loc_xml (@loc_links) {
+				
+			if ($loc_xml->getAttribute('xlink:label') eq $arc_xml->getAttribute('xlink:to')) {
+				#This is the destination loc link
+				my $href = $loc_xml->getAttribute('xlink:href');	
+				$arc->to_full($href);				
+				$href =~ m/\#([A-Za-z0-9_-].+)$/; 	
+				$arc->to_short($1);	
+			
+			}
+			elsif ($loc_xml->getAttribute('xlink:label') eq $arc_xml->getAttribute('xlink:from')  ) {
+				#this is the from link
+				my $href = $loc_xml->getAttribute('xlink:href');	
+				$arc->from_full($href);				
+				$href =~ m/\#([A-Za-z0-9_-].+)$/; 	
+				$arc->from_short($1);	
+			
+			}
+
+		}
+		push(@out_array, $arc);
+	}
+
+	return \@out_array;
+}
+
+sub get_hypercubes() {
+	my ($self) = @_;
+	my $arcs = $self->{'def_arcs'};	
+	my @hypercubes;	
+				
+	for my $arc (@{$arcs}) {
+		if ( $arc->arcrole() eq 'http://xbrl.org/int/dim/arcrole/hypercube-dimension') {
+						push(@hypercubes, $arc);						
+		} 
+	}
+
+	return \@hypercubes;
+}
 
 
 1;

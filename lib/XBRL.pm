@@ -73,22 +73,34 @@ sub parse_file() {
 	my $xc 	= &make_xpath($self, $file); 
 
 	unless($xc)  { croak "Couldn't parse $file \n" };
+	
+	my $ns = &extract_namespaces($self, $file); 
+
+	my $schema_prefix;
+
+	for my $namespace (keys %{$ns}) {
+		if ($ns->{$namespace} eq 'http://www.xbrl.org/2003/linkbase') {
+			$schema_prefix = $namespace;
+		}	
+
+	}
 
 	#load the schemas 
-	my $s_ref = $xc->findnodes('//link:schemaRef');
+	my $s_ref = $xc->findnodes('//' . $schema_prefix . ':schemaRef');
 	my $schema_file = $s_ref->[0]->getAttribute('xlink:href');
 
 	$self->{'taxonomy'} = XBRL::Taxonomy->new( $schema_file );
 
 	#load the contexts 
-	my $cons = $xc->findnodes('//xbrli:context');
+	#my $p_link = $preLB->findnodes("//*[local-name() = 'presentationLink'][\@xlink:role = '" . $def_uri . "' ]"); 
+	my $cons = $xc->findnodes("//*[local-name() = 'context']");
 	for (@$cons) {
 		my $cont = XBRL::Context->new($_); 	
 		$self->{'contexts'}->{ $cont->id() } = $cont;	
 	}
 
 	#parse the units 	
-	my $units = $xc->findnodes('//xbrli:unit');
+	my $units = $xc->findnodes("//*[local-name() =  'unit']");
 	for (@$units) {
 		my $unit = XBRL::Unit->new($_); 	
 		$self->{'units'}->{ $unit->id() } = $unit;	

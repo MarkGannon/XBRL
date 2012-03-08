@@ -27,13 +27,13 @@ sub new() {
 
 sub parse() {
 	my ($self, $in_xml) = @_;
-
+#getElementsByLocalName($localname)
 	$self->{'id'} = $in_xml->getAttribute( 'id' );
-	my @nodes = $in_xml->getElementsByTagName('xbrli:identifier'); 
+	my @nodes = $in_xml->getElementsByLocalName('identifier'); 
 	#print $nodes[0]->toString() . "\n";	
 	$self->{'scheme'} = $nodes[0]->getAttribute( 'scheme' );
 	$self->{'identifier'} = $nodes[0]->textContent();
-	my @starts = $in_xml->getElementsByTagName('xbrli:startDate'); 
+	my @starts = $in_xml->getElementsByLocalName('startDate'); 
 
 	my $start_date = Date::Manip::Date->new();
 	$start_date->config("language", "English", "tz", "America/New_York");
@@ -45,7 +45,7 @@ sub parse() {
 		$self->{'startDate'} = $start_date; 
 	}	
 	
-	my @ends = $in_xml->getElementsByTagName('xbrli:endDate');
+	my @ends = $in_xml->getElementsByLocalName('endDate');
 	my $end_date = $start_date->new_date();
 
 	if ($ends[0]) {
@@ -55,7 +55,7 @@ sub parse() {
 		
 	}
 
-	my @times = $in_xml->getElementsByTagName('xbrli:instant');
+	my @times = $in_xml->getElementsByLocalName('instant');
 	my $instant_date = $start_date->new_date();
 
 	if ($times[0]) {
@@ -87,7 +87,7 @@ sub parse() {
 
 	#add the dimension 
 	#FIXME  Need to deal properly with the whole dimension thing.  	
-	my @dim_nodes = $in_xml->getElementsByTagName('xbrldi:explicitMember'); 
+	my @dim_nodes = $in_xml->getElementsByLocalName('explicitMember'); 
 	my @dim_array = ();	
 	for my $dim (@dim_nodes) {	
 		my $dim_name = $dim->getAttribute('dimension');  
@@ -107,9 +107,36 @@ sub get_dimension() {
 		if ($domain eq $dim->{'val'}) {
 			return $dim->{'dim'};
 		}
+	}
+}
 
+
+sub check_dims() {
+	my ($self, $incoming_array) = @_;
+	
+
+	my $incoming_total = scalar @{$incoming_array};
+	my $self_total = scalar @{$self->{'dimension'}};
+	if ($self_total != $incoming_total) {
+		return undef;
+	}
+	
+	for my $self_dimension (@{$self->{'dimension'}}) {
+		for my $incoming (@{$incoming_array}) {
+			$incoming =~ s/\_/\:/;
+			if ($incoming eq $self_dimension->{'val'}) {
+				$incoming_total--;
+				return 1;	
+			}
+		}
 	}
 
+	if ($incoming_total == 0) {
+		return 1;
+	}
+	else {
+		return undef;
+	}
 }
 
 
@@ -152,7 +179,6 @@ sub has_dim() {
 	else {
 		return undef;
 	}
-
 }
 
 

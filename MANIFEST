@@ -4,3 +4,13 @@ MANIFEST
 README
 t/XBRL.t
 lib/XBRL.pm
+lib/XBRL/Item.pm
+lib/XBRL/Context.pm
+lib/XBRL/Dimension.pm
+lib/XBRL/Element.pm
+lib/XBRL/Label.pm
+lib/XBRL/Linkbase.pm
+lib/XBRL/Schema.pm
+lib/XBRL/Table.pm
+lib/XBRL/Taxonomy.pm
+lib/XBRL/Unit.pm
