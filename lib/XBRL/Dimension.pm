@@ -37,7 +37,6 @@ sub new() {
 
 sub get_html_table() {
 	my ($self, $uri) = @_;
-	print "URI: $uri \n";	
 	my $table;
 	if (&is_landscape($self, $uri)) {
 			$table = &make_land_table($self, $uri); 	
@@ -55,7 +54,6 @@ sub make_port_table() {
 	my $xbrl_doc = $self->{'xbrl'};
 	my $tax = $xbrl_doc->get_taxonomy();
 	my $table = HTML::Table->new(-border => 1);
-	print "Portrait Table \n";
 	
 	my $header_contexts	= &get_header_contexts($self); 
 	my @col_labels;
@@ -68,30 +66,15 @@ sub make_port_table() {
 
 	#my (@domain_names, @row_elements);	
 	for my $hcube (@{$hypercubes}) {
-		print "Working on hypercube: " . $hcube->from_short . "\n";	
 		my $domain_names = &get_domain_names($self, $hcube);	
 		my $row_elements = &get_row_elements($self, $hcube);	
 		if ($domain_names->[0]) {	
-			print "Domain Names: \n";
-			for my $dom (@{$domain_names}) {
-				print "\t" . $dom . "\n";
-			}	
-			print "Element Names: \n";
-			for my $row (@{$row_elements}) {
-				print "\t" . $row . "\n";
-			}
-	
-	
 			for my $domain (@{$domain_names}) {
 				my $d_label = $tax->get_label($domain);	
 				$table->addRow($d_label);	
 				for my $thingie (@{$row_elements}) {
 					my @row_items;	
 					my $items = &get_domain_item($self, $domain, $thingie);
-					print "Items: \n";
-					for my $item (@{$items}) {
-						print "\t" . $item->name() . "\n";
-					} 	
 					next unless ($items->[0]);	
 					for my $h_context (@{$header_contexts}) {
 						my $value;	
@@ -111,16 +94,9 @@ sub make_port_table() {
 			}
 		}	
 		else {
-			print "No top domain names for this hypercube\n";
-			print "Element Names: \n";
 			for my $row (@{$row_elements}) {
-				print "\t" . $row . "\n";
 				my @row_elements;
 				my $items = &get_free_items($self, $row);  
-				#for my $item (@{$items}) {
-				#	print $item->adjValue() . "\t";
-				#}
-				#print "\n";
 				for my $h_context (@{$header_contexts}) {
 					my $value;	
 					for my $item (@{$items}) {
@@ -149,7 +125,6 @@ sub make_land_table() {
 	my ($self, $uri) = @_;
 	my $xbrl_doc = $self->{'xbrl'};
 	my $tax = $xbrl_doc->get_taxonomy();
-	print "Landscape Table \n";
 	my $table = HTML::Table->new(-border => 1);
 
 	my @row_elements;

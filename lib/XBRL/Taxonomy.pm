@@ -275,36 +275,6 @@ sub get_sections() {
 }
 
 
-sub debug_subsects() {
-	my ($self, $section_uri) = @_;
-	my $p_link = $self->{'pre'}->findnodes("//*[local-name() = 'presentationLink'][\@xlink:role = '" . $section_uri . "' ]"); 
-	if ($p_link) {	
-		my $child_nodes = $p_link->[0]->childNodes();
-
-		for my $node ( $child_nodes->get_nodelist() ) {
-			if ($node->nodeName() =~ m/loc/) {	
-				print "Locator \n";	
-				my $element_uri = $node->getAttribute('xlink:href');	
-				print "\tHref: " . $element_uri . "\n";	
-				print "\tLabel: " . $node->getAttribute('xlink:label') . "\n";	
-				
-				$element_uri =~ m/\#([A-Za-z0-9_-].+)$/; 	
-				my $element_id = $1;
-				my $element = &get_elementbyid($self, $element_id);	
-				print "\tType: " . $element->type() . "\n";
-				print "\tSubGroup: " . $element->subGroup() . "\n";
-			}	
-			elsif ($node->nodeName() =~ m/presentationArc/) {
-				print "PresentationArc \n";
-				print "\tFrom: " . $node->getAttribute('xlink:from') . "\n";	
-				print "\tTo: " . $node->getAttribute('xlink:to') . "\n";	
-				print "\tOrder: " . $node->getAttribute('order') . "\n";	
-			}
-		}
-	}
-}
-
-
 sub in_def() {
 	#take a section uri and check if there is a 
 	#section for it in the definition link base
@@ -399,98 +369,6 @@ sub get_pre_elems2() {
 	return \@out_array;
 }
 	
-#sub get_pre_elems() {
-#	my ($self, $sec_uri) = @_;
-#	my @out_array = ();
-#	my $p_link = $self->{'pre'}->findnodes("//*[local-name() = 'presentationLink'][\@xlink:role = '" . $sec_uri . "' ]"); 
-#
-#	if ($p_link) {	
-#
-#		my $p_arcs = $p_link->[0]->getChildrenByTagName('presentationArc');
-#		#sort the results
-#		#my @sorted_arcs = sort { $a->getAttribute('order') <=> $b->getAttribute('order')  } @$p_arcs;
-#
-#
-#		#for my $arc (@sorted_arcs) {
-#		for my $arc (@$p_arcs) {
-#			my $dest = $arc->getAttribute('xlink:to');
-#			#my @loc_links = $p_link->[0]->getChildrenByTagName('loc');
-#			my @loc_links = $p_link->[0]->findnodes("//*[local-name() = 'loc']"); 
-#	
-#			#complete name issue 
-#			for my $locator(@loc_links) {
-#				my $label = $locator->getAttribute('xlink:label');
-#				if ($dest eq $label) {
-#					my $item_link = $locator->getAttribute('xlink:href');
-#					$item_link =~ m/\#([A-Za-z0-9_-].+)$/; 	
-#					my $element_id = $1;
-#					push(@out_array, $self->get_elementbyid($element_id));  
-#				}
-#			}
-#		}
-#	}
-#	return \@out_array;
-#}
-
-#sub get_label() {
-#	#takes an element and finds the correct label for it
-#	#via xpath search of the label linkbase
-#	my ($self, $search_id) = @_;
-#	my $lang = 'en-US';
-#
-#	if (!$search_id) {
-#		croak "set_label called without an xbrl element id\n";
-#	}
-#
-#	my $loc_nodes = $self->{'lab'}->findnodes("//*[local-name() = 'loc']");
-#	my $label_nodes = $self->{'lab'}->findnodes("//*[local-name() = 'label'][\@xlink:role = 'http://www.xbrl.org/2003/role/label'][\@xml:lang = 'en-US'] ");	
-#	my $label_arc_nodes = $self->{'lab'}->findnodes("//*[local-name() = 'labelArc']");	
-#
-#	if (!$label_nodes) {
-#		croak "no loc nodes for: " . $search_id->id() . "\n";
-#	}
-#
-#	my $arc_locator;
-#	for my $loc (@{$loc_nodes}) {
-#		my $href = $loc->getAttribute('xlink:href');	
-#		my $id = $href;
-#		$id =~ m/\#([A-Za-z0-9_-].+)$/; 	 
-#		my $arc_id = $1;	
-#
-#		if ($arc_id eq $search_id) {
-#			$arc_locator = $loc->getAttribute('xlink:label');
-#		}
-#	}
-#
-#	#if (!$arc_locator) { croak "no arc locator for " . $search_id->id() . "\n"; }
-#	if (!$arc_locator) { return undef; }
-#	
-#	my $label_loc;
-#	for my $label_arc (@{$label_arc_nodes}) {
-#		my $from = $label_arc->getAttribute('xlink:from');	
-#		if ($from eq $arc_locator) {
-#			$label_loc = $label_arc->getAttribute('xlink:to');
-#		}
-#	}
-#
-#
-#	#if (!$label_loc) {croak "no label locator for " . $search_id->id() . "\n"; } 
-#	if (!$label_loc) {return undef; } 
-#
-#	my $label_text;
-#	for my $label_node (@{$label_nodes}) {
-#		my $link = $label_node->getAttribute('xlink:label');
-#		if ($link eq $label_loc) {
-#			$label_text = $label_node->textContent();
-#		}
-#	}
-#	if ($label_text) {
-#		return $label_text;
-#	}
-#	else {
-#		return $search_id;
-#	}
-#}
 
 
 sub get_label() {

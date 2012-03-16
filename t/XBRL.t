@@ -70,7 +70,8 @@ if (! -e $lab_doc) {
 
 my $xbrl_file = 'aol-20110630.xml';  
 
-my $doc = XBRL->new($xbrl_file);
+
+my $doc = XBRL->new({file => $xbrl_file, schema_dir=>"/var/cache/xbrl"});
 
 ok($doc);
 

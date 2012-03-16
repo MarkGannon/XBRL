@@ -1,6 +1,6 @@
 package XBRL;
 
-use strict;
+#use strict;
 use warnings;
 
 use Data::Dumper;
@@ -16,8 +16,8 @@ use XBRL::Dimension;
 use XBRL::Table;
 
 use LWP::UserAgent;
-use File::Spec qw( splitpath );
-
+use File::Spec qw( splitpath catpath curdir);
+use File::Temp qw(tempdir);
 
 require Exporter;
 
@@ -39,7 +39,8 @@ our $agent_string = "Perl XBRL Library $VERSION";
 
 
 sub new() {
-	my ($class, $file) = @_;
+	my ($class, $arg_ref ) = @_;
+	
 	my $self = { contexts => {},
 								units => {},
 								items => {},
@@ -47,34 +48,79 @@ sub new() {
 								main_schema => undef,	
 								linkbases => {},
 								item_index => undef,
-								file => $file,
+								#file => $arg_ref->{'file'},
+								#schema_dir => $arg_ref->{'schema_dir'},	
+								file => undef,
+								schema_dir => undef, 
 								base => undef };
-	bless $self, $class;
 	
+	bless $self, $class;
+
+	$self->{'schema_dir'} =  $arg_ref->{'schema_dir'};
+	$self->{'file'} = $arg_ref->{'file'};
+
+	#Check the schema dir 
+	if ($self->{'schema_dir'}) {
+		if (-d $self->{'schema_dir'} )  { 
+			if ( ! -w $self->{'schema_dir'} ) {
+			#the directory exits but isn't writeable 
+			croak "$self->{'schema_dir'} exists but isn't writeable by this user\n";	
+			}	
+		}	
+		else {
+			#try and create the directory 
+			mkdir($self->{'schema_dir'}, 777) or croak $self->{'schema_dir'} . " can't be created because: $!\n";
+		}
+	}
+	else {
+		#the schema_dir parameter wasn't there, use tmp 
+		$self->{'schema_dir'} = File::Temp->newdir(); 
+	}
+
 	my ($volume, $dir, $filename);
 
-	if ($file !~ m/^http\:\/\//) {
-		($volume, $dir, $filename) = File::Spec->splitpath( $file );
-		$self->{'base'} = $dir;	
+	if ($self->{'file'}) { 
+		($volume, $dir, $filename) = File::Spec->splitpath( $self->{'file'});
+		if (! $dir) {
+						#croak "no directory in the file path \n";
+			my $curdir = File::Spec->curdir();	
+		  my $full_path = File::Spec->catpath( undef, $curdir, $self->{'file'} );	
+			if (-e $full_path) {
+				$self->{'base'} = $curdir;
+				$self->{'fullpath'} = $full_path;	
+			}	
+			else {
+				croak "can't find $full_path to start processing\n";
+			}	
+		}	
+		else {
+			$self->{'fullpath'} = $self->{'file'};	
+			$self->{'file'} = $filename;
+			$self->{'base'} = $dir;	
+		}	
 	}
-  
-	$self->{'file'} = &get_file($self, $file);
+ 	else {
+		croak "XBRL requires an existing file to begin processing\n"; 
+	}	
 	
-	&parse_file( $self, $file );
+	&parse_file( $self ); 
 
 	return $self;
 }
 
 sub parse_file() {
-	my ($self, $file) = @_;
+	my ($self) = @_;
 
-	#if (! -e $file) { croak "$file doesn't exist\n" };
+	if (!$self->{'fullpath'}) {
+		croak "full path not set in parse file but file is set to: $self->{'file'} \n";
+	}
 
-	my $xc 	= &make_xpath($self, $file); 
+
+	my $xc 	= &make_xpath($self, $self->{'fullpath'}); 
 
 	unless($xc)  { croak "Couldn't parse $file \n" };
 	
-	my $ns = &extract_namespaces($self, $file); 
+	my $ns = &extract_namespaces($self, $self->{'fullpath'}); 
 
 	my $schema_prefix;
 
@@ -290,14 +336,13 @@ sub fix_item() {
 }
 
 sub get_file() {
-	#manage the whole file thang.
-	my ($self, $in_file) = @_;
+	my ( $self, $in_file, $dest_dir ) = @_;
 	
 	if ($in_file =~ m/^http\:\/\//) {
 		$in_file =~ m/^http\:\/\/[a-zA-Z0-9\/].+\/(.*)$/;
-		my $local_file = $1;
-		if ( -e $local_file) {
-			return $local_file;
+		my $full_path = File::Spec->catpath(undef, $dest_dir, $1);	
+		if ( -e $full_path) {
+			return $full_path;
 		}
 		else {
 			my $ua = LWP::UserAgent->new();
@@ -305,31 +350,17 @@ sub get_file() {
 			my $response = $ua->get($in_file);
 			if ($response->is_success) {
 				my $fh;	
-				open($fh, ">$local_file") or croak "can't open $local_file because: $! \n";
+				open($fh, ">$full_path") or croak "can't open $full_path because: $! \n";
 				print $fh $response->content;	
 				close $fh;	
-				return $local_file;	
+				return $full_path;	
 			}	
-
-		}
-
-	}
-
-	if ( ! -e $in_file) {
-		my $test_path;	
-		if ($self->{'base'}) {
-			$test_path = $self->{'base'} . $in_file;
-			if ( -e $test_path) {
-				return $test_path;
-			}
 			else {
-				croak "Can't find $test_path\n";
-			}
+				croak "Unable to retrieve $in_file because: " . $response->status_line . "\n"; 
+			}	
 		}
 	}
-	else {
-		return $in_file;
-	}
+
 }
 
 
@@ -357,17 +388,8 @@ sub get_html_report() {
 			#Dealing with a regular table 
 			#if (&is_text_block($self, $sect->{'uri'})) {
 			my $norm_table = XBRL::Table->new($self, $sect->{'uri'});	
-			my $textblock = $norm_table->is_textblock($sect->{'uri'});	
-			#if ($norm_table->is_textblock($sect->{'uri'})) {	
-			if ($textblock) {	
-				$html = $html . "\n<h2>" . $sect->{'def'} . "</h2>\n";
-				#$html = $html . "<p>Is a Text Block Section</p>\n";
-				$html = $html . $textblock;	
-			}
-			else {
-				$html = $html . "\n<h2>" . $sect->{'def'} . "</h2>\n";
-				$html = $html . $norm_table->get_html_table($sect->{'uri'});
-			}
+			$html = $html . "\n<h2>" . $sect->{'def'} . "</h2>\n";
+			$html = $html . $norm_table->get_html_table($sect->{'uri'});
 		}
 	}
 	
