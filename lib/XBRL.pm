@@ -18,6 +18,7 @@ use XBRL::Table;
 use LWP::UserAgent;
 use File::Spec qw( splitpath catpath curdir);
 use File::Temp qw(tempdir);
+use Cwd;
 
 require Exporter;
 
@@ -83,7 +84,8 @@ sub new() {
 		($volume, $dir, $filename) = File::Spec->splitpath( $self->{'file'});
 		if (! $dir) {
 						#croak "no directory in the file path \n";
-			my $curdir = File::Spec->curdir();	
+						#my $curdir = File::Spec->curdir();	
+			my $curdir = getcwd(); 
 		  my $full_path = File::Spec->catpath( undef, $curdir, $self->{'file'} );	
 			if (-e $full_path) {
 				$self->{'base'} = $curdir;
@@ -118,27 +120,62 @@ sub parse_file() {
 
 	my $xc 	= &make_xpath($self, $self->{'fullpath'}); 
 
-	unless($xc)  { croak "Couldn't parse $file \n" };
+	#unless($xc)  { croak "Couldn't parse $file \n" };
 	
 	my $ns = &extract_namespaces($self, $self->{'fullpath'}); 
 
-	my $schema_prefix;
-
-	for my $namespace (keys %{$ns}) {
-		if ($ns->{$namespace} eq 'http://www.xbrl.org/2003/linkbase') {
-			$schema_prefix = $namespace;
-		}	
-
-	}
-
 	#load the schemas 
-	my $s_ref = $xc->findnodes('//' . $schema_prefix . ':schemaRef');
+	my $s_ref = $xc->findnodes("//*[local-name() = 'schemaRef']");
 	my $schema_file = $s_ref->[0]->getAttribute('xlink:href');
 
-	$self->{'taxonomy'} = XBRL::Taxonomy->new( $schema_file );
+	my $schema_xpath = &make_xpath($self, $schema_file);
+	my $main_schema = XBRL::Schema->new( { file=> $schema_file, xpath=>$schema_xpath });
+	
+	$self->{'taxonomy'} = XBRL::Taxonomy->new( {main_schema => $main_schema} );
+	
+	my $other_schema_files = $self->{'taxonomy'}->get_other_schemas();	
+		
+	for my $other (@{$other_schema_files}) {
+		#Get the file 
+		my $s_file = &get_file($self, $other, $self->{'schema_dir'}); 
+		#make the xpath 
+		my $s_xpath = &make_xpath($self, $s_file);	
+		#add the schema   
+		my $schema = XBRL::Schema->new( { file => $s_file, xpath=>$s_xpath } );	
+		$self->{'taxonomy'}->add_schema($schema);	
+	}
+
+
+	my $lb_files = $self->{'taxonomy'}->get_lb_files();	
+
+	for my $file_name (@{$lb_files}) {
+		my $file = &get_file($self, $file_name, $self->{'base'}); 
+		if (!$file) {
+			print "The basedir is: " . $self->{'basedir'} . "\n"; 	
+			croak "unable to get $file_name\n";
+		}	
+		
+		my $lb_xpath = &make_xpath($self, $file);
+		
+		if ($lb_xpath->findnodes("//*[local-name() = 'presentationLink']") ){ 
+			$self->{'taxonomy'}->pre($lb_xpath);	
+		}
+		elsif ( $lb_xpath->findnodes("//*[local-name() = 'definitionLink']" )) {	 
+			$self->{'taxonomy'}->def($lb_xpath);	
+		}
+		elsif ( $lb_xpath->findnodes("//*[local-name() = 'labelLink']")) { 	 
+			$self->{'taxonomy'}->lab($lb_xpath);	
+			$self->{'taxonomy'}->set_labels();	
+		}
+		elsif ( $lb_xpath->findnodes("//*[local-name() = 'calculationLink']") ) { 	 
+			$self->{'taxonomy'}->cal($lb_xpath);	
+		}
+	
+	}
+
+
 
 	#load the contexts 
-	#my $p_link = $preLB->findnodes("//*[local-name() = 'presentationLink'][\@xlink:role = '" . $def_uri . "' ]"); 
 	my $cons = $xc->findnodes("//*[local-name() = 'context']");
 	for (@$cons) {
 		my $cont = XBRL::Context->new($_); 	
@@ -158,7 +195,7 @@ sub parse_file() {
 	for my $instance_xml (@$raw_items) {
 		
 		my $item = XBRL::Item->new($instance_xml);	
-		&set_label($self, $item); 
+		#&set_label($self, $item); 
 		push(@items, $item);	
 	}
 	$self->{'items'} = \@items;
@@ -344,6 +381,12 @@ sub get_file() {
 		if ( -e $full_path) {
 			return $full_path;
 		}
+	
+		$full_path = File::Spec->catpath(undef, $self->{'schema_dir'}, $1);	
+
+		if ( -e $full_path) {
+			return $full_path;
+		}
 		else {
 			my $ua = LWP::UserAgent->new();
 			$ua->agent($agent_string);
@@ -360,6 +403,28 @@ sub get_file() {
 			}	
 		}
 	}
+	else {
+		#process regular file 
+		#my $test_path = File::Spec->catpath(undef, $dest_dir, $1);	
+		my ($volume, $dir, $filename) = File::Spec->splitpath( $in_file );
+			
+		if ( ($dir) && (-e $in_file) ) {
+			return $in_file;
+		}	
+		
+		my $test_path = File::Spec->catpath(undef, $self->{'base'}, $filename);	
+			
+		if ( -e $test_path) {
+			return $test_path;
+		}	
+		
+		$test_path = File::Spec->catpath(undef, $self->{'schema_dir'}, $filename);	
+		if ( -e $test_path) {
+			return $test_path;
+		}		
+
+	}
+
 
 }
 

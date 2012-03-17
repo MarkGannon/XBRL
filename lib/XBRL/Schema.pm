@@ -1,6 +1,6 @@
 package XBRL::Schema;
 
-use strict;
+#use strict;
 use warnings;
 use Carp;
 #use XML::LibXML; 
@@ -19,6 +19,12 @@ sub new() {
 							xpath => $args->{'xpath'} };
 	bless $self, $class;
 
+	if (!$self->{'namespace'}) {
+		my $xpath = $self->{'xpath'};		
+		my $ns_nodes = $xpath->findnodes('//*[@targetNamespace]');
+		my $ts = $ns_nodes->[0]->getAttribute('targetNamespace');
+		$self->{'namespace'} = $ts;
+	}
 
 	return $self;
 }
