@@ -1,6 +1,6 @@
 package XBRL::Taxonomy;
 
-#use strict;
+use strict;
 use warnings;
 use Carp;
 use XML::LibXML; 
@@ -9,7 +9,6 @@ use XML::LibXML::NodeList;
 use XBRL::Element;
 use XBRL::Label;
 use Data::Dumper;
-use Scalar::Util qw(reftype blessed); 
 
 
 our $VERSION = '0.01';
@@ -70,11 +69,13 @@ sub add_schema() {
 	my ($self, $schema) = @_;
 		my $ns = $schema->namespace();	
 		$self->{'schemas'}->{$ns} = $schema;	
-		
+		#print "Schema Namespace: " . $ns . "\n";	
 		my $element_nodes = $schema->xpath()->findnodes("//*[local-name() = 'element']");
 		for my $el_xml (@$element_nodes) {
+						#print "\tElement Node: " . $el_xml->toString());	
 			my $e = XBRL::Element->new($el_xml);
 			if ($e->id()) { 
+							#print "\tID: " . $e->id() . "\n";	
 				$self->{'elements'}->{$e->id()} = $e;	
 			}	
 		}
@@ -95,6 +96,7 @@ sub set_labels() {
 			if ($arc->getAttribute('xlink:from') eq $loc->getAttribute('xlink:label')) {
 				for my $label_node (@{$label_labels}) {
 					if ( $arc->getAttribute('xlink:to') eq $label_node->getAttribute('xlink:label') ) {
+								
 							my $label = XBRL::Label->new();	
 							my $href = $loc->getAttribute('xlink:href');	
 							$href =~ m/\#([A-Za-z0-9_-].+)$/; 	
@@ -117,7 +119,7 @@ sub set_labels() {
 
 sub get_elementbyid() {
 	my ($self, $e_id) = @_;
-
+	
 	return( $self->{'elements'}->{$e_id} );
 }
 
@@ -154,11 +156,15 @@ sub in_def() {
 	my $d_link = $self->{'def'}->findnodes("//*[local-name() = 'definitionLink'][\@xlink:role = '" . $sec_uri . "' ]"); 
 
 	if ($d_link) {
-		return $d_link;
+		my @definition_arcs = $d_link->[0]->getChildrenByLocalName('definitionArc'); 			
+		for my $d_arc (@definition_arcs) {
+			my $arcrole = $d_arc->getAttribute('xlink:arcrole');
+			if ($arcrole eq 'http://xbrl.org/int/dim/arcrole/hypercube-dimension') {
+				return $d_link;
+			}
+		}		
 	}
-	else {
-		return undef;
-	}
+	return undef;
 }
 
 

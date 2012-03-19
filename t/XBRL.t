@@ -10,7 +10,7 @@ use warnings;
 use Carp;
 use Data::Dumper;
 
-use Test::More tests => 30;
+use Test::More tests => 29;
 BEGIN { use_ok('XBRL') };
 require_ok( 'XBRL' );
 
@@ -163,9 +163,9 @@ my $item_value = $item->value();
 
 ok($item_value eq '13000000', "Item Value");
 
-my $item_label = $item->label();
+#my $item_label = $item->label();
 
-ok($item_label eq 'Restricted Cash And Cash Equivalents Noncurrent', "Item Label"); 
+#ok($item_label eq 'Restricted Cash And Cash Equivalents Noncurrent', "Item Label"); 
 
 my $all_name = 'us-gaap:EffectiveIncomeTaxRateContinuingOperations';
 

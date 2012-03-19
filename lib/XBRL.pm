@@ -316,27 +316,18 @@ sub get_item_by_contexts() {
 sub make_xpath() {
 	#take a file path and return an xpath context
 	my ($self, $in_file) = @_;
-	
-	if (! -e $in_file) {
-		my $extended_file = &get_file($self, $in_file);	
-		if ( ! -e $extended_file) {	
-			croak "$in_file doesn't exist\n";
-		}	
-		else {
-			$in_file = $extended_file;	
-		}
-	
-	}
-	
 	my $ns = &extract_namespaces($self, $in_file); 
 
 	my $xml_doc =XML::LibXML->load_xml( location => $in_file); 
 
+
 	my $xml_xpath = XML::LibXML::XPathContext->new($xml_doc);
-	
+
+
 	for (keys %{$ns}) {
 		$xml_xpath->registerNs($_, $ns->{$_});
 	}
+	
 	return $xml_xpath;
 }
 
@@ -468,49 +459,61 @@ sub get_html_report() {
 1;
 
 __END__
-# Below is stub documentation for your module. You'd better edit it!
 
 =head1 NAME
 
-XBRL - Perl extension for Reading Extensible Business Reporting Language 
+XBRL - Perl extension for Reading Extensible Business Reporting Language documents 
 
 =head1 CAVEAT UTILITOR
 
-
+The Extensible Business Reporting Language (XBRL) is a large and complex standard 
+and this module only partially supports the standard.  The module's interface 
+is subject to radical modification in future releases. Larry Wall 
+once asserted that "a Perl program is correct if you get it finished before
+your boss fires you."  XBRL is correct in that sense, but it should be 
+noted I don't currently have a job. 
 
 =head1 SYNOPSIS
 
 use XBRL;
 
-my $doc = XBRL->new();
-	
-$doc->parse_file( "aol.xml" ); 
+my $xbrl_doc = XBRL->new( {file=>"foo.xml", schema_dir="/tmp/bar"});
+
+my $html_report = $doc->get_html_report();
 
 
 =head1 DESCRIPTION
 
-Stub documentation for XBRL, created by h2xs. It looks like the
-author of the extension was negligent enough to leave the stub
-unedited.
+XBRL provides an OO interface for reading Extensible Business Reporting Language
+documents (XBRL docs).  
 
-Blah blah blah.
+new()
+	$xbrl_doc = XBRL->new ( { file=value, schema_dir=value } );
 
-=head2 EXPORT
+	file -- This option specifies the main XBRL doc instance.
 
-None by default.
+	schema_dir -- allows the caller to specify a directory for storing ancillary
+	schemas required by the instance.  Specifying this directory means 
+	those schemas won't have to be downloaded each time an XBRL doc is 
+	parsed.  If no schema_dir is specified, the module will create a temporary
+	directory to store any needed schemas and delete it when the module goes 
+	out of scope.
+
+get_html_report()
+	$html = $xbrl_doc->get_html_report() 
+	Processes the XBRL doc into an HTML document.  
 
 
+=head1 BUGS
+
+There are a gajillion bugs.
 
 =head1 SEE ALSO
 
-Mention other useful documentation such as the documentation of
-related modules or operating system documentation (such as man pages
-in UNIX), or any relevant external documentation such as RFCs or
-standards.
+Source code, documentation, and bug tracking is hosted 
+at: https://github.com/MarkGannon/XBRL . 
 
-If you have a mailing list set up for your module, mention it here.
 
-If you have a web site set up for your module, mention it here.
 
 =head1 AUTHOR
 
@@ -518,7 +521,7 @@ Mark Gannon <mark@truenorth.nu>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (C) 2011 by Mark Gannon 
+Copyright (C) 2012 by Mark Gannon 
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself, either Perl version 5.12.4 or,

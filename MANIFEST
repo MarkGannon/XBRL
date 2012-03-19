@@ -9,7 +9,7 @@ lib/XBRL/Context.pm
 lib/XBRL/Dimension.pm
 lib/XBRL/Element.pm
 lib/XBRL/Label.pm
-lib/XBRL/Linkbase.pm
+lib/XBRL/Arc.pm
 lib/XBRL/Schema.pm
 lib/XBRL/Table.pm
 lib/XBRL/Taxonomy.pm

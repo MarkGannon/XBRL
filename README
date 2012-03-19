@@ -25,16 +25,20 @@ DEPENDENCIES
 
 This module requires these other modules and libraries:
 
-  blah blah blah
+use Date::Manip 
+use Carp 
+use XML::LibXML; 
+use XML::LibXML::XPathContext; 
+use LWP::UserAgent;
+use File::Spec qw( splitpath catpath curdir);
+use File::Temp qw(tempdir);
 
 COPYRIGHT AND LICENCE
 
-Put the correct copyright and licence information here.
-
-Copyright (C) 2011 by A. U. Thor
+Copyright (C) 2012 by Mark Gannon 
 
 This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself, either Perl version 5.12.4 or,
+it under the same terms as Perl itself, either Perl version 5.10 or,
 at your option, any later version of Perl 5 you may have available.
 
 

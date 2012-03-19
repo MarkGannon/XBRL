@@ -3,9 +3,12 @@ Refactor code
 	Fix downloading xbrl taxes not included Linux/Windows/Mac  	
 	Rework it so a standard XML is output
 	HTML is created from the XML 
-	Fix Code to call xml files from the t directory 
+	Fix Test Code to call xml files from the t directory
+	Implement Arc.pm in all places  
 
 Check that all the necessary cpan modules are included in the build 
+
+Support for hypercube-less dimensions
 
 HTML Classes and color scheme 
 
