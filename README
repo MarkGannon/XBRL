@@ -1,16 +1,14 @@
 XBRL version 0.01
 =================
 
-The README is used to introduce the module and provide instructions on
-how to install the module, any machine dependencies it may have (for
-example C compilers and installed libraries) and any other information
-that should be provided before the module is installed.
-
-A README file is required for CPAN modules since CPAN extracts the
-README file from a module distribution so that people browsing the
-archive can use it get an idea of the modules uses. It is usually a
-good idea to provide version information here so that people can
-decide whether fixes for the module are worth downloading.
+XBRL is an object oriented Perl module for reading XBRL instance 
+documents. It seeks to both convert those documents into other formats 
+(e.g. HTML) and make the contents of the XBRL instance generally 
+available to other users without the need to completely understand 
+the XBRL format. Because the XBRL standard is large and complex, the 
+module currently implements only a subset of its features. The plan 
+is to accrete functionality over subsequent releases until a complete 
+and standards compliant implementation is achieved.
 
 INSTALLATION
 
@@ -25,13 +23,24 @@ DEPENDENCIES
 
 This module requires these other modules and libraries:
 
-use Date::Manip 
-use Carp 
-use XML::LibXML; 
-use XML::LibXML::XPathContext; 
-use LWP::UserAgent;
-use File::Spec qw( splitpath catpath curdir);
-use File::Temp qw(tempdir);
+Date::Manip 
+Carp 
+XML::LibXML 
+LWP::UserAgent
+File::Spec 
+File::Temp 
+
+XML::LibXML is a Perl interface to the Gnome project's libxml library 
+and consequently requires libxml to be installed.
+
+USAGE
+
+use XBRL;
+
+my $xbrl_doc = XBRL->new( {file=>"foo.xml", schema_dir="/tmp/bar"});
+
+my $html_report = $doc->get_html_report();
+
 
 COPYRIGHT AND LICENCE
 

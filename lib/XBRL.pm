@@ -504,10 +504,11 @@ get_html_report()
 	Processes the XBRL doc into an HTML document.  
 
 
-=head1 BUGS
+=head1 BUGS AND LIMITATIONS 
 
-There are a gajillion bugs.
-
+There are a gajillion bugs. This module only partially supports the XBRL
+standard and won't currently work on Windows systems. 
+	
 =head1 SEE ALSO
 
 Source code, documentation, and bug tracking is hosted 
