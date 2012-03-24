@@ -3,6 +3,7 @@ package XBRL::Table;
 use strict;
 use warnings;
 use Carp;
+use HTML::Table;
 
 require Exporter;
 
@@ -23,8 +24,7 @@ our $VERSION = '0.01';
 
 sub new() {
 	my ($class, $xbrl_doc, $uri) = @_;
-	my $self = { xbrl => $xbrl_doc,
-							dim_uri => $uri };
+	my $self = { xbrl => $xbrl_doc}; 
 	bless $self, $class;
 
 
@@ -480,8 +480,59 @@ sub get_pres_locs() {
 	return \@out_array;
 }
 
+=head1 XBRL::Table 
+
+XBRL::Table - OO Module for creating HTML Tables from XBRL Sections   
+
+=head1 SYNOPSIS
+
+  use XBRL::Table;
+
+	my $table = XBRL::Table->new($xbrl_object); 
+
+	my $html_table = $table->get_html_table($section_id); 
+
+	
+=head1 DESCRIPTION
+
+This module is part of the XBRL modules group and is intended for use with XBRL.
+
+new($xbrl_doc) -- Object constructor that takes  an XBRL object.
+
+get_html_report($section_role_uri) -- Takes a section role URI 
+			(e.g http://fu.bar.com/role/DisclosureGoodwill) and returns an 
+			HTML Table of that section  
+				
+
+=head1 AUTHOR
+
+Mark Gannon <mark@truenorth.nu>
+
+=head1 SEE ALSO
+
+Modules: XBRL XBRL::Dimension  
+
+Source code, documentation, and bug tracking is hosted 
+at: https://github.com/MarkGannon/XBRL . 
+
+=head1 AUTHOR
+
+Mark Gannon <mark@truenorth.nu>
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (C) 2012 by Mark Gannon 
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself, either Perl version 5.10 or,
+at your option, any later version of Perl 5 you may have available.
+
+
+=cut
+
 
 1;
+
 
 
 

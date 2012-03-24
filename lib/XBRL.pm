@@ -127,11 +127,10 @@ sub parse_file() {
 	#load the schemas 
 	my $s_ref = $xc->findnodes("//*[local-name() = 'schemaRef']");
 	my $schema_file = $s_ref->[0]->getAttribute('xlink:href');
-
 	my $schema_xpath = &make_xpath($self, $schema_file);
 	my $main_schema = XBRL::Schema->new( { file=> $schema_file, xpath=>$schema_xpath });
 	
-	$self->{'taxonomy'} = XBRL::Taxonomy->new( {main_schema => $main_schema} );
+	$self->{'taxonomy'} = XBRL::Taxonomy->new( {main_schema => $main_schema} ); 
 	
 	my $other_schema_files = $self->{'taxonomy'}->get_other_schemas();	
 		
@@ -443,7 +442,7 @@ sub get_html_report() {
 		else {
 			#Dealing with a regular table 
 			#if (&is_text_block($self, $sect->{'uri'})) {
-			my $norm_table = XBRL::Table->new($self, $sect->{'uri'});	
+			my $norm_table = XBRL::Table->new($self); 
 			$html = $html . "\n<h2>" . $sect->{'def'} . "</h2>\n";
 			$html = $html . $norm_table->get_html_table($sect->{'uri'});
 		}
@@ -477,7 +476,7 @@ noted I don't currently have a job.
 
 use XBRL;
 
-my $xbrl_doc = XBRL->new( {file=>"foo.xml", schema_dir="/tmp/bar"});
+my $xbrl_doc = XBRL->new( {file=>"foo.xml", schema_dir="/var/cache/xbrl"});
 
 my $html_report = $doc->get_html_report();
 
@@ -488,7 +487,7 @@ XBRL provides an OO interface for reading Extensible Business Reporting Language
 documents (XBRL docs).  
 
 new()
-	$xbrl_doc = XBRL->new ( { file=value, schema_dir=value } );
+	$xbrl_doc = XBRL->new ( { file="foo.xml", schema_dir="/var/cache/xbrl" } );
 
 	file -- This option specifies the main XBRL doc instance.
 
@@ -514,8 +513,6 @@ standard and won't currently work on Windows systems.
 Source code, documentation, and bug tracking is hosted 
 at: https://github.com/MarkGannon/XBRL . 
 
-
-
 =head1 AUTHOR
 
 Mark Gannon <mark@truenorth.nu>
@@ -525,7 +522,7 @@ Mark Gannon <mark@truenorth.nu>
 Copyright (C) 2012 by Mark Gannon 
 
 This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself, either Perl version 5.12.4 or,
+it under the same terms as Perl itself, either Perl version 5.10 or,
 at your option, any later version of Perl 5 you may have available.
 
 

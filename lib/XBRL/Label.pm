@@ -53,5 +53,64 @@ sub parse() {
 
 
 
+=head1 NAME
+
+XBRL::Label - Perl OO Module for encapsulating XBRL Label information 
+
+=head1 SYNOPSIS
+
+  use XBRL::Label; 
+
+	my $label = XBRL::Label->new();	
+
+	$label->name("us-gaap_AccountsReceivableNet");	
+
+
+=head1 DESCRIPTION
+
+This module is part of the XBRL modules group and is intended for use with XBRL.
+
+new() Object constructor  
+
+id() --Get or set the ID for the object.  The ID is everything after # of the xlink:href
+				attribute of the labels "loc" element.    
+
+role() -- Get or set the label's role.  This is the xlink:role attribute of the label's
+						label element.   
+
+lang() --  Get or set the label's language.  
+
+value() -- Get or set the label's value.  
+
+=head1 AUTHOR
+
+Mark Gannon <mark@truenorth.nu>
+
+=head1 SEE ALSO
+
+Modules: XBRL XBRL::Taxonomy 
+
+Source code, documentation, and bug tracking is hosted 
+at: https://github.com/MarkGannon/XBRL . 
+
+=head1 AUTHOR
+
+Mark Gannon <mark@truenorth.nu>
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (C) 2012 by Mark Gannon 
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself, either Perl version 5.10 or,
+at your option, any later version of Perl 5 you may have available.
+
+
+=cut
+
+
 1;
+
+
+
 

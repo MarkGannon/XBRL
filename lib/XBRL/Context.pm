@@ -181,6 +181,79 @@ sub has_dim() {
 	}
 }
 
+=head1 XBRL::Context 
+
+XBRL::Context - OO Module for Encapsulating XBRL Contexts 
+
+=head1 SYNOPSIS
+
+  use XBRL::Contexts;
+
+	my $context = XBRL::Context->new($context_xml); 	
+
+	my $id = $context->id(); 
+
+	
+=head1 DESCRIPTION
+
+This module is part of the XBRL modules group and is intended for use with XBRL.
+
+new(  ) Object constructor takes a scalar containing the XML representing the context 
+
+id() Get or set the context's ID  
+
+scheme() Get or set the context's scheme  
+
+identifier() Get or set the context's identifier  
+
+startDate()  Get or set the context's start date   
+
+endDate() Get or set the context's end date  
+
+label() Get or set the context's label  
+
+dimension() Get or set the context's dimension  
+
+duration() Get or set the context's duration  
+
+has_dim() Returns true if the context has any dimensions   
+
+get_dim_value() Takes a the dimension and returns its value  
+
+is_dim_member() Takes a dimension name and returns true if the context 
+			has the dimension. 
+
+check_dims() Takes an array reference of dimension names and returns 
+		true if all of the incoming dimensions are present in the context  
+
+get_dimension() Takes a dimension value and returns the value of the dimension. 
+
+
+=head1 AUTHOR
+
+Mark Gannon <mark@truenorth.nu>
+
+=head1 SEE ALSO
+
+Modules: XBRL XBRL::Schema XBRL::Element XBRL::Label 
+
+Source code, documentation, and bug tracking is hosted 
+at: https://github.com/MarkGannon/XBRL . 
+
+=head1 AUTHOR
+
+Mark Gannon <mark@truenorth.nu>
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (C) 2012 by Mark Gannon 
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself, either Perl version 5.10 or,
+at your option, any later version of Perl 5 you may have available.
+
+
+=cut
 
 
 1;

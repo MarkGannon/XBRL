@@ -6,7 +6,7 @@ use Carp;
 use XML::LibXML; #::Element; 
 use XML::LibXML::NodeList;
 use XBRL::Arc;
-use Data::Dumper;
+use HTML::Table;
 
 require Exporter;
 
@@ -36,13 +36,13 @@ sub new() {
 }
 
 sub get_html_table() {
-	my ($self, $uri) = @_;
+	my ($self) = @_;
 	my $table;
-	if (&is_landscape($self, $uri)) {
-			$table = &make_land_table($self, $uri); 	
+	if (&is_landscape($self)) {
+			$table = &make_land_table($self); 
 		}
 		else {	
-			$table = 	&make_port_table($self, $uri);
+			$table = 	&make_port_table($self); 
 		}	
 	
 	return $table;
@@ -50,7 +50,8 @@ sub get_html_table() {
 
 
 sub make_port_table() {
-	my ($self, $uri) = @_; 
+	my ($self) = @_; 
+	my $uri = $self->{'uri'};	
 	my $xbrl_doc = $self->{'xbrl'};
 	my $tax = $xbrl_doc->get_taxonomy();
 	my $table = HTML::Table->new(-border => 1);
@@ -122,7 +123,8 @@ sub make_port_table() {
 
 
 sub make_land_table() {
-	my ($self, $uri) = @_;
+	my ($self) = @_;
+	my $uri = $self->{'uri'};	
 	my $xbrl_doc = $self->{'xbrl'};
 	my $tax = $xbrl_doc->get_taxonomy();
 	my $table = HTML::Table->new(-border => 1);
@@ -180,7 +182,8 @@ sub make_land_table() {
 }
 
 sub set_row_labels() {
-	my ($self, $table, $uri) = @_;
+	my ($self, $table) = @_;
+	my $uri = $self->{'uri'};	
 	my $xbrl_doc = $self->{'xbrl'};
 	my $tax = $xbrl_doc->get_taxonomy();
 	my @p_arcs = @{$self->{'pre_arcs'}}; 
@@ -501,7 +504,8 @@ sub get_row_elements() {
 
 
 sub is_landscape() {
-	my ($self, $def_uri) = @_;
+	my ($self)  = @_;
+	my $def_uri = $self->{'uri'};	
 	my $xbrl_doc = $self->{'xbrl'};	
 	my $tax = $xbrl_doc->get_taxonomy();
 	my $preLB = $tax->pre();
@@ -616,9 +620,10 @@ sub get_header_contexts() {
 }
 
 sub get_def_section() {
-	my ($self, $uri) = @_;
+	my ($self) = @_;
 	#take the uri and return xml that includes all of the 
 	#sections for that uri 
+	my $uri = $self->{'uri'};	
 	my $xbrl_doc = $self->{'xbrl'};
 	my $tax = $xbrl_doc->get_taxonomy();
 	my @out_array;
@@ -745,9 +750,56 @@ sub get_hypercubes() {
 	return \@hypercubes;
 }
 
+=head1 XBRL::Dimension 
+
+XBRL::Dimension - OO Module for Parsing XBRL Dimensions  
+
+=head1 SYNOPSIS
+
+  use XBRL::Dimension;
+
+	my $dimension = XBRL::Dimension->new($xbrl_doc, "http://fu.bar.com/role/DisclosureGoodwillDetails" );	
+	
+	
+	$html_table = $dimension->get_html_table(); 
+  
+	
+=head1 DESCRIPTION
+
+This module is part of the XBRL modules group and is intended for use with XBRL.
+
+new() Object constructor takes the xbrl document and the section URI as parameters.
+
+get_html_table()  -- Returns a scalar containing an HTML representation of the 
+				
+=head1 AUTHOR
+
+Mark Gannon <mark@truenorth.nu>
+
+=head1 SEE ALSO
+
+Modules: XBRL XBRL::Schema XBRL::Element XBRL::Label 
+
+Source code, documentation, and bug tracking is hosted 
+at: https://github.com/MarkGannon/XBRL . 
+
+=head1 AUTHOR
+
+Mark Gannon <mark@truenorth.nu>
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (C) 2012 by Mark Gannon 
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself, either Perl version 5.10 or,
+at your option, any later version of Perl 5 you may have available.
+
+
+=cut
+
 
 1;
-
 
 
 

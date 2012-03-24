@@ -29,6 +29,7 @@ XML::LibXML
 LWP::UserAgent
 File::Spec 
 File::Temp 
+Class::Accessor
 
 XML::LibXML is a Perl interface to the Gnome project's libxml library 
 and consequently requires libxml to be installed.
@@ -37,7 +38,7 @@ USAGE
 
 use XBRL;
 
-my $xbrl_doc = XBRL->new( {file=>"foo.xml", schema_dir="/tmp/bar"});
+my $xbrl_doc = XBRL->new( {file=>"foo.xml", schema_dir="/var/cache/xbrl"});
 
 my $html_report = $doc->get_html_report();
 

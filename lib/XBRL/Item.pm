@@ -7,13 +7,13 @@ our $VERSION = '0.01';
 
 use base qw(Class::Accessor);
 
-XBRL::Item->mk_accessors( qw( decimal unit id context name value localname prefix namespace label type subGroup abstract nillable period balance adjValue ) );
+XBRL::Item->mk_accessors( qw( decimal unit id context name value localname prefix namespace type subGroup abstract nillable period balance adjValue ) );
 
 
 
 
 sub new() {
-	my ($class, $instance_xml, $schema_xml) = @_;
+	my ($class, $instance_xml) = @_;
 	my $self = { decimal => undef,
 								unit => undef,
 								id => undef,
@@ -24,14 +24,14 @@ sub new() {
 	bless $self, $class;
 
 	if ($instance_xml) {
-		&parse($self, $instance_xml, $schema_xml);
+		&parse($self, $instance_xml);
 	}
 
 	return $self;
 }
 
 sub parse() {
-	my ($self, $instance_xml, $schema_xml) = @_;
+	my ($self, $instance_xml) = @_;
 
 	$self->{'decimal'} 	= $instance_xml->getAttribute('decimals');
 	$self->{'unit'} 		= $instance_xml->getAttribute('unitRef');
@@ -67,6 +67,81 @@ sub adjust() {
 	return($adj_number); 
 }
 
+=head1 XBRL::Item 
+
+XBRL::Item - OO Module for Encapsulating XBRL Items 
+
+=head1 SYNOPSIS
+
+  use XBRL::Item;
+
+	my $item = XBRL::Item->new($item_xml);	
+	
+=head1 DESCRIPTION
+
+This module is part of the XBRL modules group and is intended for use with XBRL.
+
+new() Object contstructor.  Optionally takes the item XML from the instance document. 
+
+decimal() Get or set the number of decimals to adjust the value by. 
+
+unit() Get or set the unitRef for the item. 
+
+id() Get or set the item's ID.
+
+context() Get or set the item's contextRef value. 
+
+name() Get or set the item's name.  
+
+value() Get or set the item's value. 
+
+localname() Get or set the localname for the item  
+
+prefix() Get or set the prefeix for the item  
+
+namespace() Get or set the prefix for the item  
+
+type() Get or set the item's type  
+
+subGroup() Get or set the item's subGroup.
+
+abstract() Get or set the true or false state of abstractedness  
+
+nillable() Get or set the nillable state (true or false) 
+
+period() Get or set whether the item covers a period  
+
+balance() Get or set the item's balance  
+
+adjValue() Get or set the item's adjusted value (actuall value with the 
+						decimals adjusted based on the decimals attribute. 
+
+
+=head1 AUTHOR
+
+Mark Gannon <mark@truenorth.nu>
+
+=head1 SEE ALSO
+
+Modules: XBRL XBRL::Schema XBRL::Element XBRL::Label 
+
+Source code, documentation, and bug tracking is hosted 
+at: https://github.com/MarkGannon/XBRL . 
+
+=head1 AUTHOR
+
+Mark Gannon <mark@truenorth.nu>
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (C) 2012 by Mark Gannon 
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself, either Perl version 5.10 or,
+at your option, any later version of Perl 5 you may have available.
+
+
+=cut
 
 1;
 
