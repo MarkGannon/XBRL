@@ -3,7 +3,6 @@ package XBRL;
 #use strict;
 use warnings;
 
-use Data::Dumper;
 use Carp;
 use XML::LibXML; 
 use XML::LibXML::XPathContext; 
@@ -18,7 +17,7 @@ use XBRL::Table;
 use LWP::UserAgent;
 use File::Spec qw( splitpath catpath curdir);
 use File::Temp qw(tempdir);
-use Cwd;
+
 
 require Exporter;
 
@@ -152,7 +151,7 @@ sub parse_file() {
 		if (!$file) {
 			print "The basedir is: " . $self->{'basedir'} . "\n"; 	
 			croak "unable to get $file_name\n";
-		}	
+	}	
 		
 		my $lb_xpath = &make_xpath($self, $file);
 		
@@ -194,7 +193,6 @@ sub parse_file() {
 	for my $instance_xml (@$raw_items) {
 		
 		my $item = XBRL::Item->new($instance_xml);	
-		#&set_label($self, $item); 
 		push(@items, $item);	
 	}
 	$self->{'items'} = \@items;
@@ -212,49 +210,6 @@ sub get_taxonomy() {
 	my ($self) = @_;
 	return $self->{'taxonomy'};
 }
-
-
-sub set_label() {
-	#takes an item and finds the correct label for it
-	#via xpath search of the label linkbase
-	my ($self, $item) = @_;
-	#build a query string for this item 	
-	my $ns = $item->namespace(); 
-	#my $file = $self->{'schemas'}->{$ns}->file();
-	my $file = $self->{'taxonomy'}->{'schemas'}->{$ns}->file();	
-	my $lbl_string = $file . '#' . $item->prefix() . '_' . $item->localname();
-	my $lab_lb = $self->{'taxonomy'}->lab(); 
-	#query for the locator node 	
-	my $loc_nodes = $lab_lb->findnodes("//*[\@xlink:href = '" . $lbl_string . "']");	
-	#get the label 	
-	my $label = $loc_nodes->[0]->getAttribute('xlink:label');
-	#use the label to find the arc node 	
-	my $arcs = $lab_lb->findnodes("//*[\@xlink:from = '" . $label . "']"); 
-	#use the arc node to find the query parameter for the label node 	
-	my $dest = $arcs->[0]->getAttribute('xlink:to');
-	#query for the label nodes 	
-	my $label_nodes = $lab_lb->findnodes("//*[\@xlink:label = '" . $dest . "' and \@xlink:role = 'http://www.xbrl.org/2003/role/label' ] ");	 
-	#cycle through the results 	and set the value 
-	for my $l_node (@$label_nodes) {		
-				$item->label( $l_node->textContent());
-	}
-
-
-}
-
-
-sub get_linkbases() {
-	my ($self) = @_;
-	my $lb =  $self->{'linkbases'}; 
-	return $lb;	
-}
-
-sub get_schemas() {
-	my ($self) = @_;
-	my $schemas =  $self->{'schemas'}; 
-	return $schemas;	
-}
-
 
 sub get_context() {
 	my ($self, $id) = @_;
@@ -276,7 +231,6 @@ sub get_item() {
 	my $item_number = $self->{'item_index'}->{$name}->{$context}; 
 	unless (defined($item_number)) { $item_number = -1; } 	
 	return($self->{'items'}[$item_number]); 
-
 }
 
 sub get_all_items() {
@@ -307,10 +261,6 @@ sub get_item_by_contexts() {
 	}
 	return \@out_array;
 }
-
-
-
-
 
 sub make_xpath() {
 	#take a file path and return an xpath context
@@ -353,15 +303,6 @@ sub extract_namespaces() {
 	return \%out_hash;
 }
 
-
-sub fix_item() {
-	my ($self, $uri) = @_;
-		$uri =~ m/\.xsd\#(.*)/;
-		my $short_uri = $1;	
-		$short_uri =~ s/_/\:/;
-		return($short_uri);
-}
-
 sub get_file() {
 	my ( $self, $in_file, $dest_dir ) = @_;
 	
@@ -395,7 +336,6 @@ sub get_file() {
 	}
 	else {
 		#process regular file 
-		#my $test_path = File::Spec->catpath(undef, $dest_dir, $1);	
 		my ($volume, $dir, $filename) = File::Spec->splitpath( $in_file );
 			
 		if ( ($dir) && (-e $in_file) ) {
@@ -412,10 +352,7 @@ sub get_file() {
 		if ( -e $test_path) {
 			return $test_path;
 		}		
-
 	}
-
-
 }
 
 
@@ -466,12 +403,8 @@ XBRL - Perl extension for Reading Extensible Business Reporting Language documen
 =head1 CAVEAT UTILITOR
 
 The Extensible Business Reporting Language (XBRL) is a large and complex standard 
-and this module only partially supports the standard.  The module's interface 
-is subject to radical modification in future releases. Larry Wall 
-once asserted that "a Perl program is correct if you get it finished before
-your boss fires you."  XBRL is correct in that sense, but it should be 
-noted I don't currently have a job. 
-
+and this module only partially supports the standard.  
+ 
 =head1 SYNOPSIS
 
 use XBRL;
@@ -501,6 +434,33 @@ new()
 get_html_report()
 	$html = $xbrl_doc->get_html_report() 
 	Processes the XBRL doc into an HTML document.  
+
+get_item_by_contexts($context_id) 
+	Return an array reference of XBRL::Items which share the same context.
+
+get_item_all_contexts($item_name) 
+	Takes an item name and returns an array reference of all other items with the 
+	same name. 
+
+get_all_items() 
+	Returns an array reference to the list of all items.
+
+get_item($item_name, $context_id) 
+	Returns an item identified by the its name and context.  Undef if no item 
+	of that description exists.
+
+get_unit($id) 
+	Returns unit identified by its id. 
+
+get_all_contexts()
+	Returns a hash reference  where the keys are the context ids and the values are
+	XBRL::Context objects. 
+  
+get_context($id)
+	Returns an XBRL::Context object based on the ID passed into the function.
+	
+get_taxonomy()
+	Returns an XBRL::Taxonomy instance based on the XBRL document. 
 
 
 =head1 BUGS AND LIMITATIONS 

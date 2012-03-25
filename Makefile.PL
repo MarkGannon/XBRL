@@ -11,6 +11,7 @@ WriteMakefile(
 			'Class::Accessor' => 0.34,	
 			'File::Spec' => 3.33,
 			'File::Temp' => 0.22,	
+			'Exporter' => 5.66,	
 			'HTML::Table' => 2.08,	
 			'XML::LibXML' => 1.90  }, 
     ($] >= 5.005 ?     ## Add these new keywords supported since 5.005
