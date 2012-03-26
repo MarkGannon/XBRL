@@ -94,7 +94,7 @@ denominator() -- Returns a scalar variable with a string describing the
 
 =head1 SEE ALSO
 
-Modules: XBRL XBRL::Element XBRL::Table  
+Modules: XBRL XBRL::Element XBRL::Table 
 
 Source code, documentation, and bug tracking is hosted 
 at: https://github.com/MarkGannon/XBRL . 

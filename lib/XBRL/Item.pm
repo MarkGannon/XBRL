@@ -7,7 +7,7 @@ our $VERSION = '0.01';
 
 use base qw(Class::Accessor);
 
-XBRL::Item->mk_accessors( qw( decimal unit id context name value localname prefix namespace type subGroup abstract nillable period balance adjValue ) );
+XBRL::Item->mk_accessors( qw( decimal unit id context name value localname prefix namespace adjValue ) );
 
 
 
@@ -19,8 +19,7 @@ sub new() {
 								id => undef,
 								context => undef,
 								name => undef,
-								value => undef,
-								label => undef };
+								value => undef };   
 	bless $self, $class;
 
 	if ($instance_xml) {
@@ -100,18 +99,6 @@ localname() Get or set the localname for the item
 prefix() Get or set the prefeix for the item  
 
 namespace() Get or set the prefix for the item  
-
-type() Get or set the item's type  
-
-subGroup() Get or set the item's subGroup.
-
-abstract() Get or set the true or false state of abstractedness  
-
-nillable() Get or set the nillable state (true or false) 
-
-period() Get or set whether the item covers a period  
-
-balance() Get or set the item's balance  
 
 adjValue() Get or set the item's adjusted value (actuall value with the 
 						decimals adjusted based on the decimals attribute. 

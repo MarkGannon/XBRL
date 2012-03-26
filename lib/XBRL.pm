@@ -17,7 +17,7 @@ use XBRL::Table;
 use LWP::UserAgent;
 use File::Spec qw( splitpath catpath curdir);
 use File::Temp qw(tempdir);
-
+use Cwd;
 
 require Exporter;
 
@@ -48,8 +48,6 @@ sub new() {
 								main_schema => undef,	
 								linkbases => {},
 								item_index => undef,
-								#file => $arg_ref->{'file'},
-								#schema_dir => $arg_ref->{'schema_dir'},	
 								file => undef,
 								schema_dir => undef, 
 								base => undef };

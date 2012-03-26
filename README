@@ -30,6 +30,8 @@ LWP::UserAgent
 File::Spec 
 File::Temp 
 Class::Accessor
+HTML::Table
+Exporter
 
 XML::LibXML is a Perl interface to the Gnome project's libxml library 
 and consequently requires libxml to be installed.
