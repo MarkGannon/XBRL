@@ -18,6 +18,7 @@ use LWP::UserAgent;
 use File::Spec qw( splitpath catpath curdir);
 use File::Temp qw(tempdir);
 use Cwd;
+use Data::Dumper;
 
 require Exporter;
 
@@ -143,33 +144,49 @@ sub parse_file() {
 
 
 	my $lb_files = $self->{'taxonomy'}->get_lb_files();	
+	
+	my $sections = $self->{'taxonomy'}->get_sections();
+
 
 	for my $file_name (@{$lb_files}) {
 		my $file = &get_file($self, $file_name, $self->{'base'}); 
 		if (!$file) {
 			print "The basedir is: " . $self->{'basedir'} . "\n"; 	
 			croak "unable to get $file_name\n";
-	}	
+		}	
 		
 		my $lb_xpath = &make_xpath($self, $file);
-		
+	
+
 		if ($lb_xpath->findnodes("//*[local-name() = 'presentationLink']") ){ 
-			$self->{'taxonomy'}->pre($lb_xpath);	
+			my %pres = ();	
+			for my $sec (@{$sections}) {	
+				$pres{$sec->{'uri'}} =  &make_arcs($self, "presentationLink", $sec->{'uri'}, $lb_xpath );
+			}	
+			$self->{'taxonomy'}->pre(\%pres);	
 		}
 		elsif ( $lb_xpath->findnodes("//*[local-name() = 'definitionLink']" )) {	 
-			$self->{'taxonomy'}->def($lb_xpath);	
+			my %def = ();	
+			for my $sec (@{$sections}) {	
+				$def{$sec->{'uri'}} =  &make_arcs($self, "definitionLink", $sec->{'uri'}, $lb_xpath );
+			}	
+			$self->{'taxonomy'}->def(\%def);	
 		}
 		elsif ( $lb_xpath->findnodes("//*[local-name() = 'labelLink']")) { 	 
-			$self->{'taxonomy'}->lab($lb_xpath);	
-			$self->{'taxonomy'}->set_labels();	
+			#labels are funny no arc elements	
+			$self->{'taxonomy'}->set_labels($lb_xpath);	
 		}
 		elsif ( $lb_xpath->findnodes("//*[local-name() = 'calculationLink']") ) { 	 
-			$self->{'taxonomy'}->cal($lb_xpath);	
+			my %calcs = ();		
+			for my $sec (@{$sections}) {	
+				$calcs{$sec->{'uri'}} =  &make_arcs($self, "calculationLink", $sec->{'uri'}, $lb_xpath );
+			}	
+			$self->{'taxonomy'}->cal(\%calcs);	
 		}
-	
+		else {
+			croak "no findnodes matched for xpath \n";
+		}
 	}
-
-
 
 	#load the contexts 
 	my $cons = $xc->findnodes("//*[local-name() = 'context']");
@@ -202,6 +219,66 @@ sub parse_file() {
 	}
 	$self->{'item_index'} = \%index;
 }
+
+
+sub make_arcs() {
+	my ($self, $type, $uri, $xpath) = @_;
+	my @out_arcs;
+#	print "make arcs: \n";
+#	print "\ttype: $type\n";
+#	print "\turi: $uri \n"; 
+	my $section = $xpath->findnodes("//*[local-name() = '" . $type . "'][\@xlink:role = '" . $uri . "' ]"); 
+	
+	unless ($section) {return undef; }
+	
+	my @loc_links = $section->[0]->getChildrenByLocalName('loc'); 
+	$type =~ s/Link$/Arc/g;	
+	my @arc_links = $section->[0]->getChildrenByLocalName($type); 
+
+	#print "loc links: \n";
+	#for my $loc (@loc_links) {
+	#	print $loc->toString() . "\n";
+	#}
+
+#	print "Arcs: \n";
+#	for my $arc (@arc_links) {
+#		print $arc->toString() . "\n";
+#	}
+
+
+	for my $arc_xml (@arc_links) {
+		my $arc = XBRL::Arc->new();
+		$arc->order($arc_xml->getAttribute('order'));	
+		$arc->arcrole($arc_xml->getAttribute('xlink:arcrole'));
+		$arc->closed($arc_xml->getAttribute('xbrldt:closed'));
+		$arc->usable($arc_xml->getAttribute('xbrldt:usable'));
+		$arc->contextElement($arc_xml->getAttribute('xbrldt:contextElement'));
+	
+		for my $loc_xml (@loc_links) {
+				
+			if ($loc_xml->getAttribute('xlink:label') eq $arc_xml->getAttribute('xlink:to')) {
+				#This is the destination loc link
+				my $href = $loc_xml->getAttribute('xlink:href');	
+				$arc->to_full($href);				
+				$href =~ m/\#([A-Za-z0-9_-].+)$/; 	
+				$arc->to_short($1);	
+			
+			}
+			elsif ($loc_xml->getAttribute('xlink:label') eq $arc_xml->getAttribute('xlink:from')  ) {
+				#this is the from link
+				my $href = $loc_xml->getAttribute('xlink:href');	
+				$arc->from_full($href);				
+				$href =~ m/\#([A-Za-z0-9_-].+)$/; 	
+				$arc->from_short($1);	
+	
+			}	
+		}	
+		push(@out_arcs, $arc);	
+	}
+
+	return \@out_arcs;
+}
+
 
 
 sub get_taxonomy() {

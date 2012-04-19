@@ -30,8 +30,6 @@ sub new() {
 								uri => $uri };
 	bless $self, $class;
 	
-	$self->{'def_arcs'} = &parse_def_arcs($self);	
-	$self->{'pre_arcs'} = &parse_pre_arcs($self);	
 	return $self;
 }
 
@@ -186,16 +184,19 @@ sub set_row_labels() {
 	my $uri = $self->{'uri'};	
 	my $xbrl_doc = $self->{'xbrl'};
 	my $tax = $xbrl_doc->get_taxonomy();
-	my @p_arcs = @{$self->{'pre_arcs'}}; 
+#	my @p_arcs = @{$self->{'pre_arcs'}}; 
+	my $p_arcs = $tax->get_arcs('pre', $uri);
+
+
 	#TODO Deal with different preferred labels for the same id in the same table
 	#this code just takes the first one for every instance.
 	for (my $i = 1; $i <= $table->getTableRows; $i++) {
 		my $id = $table->getCell($i,1);
 		$id =~ s/\:/\_/;	
-		for (my $k = 0; $k < @p_arcs; $k++) {
-				if ($id eq $p_arcs[$k]->to_short()) {
+		for (my $k = 0; $k < @{$p_arcs}; $k++) {
+				if ($id eq $p_arcs->[$k]->to_short()) {
 				#Get the label delete the entry from the the array
-					my $label = $tax->get_label($id, $p_arcs[$k]->prefLabel());				
+					my $label = $tax->get_label($id, $p_arcs->[$k]->prefLabel());				
 					$table->setCell($i, 1, $label);	
 					#delete $p_arcs[$k];	
 			}
@@ -391,7 +392,10 @@ sub get_domain_names() {
 	#take the uri and return an array of col elements + names in anon hash 	
 	#for landscape dimension tables  
 	my ($self, $hcube) = @_;
-	my $arcs = $self->{'def_arcs'};
+	my $xbrl_tax = $self->{'xbrl'}->get_taxonomy();
+	my $uri = $self->{'uri'};	
+	#my ($self, $type, $uri) = @_;
+	my $arcs = $xbrl_tax->get_arcs('def', $uri );   
 	my @top_domains;
 	my @sub_domains;
 	my @middle_domains;
@@ -460,8 +464,14 @@ sub get_row_elements() {
 	#take a uri and return an array of anonymous hash with element id + pref label
 	#for landscape dimension tables 	
 	my ($self, $hcube) = @_;
-	my $arcs = $self->{'def_arcs'};
-		my $arc_all;	
+	#my $arcs = $self->{'def_arcs'};
+	my $xbrl_tax = $self->{'xbrl'}->get_taxonomy();
+	my $uri = $self->{'uri'};	
+	#my ($self, $type, $uri) = @_;
+	my $arcs = $xbrl_tax->get_arcs('def', $uri );   
+	
+	
+	my $arc_all;	
 		my $dimension_default;
 		my $dimension_domain;	
 		
@@ -508,20 +518,21 @@ sub is_landscape() {
 	my $def_uri = $self->{'uri'};	
 	my $xbrl_doc = $self->{'xbrl'};	
 	my $tax = $xbrl_doc->get_taxonomy();
-	my $preLB = $tax->pre();
+#	my $preLB = $tax->pre();
+	my $start = 'http://www.xbrl.org/2003/role/periodStartLabel'; 
+	my $end = 'http://www.xbrl.org/2003/role/periodEndLabel'; 
 
-	my $p_link = $preLB->findnodes("//*[local-name() = 'presentationLink'][\@xlink:role = '" . $def_uri . "' ]"); 
-	
-	my $preArcs = $p_link->[0]->getChildrenByLocalName('presentationArc');
-	
-	for my $arc (@{$preArcs}) {
-		my $label = $arc->getAttribute('preferredLabel');
-		next unless ($label);
-		if (($label eq  'http://www.xbrl.org/2003/role/periodStartLabel') or 
-		($label eq  'http://www.xbrl.org/2003/role/periodEndLabel') ) {
-			return "true";
+	my $arcs = $tax->get_arcs('pre', $def_uri);
+
+	for my $arc (@{$arcs}) {
+		if ($arc->prefLabel) {
+		 	if (($arc->prefLabel eq $start) or ($arc->prefLabel eq $end) ) {
+				return 'true';
+			}
 		}
 	}
+
+
 }
 
 
@@ -530,8 +541,14 @@ sub is_landscape() {
 sub get_header_contexts() {
 	my ($self) = @_;
 	my $xbrl_doc = $self->{'xbrl'};
+	
+	my $xbrl_tax = $self->{'xbrl'}->get_taxonomy();
+	my $uri = $self->{'uri'};	
+	#my ($self, $type, $uri) = @_;
+	my $arcs = $xbrl_tax->get_arcs('def', $uri );   
+	
 
-	my $arcs = $self->{'def_arcs'}; 
+#	my $arcs = $self->{'def_arcs'}; 
 	
 	my $all_contexts = $xbrl_doc->get_all_contexts();	
 
@@ -640,105 +657,14 @@ sub get_def_section() {
 
 
 
-sub parse_pre_arcs() {
-	my ($self) = @_;
-	my @out_array;	
-	my $xbrl_doc = $self->{'xbrl'};
-	my $uri = $self->{'uri'};
-	my $tax = $xbrl_doc->get_taxonomy();
-	my $preLB = $tax->pre(); 
-	
-	my $p_link = $preLB->findnodes("//*[local-name() = 'presentationLink'][\@xlink:role = '" . $uri . "' ]"); 
-	
-	unless ($p_link) {return undef; }
-
-	my @loc_links = $p_link->[0]->getChildrenByLocalName('loc'); 
-	my @arc_links = $p_link->[0]->getChildrenByLocalName('presentationArc'); 
-
-	for my $arc_xml (@arc_links) {
-		my $arc = XBRL::Arc->new();
-		$arc->order($arc_xml->getAttribute('order'));	
-		$arc->arcrole($arc_xml->getAttribute('xlink:arcrole'));
-		$arc->prefLabel($arc_xml->getAttribute('preferredLabel')); 	
-		
-		for my $loc_xml (@loc_links) {
-				
-			if ($loc_xml->getAttribute('xlink:label') eq $arc_xml->getAttribute('xlink:to')) {
-				#This is the destination loc link
-				my $href = $loc_xml->getAttribute('xlink:href');	
-				$arc->to_full($href);				
-				$href =~ m/\#([A-Za-z0-9_-].+)$/; 	
-				$arc->to_short($1);	
-			
-			}
-			elsif ($loc_xml->getAttribute('xlink:label') eq $arc_xml->getAttribute('xlink:from')  ) {
-				#this is the from link
-				my $href = $loc_xml->getAttribute('xlink:href');	
-				$arc->from_full($href);				
-				$href =~ m/\#([A-Za-z0-9_-].+)$/; 	
-				$arc->from_short($1);	
-			
-			}
-
-		}
-		push(@out_array, $arc);
-	}
-
-	return \@out_array;
-}
-
-
-sub parse_def_arcs() {
-	my ($self) = @_;
-	my @out_array;	
-	my $xbrl_doc = $self->{'xbrl'};
-	my $uri = $self->{'uri'};
-	my $tax = $xbrl_doc->get_taxonomy();
-	my $defLB = $tax->def(); 
-	my $d_link = $defLB->findnodes("//*[local-name() = 'definitionLink'][\@xlink:role = '" . $uri . "' ]"); 
-	
-	unless ($d_link) {return undef; }
-
-	my @loc_links = $d_link->[0]->getChildrenByLocalName('loc'); 
-	my @arc_links = $d_link->[0]->getChildrenByLocalName('definitionArc'); 
-
-	for my $arc_xml (@arc_links) {
-		my $arc = XBRL::Arc->new();
-		$arc->order($arc_xml->getAttribute('order'));	
-		$arc->arcrole($arc_xml->getAttribute('xlink:arcrole'));
-		$arc->closed($arc_xml->getAttribute('xbrldt:closed'));
-		$arc->usable($arc_xml->getAttribute('xbrldt:usable'));
-		$arc->contextElement($arc_xml->getAttribute('xbrldt:contextElement'));
-	
-		for my $loc_xml (@loc_links) {
-				
-			if ($loc_xml->getAttribute('xlink:label') eq $arc_xml->getAttribute('xlink:to')) {
-				#This is the destination loc link
-				my $href = $loc_xml->getAttribute('xlink:href');	
-				$arc->to_full($href);				
-				$href =~ m/\#([A-Za-z0-9_-].+)$/; 	
-				$arc->to_short($1);	
-			
-			}
-			elsif ($loc_xml->getAttribute('xlink:label') eq $arc_xml->getAttribute('xlink:from')  ) {
-				#this is the from link
-				my $href = $loc_xml->getAttribute('xlink:href');	
-				$arc->from_full($href);				
-				$href =~ m/\#([A-Za-z0-9_-].+)$/; 	
-				$arc->from_short($1);	
-			
-			}
-
-		}
-		push(@out_array, $arc);
-	}
-
-	return \@out_array;
-}
-
 sub get_hypercubes() {
 	my ($self) = @_;
-	my $arcs = $self->{'def_arcs'};	
+	my $xbrl_tax = $self->{'xbrl'}->get_taxonomy();
+	my $uri = $self->{'uri'};	
+	#my ($self, $type, $uri) = @_;
+	my $arcs = $xbrl_tax->get_arcs('def', $uri );   
+	
+	#my $arcs = $self->{'def_arcs'};	
 	my @hypercubes;	
 				
 	for my $arc (@{$arcs}) {

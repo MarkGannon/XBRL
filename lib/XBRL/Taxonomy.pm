@@ -84,10 +84,10 @@ sub add_schema() {
 
 sub set_labels() {
 	#Load the array of labels 
-	my ($self) = @_;
-	my $label_arcs = $self->{'lab'}->findnodes("//*[local-name() =  'labelArc']");
-	my $label_locs =  $self->{'lab'}->findnodes("//*[local-name() =  'loc']"); 
-	my $label_labels =   $self->{'lab'}->findnodes("//*[local-name() =  'label']"); 
+	my ($self, $xpath) = @_;
+	my $label_arcs 		= $xpath->findnodes("//*[local-name() =  'labelArc']");
+	my $label_locs 		=	$xpath->findnodes("//*[local-name() =  'loc']"); 
+	my $label_labels 	=	$xpath->findnodes("//*[local-name() =  'label']"); 
 
 	my @label_array;
 
@@ -124,6 +124,13 @@ sub get_elementbyid() {
 }
 
 
+sub get_arcs() {
+	my ($self, $type, $uri) = @_;
+	my $arcs = $self->{$type}->{$uri};
+
+	return $arcs;
+}
+
 
 sub get_sections() {
 	my ($self) = @_;
@@ -153,17 +160,12 @@ sub in_def() {
 	#return nodelist of def  if true,  undef if not
 	my ($self, $sec_uri) = @_; 
 
-	my $d_link = $self->{'def'}->findnodes("//*[local-name() = 'definitionLink'][\@xlink:role = '" . $sec_uri . "' ]"); 
+	my $arcs = $self->{'def'}->{$sec_uri};
 
-	if ($d_link) {
-		my @definition_arcs = $d_link->[0]->getChildrenByLocalName('definitionArc'); 			
-		for my $d_arc (@definition_arcs) {
-			my $arcrole = $d_arc->getAttribute('xlink:arcrole');
-			if ($arcrole eq 'http://xbrl.org/int/dim/arcrole/hypercube-dimension') {
-				return $d_link;
-			}
-		}		
+	if ($arcs) {
+		return $arcs;
 	}
+
 	return undef;
 }
 

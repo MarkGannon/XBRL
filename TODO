@@ -6,8 +6,6 @@ Refactor code
 	Fix Test Code to call xml files from the t directory
 	Implement Arc.pm in all places  
 
-Check that all the necessary cpan modules are included in the build 
-
 Support for hypercube-less dimensions
 
 HTML Classes and color scheme 
@@ -19,11 +17,7 @@ Non ASCII Character Sets
 Redo Tests 
 	Create example XBRL to provide concise tests 
 
-CPAN Account 
-
 Make sure the 
-
-Test on ec2 
 
 Add support for output in ODF/Gnumeric/Excel
 
