@@ -6,6 +6,7 @@ use Carp;
 use HTML::Table;
 use XBRL::Arc;
 use Data::Dumper;
+use XBRL::TableXML;
 
 require Exporter;
 
@@ -41,7 +42,9 @@ sub get_html_table() {
 	my $xbrl_doc = $self->{'xbrl'};
 	my $tax = $xbrl_doc->get_taxonomy();
 	
-	my $table = HTML::Table->new(-border => 1);
+#	my $table = HTML::Table->new(-border => 1);
+	my $table = XBRL::TableXML->new(); 
+
 
 	my $header_contexts = &get_header_contexts($self, $uri); 
 
@@ -49,7 +52,8 @@ sub get_html_table() {
 	for my $context (@{$header_contexts}) {
 		push(@col_labels, $context->label());	
 	}
-	$table->addRow('&nbsp;', @col_labels); 	
+	#$table->addRow('&nbsp;', @col_labels); 	
+	$table->addHeader('&nbsp;', @col_labels); 	
 
 
 	my $row_elements = &get_row_elements($self, $uri);
@@ -65,7 +69,8 @@ sub get_html_table() {
 		}	
 	}
 
-	return $table->getTable();
+	eturn $table->getTable();
+	return $table->as_text();
 
 }
 

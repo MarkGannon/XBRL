@@ -224,9 +224,6 @@ sub parse_file() {
 sub make_arcs() {
 	my ($self, $type, $uri, $xpath) = @_;
 	my @out_arcs;
-#	print "make arcs: \n";
-#	print "\ttype: $type\n";
-#	print "\turi: $uri \n"; 
 	my $section = $xpath->findnodes("//*[local-name() = '" . $type . "'][\@xlink:role = '" . $uri . "' ]"); 
 	
 	unless ($section) {return undef; }
@@ -234,16 +231,6 @@ sub make_arcs() {
 	my @loc_links = $section->[0]->getChildrenByLocalName('loc'); 
 	$type =~ s/Link$/Arc/g;	
 	my @arc_links = $section->[0]->getChildrenByLocalName($type); 
-
-	#print "loc links: \n";
-	#for my $loc (@loc_links) {
-	#	print $loc->toString() . "\n";
-	#}
-
-#	print "Arcs: \n";
-#	for my $arc (@arc_links) {
-#		print $arc->toString() . "\n";
-#	}
 
 
 	for my $arc_xml (@arc_links) {
@@ -428,6 +415,33 @@ sub get_file() {
 			return $test_path;
 		}		
 	}
+}
+
+sub get_xml_tables() {
+	my ($self) = @_;
+	my $tax = $self->{'taxonomy'}; 
+	my $sections = $tax->get_sections();
+	my $out_var;	
+	for my $sect (@{$sections}) {
+		if ($tax->in_def($sect->{'uri'})) {
+			#Dimension table 	
+			my $dim = XBRL::Dimension->new($self, $sect->{'uri'});	
+			my $final_table;	
+			$final_table = $dim->get_html_table($sect->{'uri'}); 	
+		
+			if ($final_table) {	
+				$out_var = $out_var . $final_table . "\n\n\n";	
+			}	
+		}
+		else {
+			#Dealing with a regular table 
+			my $norm_table = XBRL::Table->new($self); 
+			$out_var = $out_var . $norm_table . "\n\n\n";	
+		
+		}
+	}
+	
+	return($out_var);
 }
 
 

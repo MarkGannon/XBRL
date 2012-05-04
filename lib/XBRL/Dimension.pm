@@ -7,6 +7,7 @@ use XML::LibXML; #::Element;
 use XML::LibXML::NodeList;
 use XBRL::Arc;
 use HTML::Table;
+use XBRL::TableXML;
 
 require Exporter;
 
@@ -52,7 +53,8 @@ sub make_port_table() {
 	my $uri = $self->{'uri'};	
 	my $xbrl_doc = $self->{'xbrl'};
 	my $tax = $xbrl_doc->get_taxonomy();
-	my $table = HTML::Table->new(-border => 1);
+#	my $table = HTML::Table->new(-border => 1);
+	my $table = XBRL::TableXML->new(); 
 	
 	my $header_contexts	= &get_header_contexts($self); 
 	my @col_labels;
@@ -61,7 +63,9 @@ sub make_port_table() {
 	for my $context (@{$header_contexts}) {
 		push(@col_labels, $context->label());	
 	}
-	$table->addRow('&nbsp;', @col_labels); 	
+	#TODO find millions or thousands field and use it in
+	#the first column
+	$table->addHeader('&nbsp;', @col_labels); 	
 
 	#my (@domain_names, @row_elements);	
 	for my $hcube (@{$hypercubes}) {
@@ -116,7 +120,7 @@ sub make_port_table() {
 	
 	&set_row_labels($self, $table, $uri);	
 
-	return $table->getTable();
+	return $table->as_text();
 }
 
 
@@ -137,7 +141,8 @@ sub make_land_table() {
 		push(@col_elements, @{$tmp_cols});	
 	}	
 
-	$table->addRow('&nbsp;', @col_elements);
+	#$table->addRow('&nbsp;', @col_elements);
+	$table->addHeader('&nbsp;', @col_elements); 	
 
 	for my $e (@row_elements) {
 		$table->addRow($e);	
@@ -191,13 +196,15 @@ sub set_row_labels() {
 	#TODO Deal with different preferred labels for the same id in the same table
 	#this code just takes the first one for every instance.
 	for (my $i = 1; $i <= $table->getTableRows; $i++) {
-		my $id = $table->getCell($i,1);
+		#my $id = $table->getCell($i,1);
+		my $id = $table->label($i); 	
 		$id =~ s/\:/\_/;	
 		for (my $k = 0; $k < @{$p_arcs}; $k++) {
 				if ($id eq $p_arcs->[$k]->to_short()) {
 				#Get the label delete the entry from the the array
 					my $label = $tax->get_label($id, $p_arcs->[$k]->prefLabel());				
-					$table->setCell($i, 1, $label);	
+					$table->label($i, $label);	
+					#$table->setCell($i, 1, $label);	
 					#delete $p_arcs[$k];	
 			}
 		}
