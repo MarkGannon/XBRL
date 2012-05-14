@@ -14,6 +14,8 @@ use XBRL::Taxonomy;
 use XBRL::Dimension;
 use XBRL::Table;
 
+use XBRL::TableHTML; 
+
 use LWP::UserAgent;
 use File::Spec qw( splitpath catpath curdir);
 use File::Temp qw(tempdir);
@@ -36,6 +38,11 @@ our @EXPORT = qw(
 
 our $VERSION = '0.01';
 our $agent_string = "Perl XBRL Library $VERSION";
+
+our $DEFAULT_CSS = '.label { text-align:left;} 
+ .number {text-align:right;}
+ .even { background-color:#ccffcc;}
+ thead { background-color:#ccffcc;}';
 
 
 
@@ -427,16 +434,18 @@ sub get_xml_tables() {
 			#Dimension table 	
 			my $dim = XBRL::Dimension->new($self, $sect->{'uri'});	
 			my $final_table;	
-			$final_table = $dim->get_html_table($sect->{'uri'}); 	
-		
+			$xml_table = $dim->get_html_table($sect->{'uri'}); 	
+			
+
 			if ($final_table) {	
-				$out_var = $out_var . $final_table . "\n\n\n";	
+				$out_var = $out_var . $xml_table->as_text() . "\n\n\n";	
 			}	
 		}
 		else {
 			#Dealing with a regular table 
 			my $norm_table = XBRL::Table->new($self); 
-			$out_var = $out_var . $norm_table . "\n\n\n";	
+			my $xml_table = $norm_table->get_html_table(); 	
+			$out_var = $out_var . $xml_table->as_text() . "\n\n\n";	
 		
 		}
 	}
@@ -446,32 +455,100 @@ sub get_xml_tables() {
 
 
 sub get_html_report() {
-	my ($self) = @_;
-	my $html = "<html><head><title>Sample</title></head><body>\n";
+	my ($self, $arg_ref ) = @_;
+	my ($css_file, $css_block);
+	if ($arg_ref->{'css_file'}) {
+		$css_file = $arg_ref->{'css_file'};
+	}
+	elsif ($arg_ref->{'css_block'}) {
+		$css_block = $arg_ref->{'css_block'};
+	}
+
+	my ($firm, $enddate, $type, $title);
+
+	
+	my $items = $self->{'items'};
+
+
+	for my $item (@{$items}) {
+		if ($item->name() eq 'dei:EntityRegistrantName') {
+			$firm= $item->value();
+		}
+		elsif($item->name() eq 'dei:DocumentType') {
+			$type = $item->value();
+		}
+		elsif ($item->name() eq 'dei:DocumentPeriodEndDate') {
+			$enddate = $item->value();
+		}
+	}
+
+	if ($type eq '10-K') {
+		$title = $firm . " 10-K for Year Ending: " . $enddate; 
+	}
+	elsif ($type eq '10-Q') {
+		$title = $firm . " 10-Q for Quarter Ending: " . $enddate; 
+	}
+
+	my $html = "<html><head><title>$title</title>\n"; 
+
+	if ($css_file) {
+		$html = $html . '<link rel="stylesheet" type="text/css" href="' . $css_file . '">';	
+	}
+	else {
+		$html = $html . '<style type="text/css">';
+
+		if ($css_block) {
+			$html = $html . $css_block;
+		}
+		else {
+			$html = $html . $DEFAULT_CSS;
+		}
+		
+		$html = $html . '</style>'; 
+
+	}
+
+
+	$html = $html . "</head><body>\n";
+
+	$html = $html . "<h1>$title</h1>\n";
 
 	my $tax = $self->{'taxonomy'}; 
 
 	my $sections = $tax->get_sections();
 		
 	for my $sect (@{$sections}) {
+		$html = $html . "<h2>" . $sect->{'def'} . "</h2>\n";	
 		if ($tax->in_def($sect->{'uri'})) {
 			#Dimension table 	
-			$html = $html . "\n<h2>" . $sect->{'def'} . "</h2>\n";
 			my $dim = XBRL::Dimension->new($self, $sect->{'uri'});	
 			my $final_table;	
 			$final_table = $dim->get_html_table($sect->{'uri'}); 	
 		
 			if ($final_table) {	
-				$html = $html . $final_table;	
+				my $html_table = XBRL::TableHTML->new( { xml => $final_table } );	
+				if ($html_table) {	
+				$html = $html . $html_table->asText() . "\n\n\n";	
+				}	
 			}	
 		}
 		else {
 			#Dealing with a regular table 
-			#if (&is_text_block($self, $sect->{'uri'})) {
-			my $norm_table = XBRL::Table->new($self); 
-			$html = $html . "\n<h2>" . $sect->{'def'} . "</h2>\n";
-			$html = $html . $norm_table->get_html_table($sect->{'uri'});
+			my $norm_table = XBRL::Table->new($self, $sect->{'uri'}); 
+			if ($norm_table) {
+				
+				my $html_table = XBRL::TableHTML->new( { xml => $norm_table->get_html_table($sect->{'uri'})});	
+				if ($html_table) {
+					$text = $html_table->asText();
+					if ($text) {
+						$html = $html . $text . "\n\n\n";	
+					}	
+				}
+			}
 		}
+	
+	
+	
 	}
 	
 	$html = $html . "</body></html>\n";

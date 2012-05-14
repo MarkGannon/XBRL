@@ -27,7 +27,8 @@ our $VERSION = '0.01';
 
 sub new() {
 	my ($class, $xbrl_doc, $uri) = @_;
-	my $self = { xbrl => $xbrl_doc}; 
+	my $self = { xbrl => $xbrl_doc,
+								uri => $uri }; 
 	bless $self, $class;
 
 
@@ -38,6 +39,10 @@ sub new() {
 
 sub get_html_table() {
 	my ($self, $uri) = @_;
+
+	if (!$uri) {
+		$uri = $self->{'uri'};	
+	}
 
 	my $xbrl_doc = $self->{'xbrl'};
 	my $tax = $xbrl_doc->get_taxonomy();
@@ -69,9 +74,9 @@ sub get_html_table() {
 		}	
 	}
 
-	eturn $table->getTable();
-	return $table->as_text();
-
+	#eturn $table->getTable();
+	#return $table->as_text();
+	return $table;
 }
 
 

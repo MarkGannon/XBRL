@@ -57,6 +57,9 @@ sub adjust() {
 	my ($self) = @_;
 	my $number = $self->{'value'};
 	my $changer = $self->{'decimal'}; 
+	if ($self->{'decimal'} =~ m/INF/) {
+		return $number;
+	}
 	$changer = $changer * -1;
 	my $divsor = "10";
 	for (my $i = 0; $i < $changer; $i++) {

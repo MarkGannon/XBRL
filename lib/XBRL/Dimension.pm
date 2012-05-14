@@ -120,7 +120,8 @@ sub make_port_table() {
 	
 	&set_row_labels($self, $table, $uri);	
 
-	return $table->as_text();
+	#return $table->as_text();
+	return $table;
 }
 
 
@@ -181,7 +182,8 @@ sub make_land_table() {
 		$table->setCell(1, $i, $label);	
 	}
 
-	return $table->getTable();
+	#return $table->getTable();
+	return $table;
 }
 
 sub set_row_labels() {

@@ -40,10 +40,11 @@ sub addRow() {
 	my $row = XML::LibXML::Element->new("row");
 	$row->setAttribute("xbrl-item", $items[0]);
 
+
 	for (my $i = 1; $i < @items; $i++) {
 		my $cell = XML::LibXML::Element->new("cell");
-		$cell->appendText($items[$i]);	
-		$cell->setAttribute("order", $i);	
+		my $content = $items[$i];
+		$cell->appendText($content);
 		$row->appendChild($cell);	
 	}
 	
@@ -63,10 +64,41 @@ sub addHeader() {
 	}
 	
 	$self->{'table'}->appendChild($head);
-
 }
 
+sub getHeader() {
+	my ($self) = @_; 
+	my $headers =$self->{'table'}->findnodes("//header"); 
+	
+	my $cells = $headers->[0]->getChildrenByLocalName('cell'); 	
+	my @out_array;
 
+	for my $cell (@{$cells}) {
+		my $value = $cell->textContent();
+		push(@out_array, $value);
+	}
+	
+	return(\@out_array);
+}
+
+sub getRows() {
+	my ($self) = @_;
+	my @out_array;	
+	
+	my $rows = $self->{'table'}->findnodes("//row");
+	
+	for my $row (@{$rows}) {	
+		my $row_string = $row->getAttribute('xbrl-item');	
+		
+		my $cells = $row->getChildrenByLocalName('cell'); 	
+
+		for my $cell(@{$cells}) {
+			$row_string = $row_string . "\t" . $cell->textContent();
+		}
+		push(@out_array, $row_string);	
+	}	
+	return \@out_array;
+}
 
 
 
@@ -74,18 +106,13 @@ sub label() {
 	my ($self, $row_number, $label) = @_;
 	my $rows = $self->{'table'}->findnodes("//row");
 	$row_number = $row_number -1;
-	print STDERR "Label for $row_number\n";
-
+	
 	my $item_name = $rows->[$row_number]->getAttribute('xbrl-item');
 
 	if ($label) {
-		print STDERR "trying to set $label \n";	
-		print STDERR "Value before: " . $rows->[$row_number]->getAttribute('xbrl-item') . "\n";	
 		$rows->[$row_number]->setAttribute('xbrl-item', $label );	
-		print STDERR "Value After: " . $rows->[$row_number]->getAttribute('xbrl-item') . "\n";	
 	}
 	else {
-			print STDERR "Returning " . $item_name . "\n";	
 			return $item_name;			
 	}
 	return undef;
@@ -111,8 +138,6 @@ sub getCell() {
 sub setCell() {
 	my ($self, $row_number, $col_number, $content) = @_;
 
-	print STDERR "Set Cell\n";
-	print STDERR "$row_number, $col_number, $content \n";
 	$row_number = $row_number - 1;
 	$col_number = $col_number -1;
 	my $row = $self->{'table'}->findnodes("//row");
