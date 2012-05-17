@@ -5,7 +5,7 @@ use warnings;
 use XML::LibXML;
 use Data::Dumper;
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 require Exporter;
 
@@ -140,9 +140,9 @@ sub setCell() {
 
 	$row_number = $row_number - 1;
 	$col_number = $col_number -1;
-	my $row = $self->{'table'}->findnodes("//row");
-	
-	my @cells = $row->[$row_number]->getChildrenByLocalName('cell'); 
+	my $rows = $self->{'table'}->findnodes("//row");
+
+	my @cells = $rows->[$row_number]->getChildrenByLocalName('cell'); 
 	if ($cells[$col_number]) {
 		$cells[$col_number]->nodeValue($content);
 	}
@@ -162,53 +162,117 @@ sub as_text() {
 	return($self->{'table'}->toString());
 }
 
-sub clear_empty_cols() {
-
-
-}
 
 
 
 
+=head1 XBRL::TableXML 
 
-
-=head1 XBRL::Item 
-
-XBRL::Item - OO Module for Encapsulating XBRL Items 
+XBRL::TableXML - OO Module for Encapsulating XBRL Tables in XML 
 
 =head1 SYNOPSIS
 
-  use XBRL::Item;
-
-	my $item = XBRL::Item->new($item_xml);	
+  use XBRL::TableXML;
 	
+	my $xml_table = XBRL::TableXML->new($xbrl_doc, $uri); 
+
+	$xml_table->addHeader(@col_labels); 	
+
+	my $colum_headers = $xml_table->getHeader(); 
+	
+	$xml_table->addRow($label, @row_values);	
+
+	$xml_table->setCell($row_number, $col_number, $text_value);
+
+	my $cell_contents = $xml_table->getCell($row_number, $col_number);
+
+	my $rows = $xml_table->getRows();
+
+	my $number_rows = $xml_table->getTableRows();
+	
+	$xml_table->label($row_number, $label); 
+
+	my $row_label = $xml_table->label($row_number);
+
+	my $xml_text = $xml_table->as_text();
+
+
+
 =head1 DESCRIPTION
 
 This module is part of the XBRL modules group and is intended for use with XBRL.
 
-new() Object contstructor.  Optionally takes the item XML from the instance document. 
+=over 4
 
-decimal() Get or set the number of decimals to adjust the value by. 
+=item new 
+  	
+		use XBRL::TableXML;
+		my $xml_table = XBRL::TableXML->new($xbrl_doc, $uri); 
 
-unit() Get or set the unitRef for the item. 
+Object contstructor.  Takes an XBRL object as well as a 
+URI specifying which section to create a table from.
 
-id() Get or set the item's ID.
+=item addHeader
 
-context() Get or set the item's contextRef value. 
+		$xml_table->addHeader(@col_labels); 	
 
-name() Get or set the item's name.  
+Adds text entries to the column headers.  Should include a blank or 
+'&nbsp;' as the first entry.
 
-value() Get or set the item's value. 
+=item getHeader
 
-localname() Get or set the localname for the item  
+	my $colum_headers = $xml_table->getHeader(); 
 
-prefix() Get or set the prefeix for the item  
+Returns an array reference with the text values for the column headers 
 
-namespace() Get or set the prefix for the item  
+=item addRow
 
-adjValue() Get or set the item's adjusted value (actuall value with the 
-						decimals adjusted based on the decimals attribute. 
+		$xml_table->addRow($label, @row_values);	
 
+Adds a row to the end of the table.  The label can either be specified seperately,
+or included as the first entry in the array of values.
+
+=item setCell
+
+	$xml_table->setCell($row_number, $col_number, $text_value);
+
+Sets content for the specified cell.
+
+=item getCell
+
+	my $cell_contents = $xml_table->getCell($row_number, $col_number);
+
+Returns the text value of the specified cell.
+
+=item getRows
+
+	my $rows = $xml_table->getRows();
+
+Returns an array ref where each item is a tab seperated list of the 
+rows contents.
+
+=item getTableRows 
+
+	my $number_rows = $xml_table->getTableRows();
+
+Returns the number of rows (exclusive of the header row) in the table.
+
+=item label
+
+	$xml_table->label($row_number, $label); 
+	my $row_label = $xml_table->label($row_number);
+
+If the label value is included sets the label for the row.  If no label value is included,
+returns the label value for the row.
+
+
+=item as_text
+
+	my $xml_text = $xml_table->as_text();
+
+Returns the XML table as text.
+
+=back
 
 =head1 AUTHOR
 
@@ -216,7 +280,7 @@ Mark Gannon <mark@truenorth.nu>
 
 =head1 SEE ALSO
 
-Modules: XBRL XBRL::Schema XBRL::Element XBRL::Label 
+Modules: XBRL 
 
 Source code, documentation, and bug tracking is hosted 
 at: https://github.com/MarkGannon/XBRL . 

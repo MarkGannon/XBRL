@@ -36,7 +36,7 @@ our @EXPORT = qw(
 	
 );
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 our $agent_string = "Perl XBRL Library $VERSION";
 
 our $DEFAULT_CSS = '.label { text-align:left;} 
@@ -434,7 +434,7 @@ sub get_xml_tables() {
 			#Dimension table 	
 			my $dim = XBRL::Dimension->new($self, $sect->{'uri'});	
 			my $final_table;	
-			$xml_table = $dim->get_html_table($sect->{'uri'}); 	
+			$xml_table = $dim->get_xml_table($sect->{'uri'}); 	
 			
 
 			if ($final_table) {	
@@ -444,7 +444,7 @@ sub get_xml_tables() {
 		else {
 			#Dealing with a regular table 
 			my $norm_table = XBRL::Table->new($self); 
-			my $xml_table = $norm_table->get_html_table(); 	
+			my $xml_table = $norm_table->get_xml_table(); 	
 			$out_var = $out_var . $xml_table->as_text() . "\n\n\n";	
 		
 		}
@@ -523,7 +523,7 @@ sub get_html_report() {
 			#Dimension table 	
 			my $dim = XBRL::Dimension->new($self, $sect->{'uri'});	
 			my $final_table;	
-			$final_table = $dim->get_html_table($sect->{'uri'}); 	
+			$final_table = $dim->get_xml_table($sect->{'uri'}); 	
 		
 			if ($final_table) {	
 				my $html_table = XBRL::TableHTML->new( { xml => $final_table } );	
@@ -537,7 +537,7 @@ sub get_html_report() {
 			my $norm_table = XBRL::Table->new($self, $sect->{'uri'}); 
 			if ($norm_table) {
 				
-				my $html_table = XBRL::TableHTML->new( { xml => $norm_table->get_html_table($sect->{'uri'})});	
+				my $html_table = XBRL::TableHTML->new( { xml => $norm_table->get_xml_table($sect->{'uri'})});	
 				if ($html_table) {
 					$text = $html_table->asText();
 					if ($text) {
@@ -585,49 +585,90 @@ my $html_report = $doc->get_html_report();
 XBRL provides an OO interface for reading Extensible Business Reporting Language
 documents (XBRL docs).  
 
-new()
+=over 4
+
+=item new
+	
 	$xbrl_doc = XBRL->new ( { file="foo.xml", schema_dir="/var/cache/xbrl" } );
 
-	file -- This option specifies the main XBRL doc instance.
+file -- This option specifies the main XBRL doc instance.
 
-	schema_dir -- allows the caller to specify a directory for storing ancillary
-	schemas required by the instance.  Specifying this directory means 
-	those schemas won't have to be downloaded each time an XBRL doc is 
-	parsed.  If no schema_dir is specified, the module will create a temporary
-	directory to store any needed schemas and delete it when the module goes 
-	out of scope.
+schema_dir -- allows the caller to specify a directory for storing ancillary
+schemas required by the instance.  Specifying this directory means 
+those schemas won't have to be downloaded each time an XBRL doc is 
+parsed.  If no schema_dir is specified, the module will create a temporary
+directory to store any needed schemas and delete it when the module goes 
+out of scope.
 
-get_html_report()
-	$html = $xbrl_doc->get_html_report() 
-	Processes the XBRL doc into an HTML document.  
-
-get_item_by_contexts($context_id) 
-	Return an array reference of XBRL::Items which share the same context.
-
-get_item_all_contexts($item_name) 
-	Takes an item name and returns an array reference of all other items with the 
-	same name. 
-
-get_all_items() 
-	Returns an array reference to the list of all items.
-
-get_item($item_name, $context_id) 
-	Returns an item identified by the its name and context.  Undef if no item 
-	of that description exists.
-
-get_unit($id) 
-	Returns unit identified by its id. 
-
-get_all_contexts()
-	Returns a hash reference  where the keys are the context ids and the values are
-	XBRL::Context objects. 
-  
-get_context($id)
-	Returns an XBRL::Context object based on the ID passed into the function.
+=item get_html_report
 	
-get_taxonomy()
-	Returns an XBRL::Taxonomy instance based on the XBRL document. 
+Processes the XBRL doc into an HTML document.  
+	
+	$html = $xbrl_doc->get_html_report({ css_file => 'style.css'} ) 
 
+The optional css_file allows an external CSS stylesheet to be included in the report 
+for controlling the presentation of the report.  
+
+	$html = $xbrl_doc->get_html_report({ css_block => $CSS } ) 
+
+The optional css_block parameter takes a string of CSS instructions and includes 
+them in the reports header section.
+
+If neither option is specified, a default CSS style is included in the header of the report.
+
+=item get_item_by_contexts 
+
+	my $items = $xbrl_doc->get_item_by_contexts($context_id);
+
+Return an array reference of XBRL::Items which share the same context.
+
+=item get_item_all_contexts
+
+	my $revenue_items = $xbrl_doc->get_item_all_contexts("us-gaap:Revenues");
+
+Takes an item name and returns an array reference of all other items with the 
+same name. 
+
+=item get_all_items
+
+	my $all_items = $xbrl_doc->get_all_items(); 
+
+Returns an array reference to the list of all items.
+
+=item get_item
+
+	my $item = $xbrl_doc->get_item($item_name, $context_id) 
+
+Returns an item identified by the its name and context.  Undef if no item 
+of that description exists.
+
+=item get_unit 
+
+	my $unit = $xbrl_doc->get_unit($unit_id);
+
+
+Returns unit identified by its id. 
+
+=item get_all_contexts
+
+	my $contexts = $xbrl_doc->get_all_contexts();
+
+Returns a hash reference  where the keys are the context ids and the values are
+XBRL::Context objects. 
+  
+=item get_context 
+
+	my $context = $xbrl_doc->get_contexts($id);
+
+Returns an XBRL::Context object based on the ID passed into the function.
+	
+=item get_taxonomy
+
+	my $taxonomy = $xbrl_doc->get_taxonomy();
+
+Returns an XBRL::Taxonomy instance based on the XBRL document. 
+
+=back
 
 =head1 BUGS AND LIMITATIONS 
 

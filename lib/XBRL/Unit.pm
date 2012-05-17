@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use Carp;
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 use base qw(Class::Accessor);
 
@@ -71,25 +71,39 @@ XBR::Unit - Perl Objected-Oriented Module for ecapsulating XBRL Units
 
 This module is intended to work in conjunction with the XBRL module for parsing Extensible Business Reporting Language docuements.  
 
-new() -- Constructor for the object requires a scalar containing the XML text 
-					of the unit. 
+=over 4
+
+=item new
+
+Constructor for the object requires a scalar containing the XML text 
+of the unit. 
 		
-id() -- Returns a scalar variable with the unit's ID as assigned in the 
-				instance document.
+=item id
 
-measure() -- Returns a scalar variable with a string describing the 
-				measure for the unit (e.g. iso4217:USD). 
+Returns a scalar variable with the unit's ID as assigned in the 
+instance document.
 
-numerator() -- Returns a scalar variable with a string describing the 
-								the numerator measure (e.g. iso4217:USD) in the event the 
-								unit is representing a division of two types of 
-								units (e.g Dollars per Share).
+=item measure
 
-denominator() -- Returns a scalar variable with a string describing the 
-								the denominator measure (e.g. xbrli:shares) in the event the 
-								unit is representing a division of two types of 
-								units (e.g Dollars per Share).
+Returns a scalar variable with a string describing the 
+measure for the unit (e.g. iso4217:USD). 
 
+=item numerator
+
+Returns a scalar variable with a string describing the 
+the numerator measure (e.g. iso4217:USD) in the event the 
+unit is representing a division of two types of 
+units (e.g Dollars per Share).
+
+=item denominator
+
+Returns a scalar variable with a string describing the 
+the denominator measure (e.g. xbrli:shares) in the event the 
+unit is representing a division of two types of 
+units (e.g Dollars per Share).
+
+
+=back
 
 
 =head1 SEE ALSO

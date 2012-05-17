@@ -23,7 +23,7 @@ our @EXPORT = qw(
 
 );
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 sub new() {
 	my ($class, $xbrl_doc, $uri) = @_;
@@ -34,7 +34,7 @@ sub new() {
 	return $self;
 }
 
-sub get_html_table() {
+sub get_xml_table() {
 	my ($self) = @_;
 	my $table;
 	if (&is_landscape($self)) {
@@ -696,17 +696,30 @@ XBRL::Dimension - OO Module for Parsing XBRL Dimensions
 	my $dimension = XBRL::Dimension->new($xbrl_doc, "http://fu.bar.com/role/DisclosureGoodwillDetails" );	
 	
 	
-	$html_table = $dimension->get_html_table(); 
+	$html_table = $dimension->get_xml_table(); 
   
 	
 =head1 DESCRIPTION
 
 This module is part of the XBRL modules group and is intended for use with XBRL.
 
-new() Object constructor takes the xbrl document and the section URI as parameters.
+=over 4
 
-get_html_table()  -- Returns a scalar containing an HTML representation of the 
+=item new 
+
+	my $dimension = XBRL::Dimension->new($xbrl_doc, "http://fu.bar.com/role/DisclosureGoodwillDetails" );	
+
+
+Object constructor takes the xbrl document and the section URI as parameters.
+
+=item get_xml_table
+
+	$xml_table = $dimension->get_xml_table(); 
+
+Returns a scalar containing an HTML representation of the 
 				
+=back
+
 =head1 AUTHOR
 
 Mark Gannon <mark@truenorth.nu>

@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use Carp;
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 use base qw(Class::Accessor);
 
@@ -38,27 +38,56 @@ XBRL::Arc - OO Module for Ecapsulating XBRL Arcs
 
 This module is part of the XBRL modules group and is intended for use with XBRL.
 
-new() Object constructor  
 
-from_full() Get or set the from_full attribute.  
+=over 4
 
-from_short() Get or set the from_short attribute. 
+=item new
+	
+	my $arc = XBRL::Arc->new();
 
-to_full() Get or set the to_full attribute.
+Object constructor  
 
-to_short() Get or set the to_short attribute. 
+=item from_full 
 
-order() Get or set the order attribute. 
+Get or set the from_full attribute.  
 
-arcrole() Get or set the arcrole attribute. 
+=item from_short 
 
-usable() Get or set the usable attribute (true or false). 
+Get or set the from_short attribute. 
 
-closed() Get or set the closed attribute (true or false). 
+=item to_full
 
-contextElement() Get or set the contextElement  
+Get or set the to_full attribute.
 
-prefLabel() Get or set the identifier of the preferredLabel  
+=item to_short 
+
+Get or set the to_short attribute. 
+
+=item order 
+
+Get or set the order attribute. 
+
+=item arcrole
+
+Get or set the arcrole attribute. 
+
+=item usable
+
+Get or set the usable attribute (true or false). 
+
+=item closed 
+
+Get or set the closed attribute (true or false). 
+
+=item contextElement
+
+Get or set the contextElement  
+
+=item prefLabel
+
+Get or set the identifier of the preferredLabel  
+
+=back
 
 
 =head1 AUTHOR

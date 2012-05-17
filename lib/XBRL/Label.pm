@@ -6,7 +6,7 @@ use Carp;
 #use XML::LibXML; 
 #use XML::LibXML::XPathContext; 
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 use base qw(Class::Accessor);
 
@@ -70,17 +70,31 @@ XBRL::Label - Perl OO Module for encapsulating XBRL Label information
 
 This module is part of the XBRL modules group and is intended for use with XBRL.
 
-new() Object constructor  
+=over 4
 
-id() --Get or set the ID for the object.  The ID is everything after # of the xlink:href
-				attribute of the labels "loc" element.    
+=item new 
 
-role() -- Get or set the label's role.  This is the xlink:role attribute of the label's
-						label element.   
+Object constructor  
 
-lang() --  Get or set the label's language.  
+=item id
 
-value() -- Get or set the label's value.  
+Get or set the ID for the object.  The ID is everything after # of the xlink:href
+attribute of the labels "loc" element.    
+
+=item role
+
+Get or set the label's role.  This is the xlink:role attribute of the label's
+label element.   
+
+=item lang
+
+Get or set the label's language.  
+
+=item value
+
+Get or set the label's value.  
+
+=back
 
 =head1 AUTHOR
 

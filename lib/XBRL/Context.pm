@@ -198,36 +198,65 @@ XBRL::Context - OO Module for Encapsulating XBRL Contexts
 
 This module is part of the XBRL modules group and is intended for use with XBRL.
 
-new(  ) Object constructor takes a scalar containing the XML representing the context 
+=item new   
 
-id() Get or set the context's ID  
+Object constructor takes a scalar containing the XML representing the context 
 
-scheme() Get or set the context's scheme  
+=item id 
 
-identifier() Get or set the context's identifier  
+Get or set the context's ID  
 
-startDate()  Get or set the context's start date   
+=item scheme 
 
-endDate() Get or set the context's end date  
+Get or set the context's scheme  
 
-label() Get or set the context's label  
+=item identifier
 
-dimension() Get or set the context's dimension  
+Get or set the context's identifier  
 
-duration() Get or set the context's duration  
+=item startDate  
 
-has_dim() Returns true if the context has any dimensions   
+Get or set the context's start date   
 
-get_dim_value() Takes a the dimension and returns its value  
+=item endDate 
 
-is_dim_member() Takes a dimension name and returns true if the context 
-			has the dimension. 
+Get or set the context's end date  
 
-check_dims() Takes an array reference of dimension names and returns 
-		true if all of the incoming dimensions are present in the context  
+=item label
 
-get_dimension() Takes a dimension value and returns the value of the dimension. 
+Get or set the context's label  
 
+=item dimension
+
+Get or set the context's dimension  
+
+=item duration
+
+Get or set the context's duration  
+
+=item has_dim 
+
+Returns true if the context has any dimensions   
+
+=item get_dim_value 
+
+Takes a the dimension and returns its value  
+
+=item is_dim_member 
+
+Takes a dimension name and returns true if the context 
+has the dimension. 
+
+=item check_dims 
+
+Takes an array reference of dimension names and returns 
+true if all of the incoming dimensions are present in the context  
+
+=item get_dimension 
+
+Takes a dimension value and returns the value of the dimension. 
+
+=back
 
 =head1 AUTHOR
 

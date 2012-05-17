@@ -3,7 +3,7 @@ package XBRL::Schema;
 use warnings;
 use Carp;
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 use base qw(Class::Accessor);
 
@@ -41,17 +41,30 @@ XBRL::Schema - Perl OO Module for encapsulating XBRL Schema Information
 
 This module is part of the XBRL modules group and is intended for use with XBRL.
 
-new( { file=><schema file path>, xpath=><XML::LibXML::XPathContext of Schema> } )
-		The module contstructor requires both the file path and an 
-		XML::LibXML::XPathContext of the schema.
+=over 4
 
-namespace() -- Get or set the target namespace of the schema 
-		(e.g http://www.xbrl.org/2003/instance ) 
+=item new
 
-file() -- Get or set the filepath for the schema 
+	my $schema = XBLR::Schema->new( { file=><schema file path>, 
+						xpath=><XML::LibXML::XPathContext of Schema> } )
 
-xpath() -- Get or set the XML::LibXML::XPathContext of the schema 
+The module contstructor requires both the file path and an 
+XML::LibXML::XPathContext of the schema.
 
+=item namespace
+
+Get or set the target namespace of the schema 
+(e.g http://www.xbrl.org/2003/instance ) 
+
+=item file
+
+Get or set the filepath for the schema 
+
+=item xpath
+
+Get or set the XML::LibXML::XPathContext of the schema 
+
+=back
 
 =head1 AUTHOR
 

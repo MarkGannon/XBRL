@@ -3,7 +3,7 @@ package XBRL::Item;
 use strict;
 use warnings;
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 use base qw(Class::Accessor);
 
@@ -83,29 +83,54 @@ XBRL::Item - OO Module for Encapsulating XBRL Items
 
 This module is part of the XBRL modules group and is intended for use with XBRL.
 
-new() Object contstructor.  Optionally takes the item XML from the instance document. 
+=over 4
 
-decimal() Get or set the number of decimals to adjust the value by. 
+=item new 
 
-unit() Get or set the unitRef for the item. 
+Object contstructor.  Optionally takes the item XML from the instance document. 
 
-id() Get or set the item's ID.
+=item decimal 
 
-context() Get or set the item's contextRef value. 
+Get or set the number of decimals to adjust the value by. 
 
-name() Get or set the item's name.  
+=item unit 
 
-value() Get or set the item's value. 
+Get or set the unitRef for the item. 
 
-localname() Get or set the localname for the item  
+=item id
 
-prefix() Get or set the prefeix for the item  
+Get or set the item's ID.
 
-namespace() Get or set the prefix for the item  
+=item context 
 
-adjValue() Get or set the item's adjusted value (actuall value with the 
-						decimals adjusted based on the decimals attribute. 
+Get or set the item's contextRef value. 
 
+=item name
+
+Get or set the item's name.  
+
+=item value
+
+Get or set the item's value. 
+
+=item localname
+
+Get or set the localname for the item  
+
+=item prefix 
+
+Get or set the prefeix for the item  
+
+=item namespace
+
+Get or set the prefix for the item  
+
+=item adjValue 
+
+Get or set the item's adjusted value (actuall value with the 
+decimals adjusted based on the decimals attribute. 
+
+=back
 
 =head1 AUTHOR
 

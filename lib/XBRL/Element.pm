@@ -6,7 +6,7 @@ use Carp;
 #use XML::LibXML; 
 #use XML::LibXML::XPathContext; 
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 use base qw(Class::Accessor);
 
@@ -49,22 +49,41 @@ XBRL::Element - OO Module for Encapsulating XBRL Elements
 
 This module is part of the XBRL modules group and is intended for use with XBRL.
 
-new() Constructor for object takes the element XML from the schema and parses it.
+=over 4
 
-name() Get or set the Element's name.
+=item new
 
-id() Get or set the element's ID. 
+Constructor for object takes the element XML from the schema and parses it.
 
-type() Get or set the element's type. 
+=item name
 
-subGroup Get or set the element's subGroup  
+Get or set the Element's name.
 
-abstract Get or set the element's abstractedness (true or false) 
+=item id
 
-nillable Get or set whether the element is nillable (true or false) 
+Get or set the element's ID. 
 
-periodType Get or set the element's period type.  
+=item type 
 
+Get or set the element's type. 
+
+=item subGroup 
+
+Get or set the element's subGroup  
+
+=item abstract 
+
+Get or set the element's abstractedness (true or false) 
+
+=item nillable 
+
+Get or set whether the element is nillable (true or false) 
+
+=item periodType 
+
+Get or set the element's period type.  
+
+=back
 
 =head1 AUTHOR
 

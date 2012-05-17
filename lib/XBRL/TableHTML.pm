@@ -6,7 +6,7 @@ use XML::LibXML;
 use Data::Dumper;
 use HTML::Table;
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 require Exporter;
 
@@ -55,7 +55,7 @@ sub parse_xml() {
 
 	$table->addSectionRow('thead', 0, @{$header_content});
 
-	my $rows = $xml->getRows();
+	y $rows = $xml->getRows();
 
 	for my $row (@{$rows}) {
 		my @items = split("\t", $row);
@@ -128,43 +128,36 @@ sub asText() {
 
 
 
-=head1 XBRL::Item 
+=head1 XBRL::TableHTML 
 
-XBRL::Item - OO Module for Encapsulating XBRL Items 
+XBRL::HTML - OO Module for Creating HTML Tables from XBRL::TableXML objects 
 
 =head1 SYNOPSIS
 
-  use XBRL::Item;
+  use XBRL::TableHTML;
 
-	my $item = XBRL::Item->new($item_xml);	
+	my $html_table = XBRL::TableHTML->new( {xml => $table_xml_object} );	
 	
 =head1 DESCRIPTION
 
 This module is part of the XBRL modules group and is intended for use with XBRL.
 
-new() Object contstructor.  Optionally takes the item XML from the instance document. 
+=over 4
 
-decimal() Get or set the number of decimals to adjust the value by. 
+=item new 
+	
+	my $html_table = XBRL::TableHTML->new( { xml => $xml_table } );	
 
-unit() Get or set the unitRef for the item. 
+Object contstructor.  Optionally takes an XBRL::TableXML object and turns into an
+HTML::Table object
 
-id() Get or set the item's ID.
+=item asText
 
-context() Get or set the item's contextRef value. 
+	my $html_text = $html_table->asText();
 
-name() Get or set the item's name.  
+Returns the text of the HTML::Table object. 
 
-value() Get or set the item's value. 
-
-localname() Get or set the localname for the item  
-
-prefix() Get or set the prefeix for the item  
-
-namespace() Get or set the prefix for the item  
-
-adjValue() Get or set the item's adjusted value (actuall value with the 
-						decimals adjusted based on the decimals attribute. 
-
+=back
 
 =head1 AUTHOR
 
@@ -172,7 +165,7 @@ Mark Gannon <mark@truenorth.nu>
 
 =head1 SEE ALSO
 
-Modules: XBRL XBRL::Schema XBRL::Element XBRL::Label 
+Modules: XBRL 
 
 Source code, documentation, and bug tracking is hosted 
 at: https://github.com/MarkGannon/XBRL . 

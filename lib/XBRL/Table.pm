@@ -21,7 +21,7 @@ our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
 our @EXPORT = qw(
 );
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 
 
@@ -37,7 +37,7 @@ sub new() {
 }
 
 
-sub get_html_table() {
+sub get_xml_table() {
 	my ($self, $uri) = @_;
 
 	if (!$uri) {
@@ -47,7 +47,6 @@ sub get_html_table() {
 	my $xbrl_doc = $self->{'xbrl'};
 	my $tax = $xbrl_doc->get_taxonomy();
 	
-#	my $table = HTML::Table->new(-border => 1);
 	my $table = XBRL::TableXML->new(); 
 
 
@@ -57,7 +56,6 @@ sub get_html_table() {
 	for my $context (@{$header_contexts}) {
 		push(@col_labels, $context->label());	
 	}
-	#$table->addRow('&nbsp;', @col_labels); 	
 	$table->addHeader('&nbsp;', @col_labels); 	
 
 
@@ -68,14 +66,12 @@ sub get_html_table() {
 		my $element = $tax->get_elementbyid($row->to_short());	
 		my $row_items = &get_norm_row($self, $element, $header_contexts);	
 		my $label = $tax->get_label($row->to_short(), $row->prefLabel()); 
-		#$table->addRow($row->{'id'}, @{$row_items});	
-		if ($row_items->[0]) {	
+		#if ($row_items->[0]) {	
+			#print "\t\t\t" . $row->to_short() . "\t" . $label . "\n";	
 			$table->addRow($label, @{$row_items});	
-		}	
+		#}	
 	}
 
-	#eturn $table->getTable();
-	#return $table->as_text();
 	return $table;
 }
 
@@ -113,36 +109,6 @@ sub get_norm_row() {
 	}
 
 	return \@out_array;
-}
-
-
-sub get_uniq_sections() {
-	my ($self, $nodes ) = @_;
-
-
-	my @loc_links = $nodes->getChildrenByLocalName('loc'); 
-	my @arc_links = $nodes->getChildrenByLocalName('definitionArc'); 
-
-	my %subsections = ();
-
-	for my $loc (@loc_links) {
-		for my $arc (@arc_links) {
-			if ( $loc->getAttribute('xlink:label') eq $arc->getAttribute('xlink:from') ) {
-				$subsections{$loc->getAttribute('xlink:href')}++;
-			}
-		}
-	}
-	
-	my @out_array;
-	for my $loc (@loc_links) {
-		my $href = $loc->getAttribute('xlink:href');	
-		if ($subsections{$href} ) {
-			push(@out_array, $href);	
-			delete $subsections{$href};	
-		}
-	}
-
-	return (\@out_array);
 }
 
 
@@ -247,8 +213,6 @@ sub get_header_contexts() {
 	#my $arcs = &get_pres_arcs($self, $uri);
 	
 	my $arcs = $tax->get_arcs("pre", $uri);  
-	#print "First get_arcs dump:\n";
-	#print Dumper($arcs);
 
 	my $all_items = $xbrl_doc->get_all_items();
 
@@ -307,27 +271,35 @@ sub get_row_elements() {
 	#take a uri and return an array of element id + pref label
 	#for landscape dimension tables 	
 	my ($self, $uri) = @_;
+	#print "URI: $uri \n";	
 	my $xbrl_doc = $self->{'xbrl'};	
 	my $tax = $xbrl_doc->get_taxonomy();	
 	my $sub_secs = &get_subsects($self, $uri);
 	my $arcs = $tax->get_arcs("pre", $uri);	
 	
-	my @section_array = ();	
+	my @complete_array = ();	
 
+	#print "Sections: \n";
 		for my $section (@{$sub_secs}) {
-
+			my @sec_array = (); 	
+			#print "$section\n";
 			for my $arc (@{$arcs}) {
 				if ($arc->from_full() eq $section) {
-					push(@section_array, $arc);
+					#print "\t\t" . $arc->to_short() . "\n";	
+					push(@sec_array, $arc);
 				}
 			}
+			
+			my @ordered_array = sort { $a->order() <=> $b->order() } @sec_array;	
+		
+			push(@complete_array, @ordered_array);	
 		}
 
 
-	my @ordered_array = sort { $a->order() <=> $b->order() } @section_array;	
+	#my @ordered_array = sort { $a->order() <=> $b->order() } @section_array;	
 
 	
-	return \@ordered_array;
+	return \@complete_array;
 }
 
 
@@ -362,21 +334,33 @@ XBRL::Table - OO Module for creating HTML Tables from XBRL Sections
 
   use XBRL::Table;
 
-	my $table = XBRL::Table->new($xbrl_object); 
+	my $table = XBRL::Table->new($xbrl_doc, $uri); 
 
-	my $html_table = $table->get_html_table($section_id); 
+	my $xml_table = $table->get_xml_table($section_id); 
 
 	
 =head1 DESCRIPTION
 
 This module is part of the XBRL modules group and is intended for use with XBRL.
 
-new($xbrl_doc) -- Object constructor that takes  an XBRL object.
+=over 4
 
-get_html_report($section_role_uri) -- Takes a section role URI 
-			(e.g http://fu.bar.com/role/DisclosureGoodwill) and returns an 
-			HTML Table of that section  
-				
+=item new
+
+		my $table = XBRL::Table->new($xbrl_doc, $uri); 
+
+Object constructor that takes  requires XBRL object as the first parameter.
+The second paramter, which is optional, is the URI for the section of the XBRL
+doc to be converted into an XBRL::TableXML object
+
+=item get_html_report
+
+	my $xml_table = $table->get_xml_table($uri); 
+
+Optionally takes a URI for the XBRL section to returned and returns an XBRL::TableXML
+object.
+
+=back
 
 =head1 AUTHOR
 
