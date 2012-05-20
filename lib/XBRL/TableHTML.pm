@@ -55,7 +55,7 @@ sub parse_xml() {
 
 	$table->addSectionRow('thead', 0, @{$header_content});
 
-	y $rows = $xml->getRows();
+	my $rows = $xml->getRows();
 
 	for my $row (@{$rows}) {
 		my @items = split("\t", $row);

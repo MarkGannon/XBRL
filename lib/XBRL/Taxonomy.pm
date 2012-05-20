@@ -162,7 +162,7 @@ sub in_def() {
 
 	my $arcs = $self->{'def'}->{$sec_uri};
 
-	if ($arcs) {
+	if ($arcs->[0]) {
 		return $arcs;
 	}
 

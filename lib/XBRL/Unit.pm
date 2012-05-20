@@ -50,7 +50,7 @@ sub parse() {
 
 =head1 NAME
 
-XBR::Unit - Perl Objected-Oriented Module for ecapsulating XBRL Units 
+XBRL::Unit - Perl Objected-Oriented Module for ecapsulating XBRL Units 
 
 =head1 SYNOPSIS
 
