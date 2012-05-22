@@ -132,7 +132,11 @@ sub parse_file() {
 	#load the schemas 
 	my $s_ref = $xc->findnodes("//*[local-name() = 'schemaRef']");
 	my $schema_file = $s_ref->[0]->getAttribute('xlink:href');
-	my $schema_xpath = &make_xpath($self, $schema_file);
+	
+	my $schema_path = File::Spec->catpath( undef, $self->{'base'}, $schema_file );	
+	
+	my $schema_xpath = &make_xpath($self, $schema_path);
+	
 	my $main_schema = XBRL::Schema->new( { file=> $schema_file, xpath=>$schema_xpath });
 	
 	$self->{'taxonomy'} = XBRL::Taxonomy->new( {main_schema => $main_schema} ); 
@@ -143,6 +147,7 @@ sub parse_file() {
 		#Get the file 
 		my $s_file = &get_file($self, $other, $self->{'schema_dir'}); 
 		#make the xpath 
+		#my $s_path = File::Spec->catpath( undef, $self->{'base'}, $s_file);	
 		my $s_xpath = &make_xpath($self, $s_file);	
 		#add the schema   
 		my $schema = XBRL::Schema->new( { file => $s_file, xpath=>$s_xpath } );	
@@ -334,6 +339,7 @@ sub get_item_by_contexts() {
 sub make_xpath() {
 	#take a file path and return an xpath context
 	my ($self, $in_file) = @_;
+	
 	my $ns = &extract_namespaces($self, $in_file); 
 
 	my $xml_doc =XML::LibXML->load_xml( location => $in_file); 
