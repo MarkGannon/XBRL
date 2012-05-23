@@ -51,27 +51,22 @@ sub parse_xml() {
 	
 	my $header_content = $xml->getHeader(); 
 
-	#$table->addRow(@{$header_content});
-
 	$table->addSectionRow('thead', 0, @{$header_content});
 
 	my $rows = $xml->getRows();
 
 	for my $row (@{$rows}) {
-		my @items = split("\t", $row);
-		$table->addRow(@items);	
+		if ($row) {	
+			my @items = split("\t", $row);
+			$table->addRow(@items);	
+		}	
 	}
 
 	my $num_cols = $table->getTableCols();
 	
 	$table->setColClass(1, "label");
 
-	#for (my $i = 2; $i <=$num_cols; $i++) {
-	#	$table->setColClass($i, "number");
-	#}
-
 	#set class for either a number or text for cells
-	
 	my $total_rows = $table->getTableRows();
 
 		for (my $j = 2; $j <= $num_cols; $j++) {

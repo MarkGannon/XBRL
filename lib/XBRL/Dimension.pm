@@ -191,15 +191,14 @@ sub set_row_labels() {
 	my $uri = $self->{'uri'};	
 	my $xbrl_doc = $self->{'xbrl'};
 	my $tax = $xbrl_doc->get_taxonomy();
-#	my @p_arcs = @{$self->{'pre_arcs'}}; 
 	my $p_arcs = $tax->get_arcs('pre', $uri);
 
 
 	#TODO Deal with different preferred labels for the same id in the same table
 	#this code just takes the first one for every instance.
 	for (my $i = 1; $i <= $table->getTableRows; $i++) {
-		#my $id = $table->getCell($i,1);
-		my $id = $table->label($i); 	
+					#my $id = $table->getCell($i,1);
+		my $id = $table->get_row_id($i); 	
 		$id =~ s/\:/\_/;	
 		for (my $k = 0; $k < @{$p_arcs}; $k++) {
 				if ($id eq $p_arcs->[$k]->to_short()) {
@@ -211,7 +210,6 @@ sub set_row_labels() {
 			}
 		}
 	}
-
 }
 
 

@@ -4,6 +4,7 @@ use strict;
 use warnings;
 use XML::LibXML;
 use Data::Dumper;
+use Carp;
 
 our $VERSION = '0.02';
 
@@ -88,13 +89,14 @@ sub getRows() {
 	my $rows = $self->{'table'}->findnodes("//row");
 	
 	for my $row (@{$rows}) {	
-		my $row_string = $row->getAttribute('xbrl-item');	
-		
+		my $row_string = $row->getAttribute('xbrl-label');	
+		my $id = $row->getAttribute('xbrl-item');	
 		my $cells = $row->getChildrenByLocalName('cell'); 	
 
 		for my $cell(@{$cells}) {
 			$row_string = $row_string . "\t" . $cell->textContent();
 		}
+			
 		push(@out_array, $row_string);	
 	}	
 	return \@out_array;
@@ -107,16 +109,31 @@ sub label() {
 	my $rows = $self->{'table'}->findnodes("//row");
 	$row_number = $row_number -1;
 	
-	my $item_name = $rows->[$row_number]->getAttribute('xbrl-item');
+	my $item_label = $rows->[$row_number]->getAttribute('xbrl-label');
 
 	if ($label) {
-		$rows->[$row_number]->setAttribute('xbrl-item', $label );	
+		$rows->[$row_number]->setAttribute('xbrl-label', $label );	
 	}
 	else {
-			return $item_name;			
+			return $item_label;			
 	}
 	return undef;
 }
+
+sub get_row_id() {
+	my ($self, $row_number) = @_;
+	
+	my $rows = $self->{'table'}->findnodes("//row");
+	
+	$row_number = $row_number -1;
+	
+	my $item_id = $rows->[$row_number]->getAttribute('xbrl-item');
+
+	return($item_id);
+
+}
+
+
 
 sub getCell() {
 	my ($self, $row_number, $col_number) = @_;

@@ -533,8 +533,8 @@ sub get_html_report() {
 		
 			if ($final_table) {	
 				my $html_table = XBRL::TableHTML->new( { xml => $final_table } );	
-				if ($html_table) {	
-				$html = $html . $html_table->asText() . "\n\n\n";	
+				if (($html_table) && ($html_table->asText())) {	
+								$html = $html . $html_table->asText() . "\n\n\n";	
 				}	
 			}	
 		}
