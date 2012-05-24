@@ -221,6 +221,20 @@ sub parse_file() {
 		
 		my $item = XBRL::Item->new($instance_xml);	
 		push(@items, $item);	
+		#deal with document level tags 	
+		if ($item->name() =~ m/dei\:EntityRegistrantName/i) { 
+			$self->{'firm'} = $item->value();
+		}
+		elsif ($item->name() =~ m/dei\:DocumentType/i) { 
+			$self->{'report_type'} = $item->value();	
+		}
+		elsif ($item->name() =~ m/dei\:DocumentPeriodEndDate/i) { 
+			$self->{'report_date'} = $item->value();	
+		}
+		elsif ($item->name() =~ m/dei\:DocumentFiscalPeriodFocus/i) { 
+			$self->{'report_period'} = $item->value();	
+		}
+			
 	}
 	$self->{'items'} = \@items;
 
@@ -562,7 +576,25 @@ sub get_html_report() {
 }
 
 
+sub get_company() {
+	my ($self) = @_;
+	return($self->{'firm'}); 
+}
 
+sub report_type() {
+	my ($self) = @_;
+	return($self->{'report_type'}); 
+}
+
+sub report_date() {
+	my ($self) = @_;
+	return($self->{'report_date'}); 
+}
+
+sub report_period() {
+	my ($self) = @_;	
+	return($self->{'report_period'}); 
+}
 
 1;
 
@@ -673,6 +705,30 @@ Returns an XBRL::Context object based on the ID passed into the function.
 	my $taxonomy = $xbrl_doc->get_taxonomy();
 
 Returns an XBRL::Taxonomy instance based on the XBRL document. 
+
+
+=item get_company 
+
+	my $firm_name = $xbrl_doc->get_compan();
+
+Returns a scalar with the name of the firm issuing the document.
+
+=item report_type 
+	
+	my $report = $xbrl_doc->report_type()
+
+Returns the report type (e.g. 10-Q).
+
+=item report_date 
+
+	my $date = $xbrl_doc->report_date()
+
+Returns the date of the financial statement 
+
+=item report_period 
+
+Returns a scalar with the period (e.g. Q2). 
+
 
 =back
 
