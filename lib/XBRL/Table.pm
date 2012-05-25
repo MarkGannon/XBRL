@@ -126,7 +126,9 @@ sub get_norm_row() {
 			if ($header_context->label() eq $item_context->label()) {
 				$value = $item->adjValue();	
 			#	$row = $row . "<td>" . $value . "</td>\n";
-				push(@out_array, $value);	
+				if ($value) {	
+					push(@out_array, $value);	
+				}	
 			}
 		}
 		if (!$value) {
@@ -134,7 +136,6 @@ sub get_norm_row() {
 				push(@out_array, '&nbsp');
 		}
 	}
-
 	return \@out_array;
 }
 

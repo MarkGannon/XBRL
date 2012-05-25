@@ -80,7 +80,7 @@ sub new() {
 	}
 	else {
 		#the schema_dir parameter wasn't there, use tmp 
-		$self->{'schema_dir'} = File::Temp->newdir(); 
+		$self->{'schema_dir'} = File::Temp->newdir(cleanup=>1); 
 	}
 
 	my ($volume, $dir, $filename);
@@ -321,6 +321,7 @@ sub get_item() {
 	return($self->{'items'}[$item_number]); 
 }
 
+
 sub get_all_items() {
 	my ($self) = @_;
 	return($self->{'items'});
@@ -489,7 +490,7 @@ sub get_html_report() {
 	
 	my $items = $self->{'items'};
 
-
+	#TODO Use the already calculated versions to avoid extra loop
 	for my $item (@{$items}) {
 		if ($item->name() eq 'dei:EntityRegistrantName') {
 			$firm= $item->value();
@@ -542,6 +543,7 @@ sub get_html_report() {
 		if ($tax->in_def($sect->{'uri'})) {
 			#Dimension table 	
 			my $dim = XBRL::Dimension->new($self, $sect->{'uri'});	
+
 			my $final_table;	
 			$final_table = $dim->get_xml_table($sect->{'uri'}); 	
 		

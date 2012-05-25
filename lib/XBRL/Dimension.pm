@@ -52,13 +52,103 @@ sub make_port_table() {
 	my ($self) = @_; 
 	my $uri = $self->{'uri'};	
 	my $xbrl_doc = $self->{'xbrl'};
+	my $hypercubes = &get_hypercubes($self);
+	my $table;
+	
+	if ($hypercubes->[0]) {
+		$table = &port_hypercubes($self);
+	}
+	else {
+		$table = &port_nohypercubes($self);
+	}
+	
+	return $table;
+}
+
+
+sub port_nohypercubes() {
+	my ($self) = @_; 
+	my $uri = $self->{'uri'};	
+	my $xbrl_doc = $self->{'xbrl'};
+	my $tax = $xbrl_doc->get_taxonomy();
+	my $header_contexts	= &get_header_contexts($self); 
+	my @col_labels;
+	
+	for my $context (@{$header_contexts}) {
+		push(@col_labels, $context->label());	
+	}
+	my $table = XBRL::TableXML->new(); 
+	$table->addHeader('&nbsp;', @col_labels); 	
+	my $arcs = $tax->get_arcs('def', $self->{'uri'}); 
+
+	my @possible_sections;
+
+	for my $arc (@{$arcs}) {
+		push(@possible_sections, $arc->from_full());
+	}
+
+	my %seen = ();
+	my @uniq = ();
+	foreach my $uri (@possible_sections) {
+    unless ($seen{$uri}) {
+        $seen{$uri} = 1;
+        push(@uniq, $uri);
+    }
+	}
+	
+	my $all_items = $xbrl_doc->get_all_items();
+	
+	for my $sect (@uniq) {
+		my @elements = ();	
+		for my $arc (@{$arcs}) {
+			if ($arc->from_full() eq $sect) {
+				push(@elements, $arc->to_short());
+			}
+		}
+		
+		for my $element (@elements) {
+			$element =~ s/\_/\:/;	
+			my @row = ();
+			push(@row, $element);
+			for my $context (@{$header_contexts}) {
+				my $value;	
+				for my $item (@{$all_items}) {
+					if (($item->name() eq $element) ) {
+						my $item_context = $xbrl_doc->get_context($item->context()); 
+							if ($item_context->label() eq $context->label()) {
+									$value = $item->adjValue;	
+									if ($value) {	
+										push(@row,$item->adjValue());
+									}	
+								}
+					}
+				}
+				if (!$value) {
+					push(@row, '&nbsp');
+				}
+			}
+			$table->addRow(@row);	
+		}
+	}
+	
+	&set_row_labels($self, $table, $uri);	
+	
+	return $table;
+}
+
+
+sub port_hypercubes() {
+	my ($self) = @_; 
+	my $uri = $self->{'uri'};	
+	my $xbrl_doc = $self->{'xbrl'};
+	my $hypercubes = &get_hypercubes($self);
+
 	my $tax = $xbrl_doc->get_taxonomy();
 #	my $table = HTML::Table->new(-border => 1);
 	my $table = XBRL::TableXML->new(); 
 	
 	my $header_contexts	= &get_header_contexts($self); 
 	my @col_labels;
-	my $hypercubes = &get_hypercubes($self);
 	
 	for my $context (@{$header_contexts}) {
 		push(@col_labels, $context->label());	
@@ -142,7 +232,6 @@ sub make_land_table() {
 		push(@col_elements, @{$tmp_cols});	
 	}	
 
-	#$table->addRow('&nbsp;', @col_elements);
 	$table->addHeader('&nbsp;', @col_elements); 	
 
 	for my $e (@row_elements) {
@@ -162,15 +251,6 @@ sub make_land_table() {
 		$col_counter++;
 	}
 
-	#Set the row level labels 
-	#my $count = 2;	
-	#for my $label (@row_elements) {
-	#	my $prefLbl = $label->{'prefLabel'};
-	#	my $id = $table->getCell($count, 1);
-	#	my $label = $tax->get_label($id, $prefLbl);
-	#	$table->setCell($count, 1, $label);
-	# $count++;
-	#}
 
 	&set_row_labels($self, $table, $uri);	
 
@@ -182,7 +262,6 @@ sub make_land_table() {
 		$table->setCell(1, $i, $label);	
 	}
 
-	#return $table->getTable();
 	return $table;
 }
 
@@ -493,9 +572,8 @@ sub get_row_elements() {
 				$dimension_default = $arc;
 			}
 		}	
-						#if (($arc->arcrole() eq 'http://xbrl.org/int/dim/arcrole/domain-member') &&   ($arc->from_short() eq $arc_all->from_short() )) {
-
-	my @dm_arcs;
+	
+		my @dm_arcs;
 	for my $arc (@{$arcs}) {	
 		if ($arc->arcrole() eq 'http://xbrl.org/int/dim/arcrole/domain-member') { 
 			push(@dm_arcs, $arc);
@@ -506,10 +584,8 @@ sub get_row_elements() {
 
 	&test_recursion($arc_all->from_short(), \@dm_arcs, \%unique_list, \@arclist);	
 
-#	my @ordered_array = sort { $a->order() <=> $b->order() } @arclist;	
 	my @out_array;
 
-	#for my $arc (@ordered_array) {
 	for my $arc (@arclist) {
 		push(@out_array, $arc->to_short());
 	}
@@ -682,6 +758,9 @@ sub get_hypercubes() {
 
 	return \@hypercubes;
 }
+
+
+
 
 =head1 XBRL::Dimension 
 
