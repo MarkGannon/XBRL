@@ -12,7 +12,9 @@ WriteMakefile(
 			'File::Spec' => 3.33,
 			'File::Temp' => 0.22,	
 			'Exporter' => 5.66,	
-			'HTML::Table' => 2.08,	
+			'HTML::Table' => 2.08,
+			'Encode' => 2.44,	
+			'Text::Capitalize' => 1.3,	
 			'XML::LibXML' => 1.90  }, 
     ($] >= 5.005 ?     ## Add these new keywords supported since 5.005
       (ABSTRACT_FROM  => 'lib/XBRL.pm', # retrieve abstract from module

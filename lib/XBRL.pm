@@ -21,6 +21,8 @@ use File::Spec qw( splitpath catpath curdir);
 use File::Temp qw(tempdir);
 use Cwd;
 use Data::Dumper;
+use Text::Capitalize;
+use Encode qw(decode_utf8);
 
 require Exporter;
 
@@ -528,7 +530,8 @@ sub get_html_report() {
 		$html = $html . '</style>'; 
 
 	}
-
+	
+	$title = capitalize_title(decode_utf8($title));
 
 	$html = $html . "</head><body>\n";
 
@@ -539,7 +542,9 @@ sub get_html_report() {
 	my $sections = $tax->get_sections();
 		
 	for my $sect (@{$sections}) {
-		$html = $html . "<h2>" . $sect->{'def'} . "</h2>\n";	
+		
+					my $sect_title = capitalize_title(decode_utf8($sect->{'def'}));	
+		$html = $html . "<h2>" . $sect_title . "</h2>\n";	
 		if ($tax->in_def($sect->{'uri'})) {
 			#Dimension table 	
 			my $dim = XBRL::Dimension->new($self, $sect->{'uri'});	
