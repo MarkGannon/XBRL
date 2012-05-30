@@ -175,7 +175,9 @@ sub port_hypercubes() {
 							my $item_context = $xbrl_doc->get_context($item->context());
 							if ($item_context->label() eq $h_context->label()) {	
 								$value = $item->adjValue();	
-								push(@row_items, $item->adjValue());
+								if ($value) {	
+									push(@row_items, $item->adjValue());
+								}	
 							}
 						}
 						if (!$value) {	
@@ -196,7 +198,9 @@ sub port_hypercubes() {
 						my $item_context = $xbrl_doc->get_context($item->context());
 						if ($h_context->label() eq $item_context->label()) {
 							$value = $item->adjValue();	
-							push(@row_elements, $item->adjValue());
+							if ($value) {	
+								push(@row_elements, $item->adjValue());
+							}	
 						}	
 					}	
 					if (!$value) {

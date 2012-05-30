@@ -236,7 +236,9 @@ sub parse_file() {
 		elsif ($item->name() =~ m/dei\:DocumentFiscalPeriodFocus/i) { 
 			$self->{'report_period'} = $item->value();	
 		}
-			
+		elsif ($item->name() =~ m/dei\:TradingSymbol/i) {
+			$self->{'ticker'} = $item->value();
+		}
 	}
 	$self->{'items'} = \@items;
 
@@ -511,7 +513,10 @@ sub get_html_report() {
 	elsif ($type eq '10-Q') {
 		$title = $firm . " 10-Q for Quarter Ending: " . $enddate; 
 	}
-
+	else {
+		$title = $firm . " " . $enddate; 
+	}
+	
 	my $html = "<html><head><title>$title</title>\n"; 
 
 	if ($css_file) {
@@ -543,8 +548,15 @@ sub get_html_report() {
 		
 	for my $sect (@{$sections}) {
 		
-					my $sect_title = capitalize_title(decode_utf8($sect->{'def'}));	
+		my $sect_title;   
+		eval{ $sect_title = capitalize_title(decode_utf8($sect->{'def'})) };	
+		if ($sect_title) {	
 		$html = $html . "<h2>" . $sect_title . "</h2>\n";	
+		}
+		else {
+			$html = $html . "<h2>" . $sect->{'def'}  . "</h2>\n";	
+		}
+		
 		if ($tax->in_def($sect->{'uri'})) {
 			#Dimension table 	
 			my $dim = XBRL::Dimension->new($self, $sect->{'uri'});	
@@ -602,6 +614,47 @@ sub report_period() {
 	my ($self) = @_;	
 	return($self->{'report_period'}); 
 }
+
+sub get_ticker() {
+	my ($self) = @_;
+	return($self->{'ticker'}); 
+}	
+
+
+sub get_income_statement() {
+	my ($self) = @_;
+	my $tax = $self->get_taxonomy();
+
+	my $sections = $tax->get_sections();
+
+	my $income_uri;	
+	FOO: {	
+		for my $sect (@{$sections}) {
+			my $title = $sect->{'def'};	
+				if (($title =~ m/statement/i) && 
+					(($title =~m /operation/i) || 
+					($title =~ m/income/i) || 
+					($title =~ m/loss/i) ) && 	
+					($title !~ m/parenthetical/i)) {
+						$income_uri = $sect->{'uri'};	
+					}
+					if ($income_uri) {
+						last FOO;
+					}
+				}
+			}	
+		
+			if ($tax->in_def($income_uri)) {
+				my $dim = XBRL::Dimension->new($self, $income_uri);
+				return($dim->get_xml_table($income_uri));
+			}
+			else {
+				my $pres_table = XBRL::Table->new($self, $income_uri);
+				return($pres_table->get_xml_table($income_uri));	
+			}
+
+}
+
 
 1;
 

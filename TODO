@@ -1,13 +1,7 @@
 Refactor code
-	Rework it so a standard XML is output
-	HTML is created from the XML 
 	Fix Test Code to call xml files from the t directory
 
-Support for hypercube-less dimensions
-
 Error Reporting System compliant with XBRL standard errors
-
-HTML Classes and color scheme 
 
 Documentation
 
