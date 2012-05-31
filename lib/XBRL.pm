@@ -634,6 +634,7 @@ sub get_income_statement() {
 				if (($title =~ m/statement/i) && 
 					(($title =~m /operation/i) || 
 					($title =~ m/income/i) || 
+					($title =~ m/earning/i) || 	
 					($title =~ m/loss/i) ) && 	
 					($title !~ m/parenthetical/i)) {
 						$income_uri = $sect->{'uri'};	
@@ -654,6 +655,8 @@ sub get_income_statement() {
 			}
 
 }
+
+
 
 
 1;

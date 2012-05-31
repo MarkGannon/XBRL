@@ -81,30 +81,19 @@ sub port_nohypercubes() {
 	$table->addHeader('&nbsp;', @col_labels); 	
 	my $arcs = $tax->get_arcs('def', $self->{'uri'}); 
 
-	my @possible_sections;
-
-	for my $arc (@{$arcs}) {
-		push(@possible_sections, $arc->from_full());
-	}
-
-	my %seen = ();
-	my @uniq = ();
-	foreach my $uri (@possible_sections) {
-    unless ($seen{$uri}) {
-        $seen{$uri} = 1;
-        push(@uniq, $uri);
-    }
-	}
+	my %unique_hash;
+	my @final_array;
+	my @elements;
 	
+	&test_recursion($arcs->[0]->from_short(), $arcs, \%unique_hash, \@final_array);
+
+	for my $arc (@final_array) {
+		push(@elements, $arc->to_short());
+	}
+
+
 	my $all_items = $xbrl_doc->get_all_items();
 	
-	for my $sect (@uniq) {
-		my @elements = ();	
-		for my $arc (@{$arcs}) {
-			if ($arc->from_full() eq $sect) {
-				push(@elements, $arc->to_short());
-			}
-		}
 		
 		for my $element (@elements) {
 			$element =~ s/\_/\:/;	
@@ -129,7 +118,7 @@ sub port_nohypercubes() {
 			}
 			$table->addRow(@row);	
 		}
-	}
+	
 	
 	&set_row_labels($self, $table, $uri);	
 	
