@@ -124,7 +124,8 @@ sub get_norm_row() {
 			my $item_context = $xbrl_doc->get_context($item->context());
 			next if $item_context->has_dim();	
 			if ($header_context->label() eq $item_context->label()) {
-				$value = $item->adjValue();	
+				$value = $item->value();	
+				#$value = $item->adjValue();	
 			#	$row = $row . "<td>" . $value . "</td>\n";
 				if ($value) {	
 					push(@out_array, $value);	
@@ -307,9 +308,13 @@ sub get_row_elements() {
 	my %unique_hash;
 	my @final_array;
 
-	&test_recursion($arcs->[0]->from_short(), $arcs, \%unique_hash, \@final_array);
-	
-	return \@final_array;
+	if ($arcs->[0]) {
+		&test_recursion($arcs->[0]->from_short(), $arcs, \%unique_hash, \@final_array);
+		return $arcs;
+	}	
+	else {
+		return undef;
+	}
 }
 
 sub test_recursion() {

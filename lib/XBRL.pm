@@ -257,12 +257,16 @@ sub make_arcs() {
 	my $section = $xpath->findnodes("//*[local-name() = '" . $type . "'][\@xlink:role = '" . $uri . "' ]"); 
 	
 	unless ($section) {return undef; }
+
+	my (@loc_links, @arc_links);
+
+	for my $node (@{$section}) {
+		push(@loc_links,  $node->getChildrenByLocalName('loc')); 
+		$type =~ s/Link$/Arc/g;	
+		push(@arc_links, $node->getChildrenByLocalName($type)); 
+	}
 	
-	my @loc_links = $section->[0]->getChildrenByLocalName('loc'); 
-	$type =~ s/Link$/Arc/g;	
-	my @arc_links = $section->[0]->getChildrenByLocalName($type); 
-
-
+	
 	for my $arc_xml (@arc_links) {
 		my $arc = XBRL::Arc->new();
 		$arc->order($arc_xml->getAttribute('order'));	
@@ -293,10 +297,33 @@ sub make_arcs() {
 		push(@out_arcs, $arc);	
 	}
 
-	return \@out_arcs;
+#	my %unique_hash;
+#	my @final_array;
+#	if (($type =~ m/presentation/) && ($loc_links[0])) {	
+#		my $full_url = $loc_links[0]->getAttribute('xlink:href');
+#		$full_url =~ m/\#([A-Za-z0-9_-].+)$/; 	
+#		&flatten($1, \@out_arcs, \%unique_hash, \@final_array);
+#		return \@final_array;	
+#	}	
+#	else {
+		return \@out_arcs;
+	#}
 }
 
+sub flatten() {
+	my ($domain_finder, $arc_queue, $unique_hash, $final_array  ) = @_;
+	
 
+	for my $incoming (@{$arc_queue}) {
+		if ($domain_finder eq $incoming->from_short) {
+			if (! $unique_hash->{$incoming->to_short} ) {
+				$unique_hash->{$incoming->to_short}++;
+				push(@{$final_array}, $incoming);	
+				&flatten($incoming->to_short(), $arc_queue, $unique_hash, $final_array);	
+			}	
+		}
+	}
+}
 
 sub get_taxonomy() {
 	my ($self) = @_;
@@ -370,7 +397,11 @@ sub make_xpath() {
 	for (keys %{$ns}) {
 		$xml_xpath->registerNs($_, $ns->{$_});
 	}
-	
+
+	#p3xbrl.com leaves out the link namespace in its schemas
+	$xml_xpath->registerNs('link', 'http://www.xbrl.org/2003/linkbase');
+
+
 	return $xml_xpath;
 }
 
@@ -551,7 +582,7 @@ sub get_html_report() {
 		my $sect_title;   
 		eval{ $sect_title = capitalize_title(decode_utf8($sect->{'def'})) };	
 		if ($sect_title) {	
-		$html = $html . "<h2>" . $sect_title . "</h2>\n";	
+			$html = $html . "<h2>" . $sect_title . "</h2>\n";	
 		}
 		else {
 			$html = $html . "<h2>" . $sect->{'def'}  . "</h2>\n";	

@@ -1,6 +1,10 @@
 Refactor code
 	Fix Test Code to call xml files from the t directory
 
+Dimension with contents in different definitionLink sections
+
+Merge Dimension dates between point and Duration
+
 Error Reporting System compliant with XBRL standard errors
 
 Documentation

@@ -38,20 +38,43 @@ sub new() {
 sub addRow() {
 	my ($self, @items) = @_;
 
-	my $row = XML::LibXML::Element->new("row");
-	$row->setAttribute("xbrl-item", $items[0]);
-
-
-	for (my $i = 1; $i < @items; $i++) {
-		my $cell = XML::LibXML::Element->new("cell");
-		my $content = $items[$i];
-		$cell->appendText($content);
-		$row->appendChild($cell);	
-	}
+	if (&has_entries(\@items)) {
+		my $row = XML::LibXML::Element->new("row");
+		$row->setAttribute("xbrl-item", $items[0]);
 	
-	$self->{'table'}->appendChild($row);
-
+	
+		for (my $i = 1; $i < @items; $i++) {
+			my $cell = XML::LibXML::Element->new("cell");
+			my $content = $items[$i];
+			$cell->appendText($content);
+			$row->appendChild($cell);	
+		}
+		
+		$self->{'table'}->appendChild($row);
+	}
 }
+
+sub has_entries() {
+	#take the array representing a row and check to see if it has any numbers
+	#return 1 if it does and undef if it does not
+	#there should be no reason to call this function externally	
+	
+	my ($row_array) = @_;  
+
+	my $number;
+
+	FOO: {
+		for (my $i = 1; $i < @{$row_array}; $i++) {
+	
+			if (($row_array->[$i] =~ m/\d/) || (($row_array->[$i] =~ m/\w/) && ($row_array->[$i] !~ m/nbsp/ )) ){
+				$number = 1;
+				last FOO;
+			}
+		}
+	}
+	return $number;
+}
+
 
 sub addHeader() {
 	my ($self, @items) = @_;
@@ -179,6 +202,19 @@ sub as_text() {
 	return($self->{'table'}->toString());
 }
 
+sub get_ids() {
+	my ($self) = @_;
+
+	my @out_array;
+
+	my $rows = $self->{'table'}->findnodes("//row");
+
+	for my $row (@{$rows}) {
+		push(@out_array, $row->getAttribute('xbrl-item'));
+	}
+	
+	return(\@out_array);
+}
 
 
 
@@ -213,7 +249,7 @@ XBRL::TableXML - OO Module for Encapsulating XBRL Tables in XML
 
 	my $xml_text = $xml_table->as_text();
 
-
+	my $xbrl_tags = $xml_table->get_ids();
 
 =head1 DESCRIPTION
 
@@ -289,6 +325,13 @@ returns the label value for the row.
 
 Returns the XML table as text.
 
+=item get_ids
+
+	my $xbrl_tags = $xml_table->get_ids();
+
+Returns an array reference with a list of all the XBRL tags (one per row).  
+
+
 =back
 
 =head1 AUTHOR
@@ -318,5 +361,6 @@ at your option, any later version of Perl 5 you may have available.
 =cut
 
 1;
+
 
 

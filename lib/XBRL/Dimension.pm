@@ -8,6 +8,7 @@ use XML::LibXML::NodeList;
 use XBRL::Arc;
 use HTML::Table;
 use XBRL::TableXML;
+use Data::Dumper;
 
 require Exporter;
 
@@ -104,10 +105,11 @@ sub port_nohypercubes() {
 				for my $item (@{$all_items}) {
 					if (($item->name() eq $element) ) {
 						my $item_context = $xbrl_doc->get_context($item->context()); 
-							if ($item_context->label() eq $context->label()) {
-									$value = $item->adjValue;	
+							if ((!$item_context->has_dim() ) && ($item_context->label() eq $context->label() ) ) {
+									#$value = $item->adjValue;	
+									$value = $item->value;	
 									if ($value) {	
-										push(@row,$item->adjValue());
+										push(@row,$value);
 									}	
 								}
 					}
@@ -150,6 +152,31 @@ sub port_hypercubes() {
 	for my $hcube (@{$hypercubes}) {
 		my $domain_names = &get_domain_names($self, $hcube);	
 		my $row_elements = &get_row_elements($self, $hcube);	
+
+			for my $row (@{$row_elements}) {
+				my @row_elements;
+				my $items = &get_free_items($self, $row);  
+				for my $h_context (@{$header_contexts}) {
+					my $value;	
+					for my $item (@{$items}) {
+						my $item_context = $xbrl_doc->get_context($item->context());
+						if ($h_context->label() eq $item_context->label()) {
+							#$value = $item->adjValue();	
+							$value = $item->value();	
+							if ($value) {	
+								push(@row_elements, $value);
+							}	
+						}	
+					}	
+					if (!$value) {
+						push(@row_elements, '&nbsp;');
+					}	
+				}	
+				$table->addRow($row, @row_elements);	
+			}
+		
+		
+		
 		if ($domain_names->[0]) {	
 			for my $domain (@{$domain_names}) {
 				my $d_label = $tax->get_label($domain);	
@@ -163,9 +190,10 @@ sub port_hypercubes() {
 						for my $item (@{$items}) {
 							my $item_context = $xbrl_doc->get_context($item->context());
 							if ($item_context->label() eq $h_context->label()) {	
-								$value = $item->adjValue();	
+								#$value = $item->adjValue();	
+								$value = $item->value();	
 								if ($value) {	
-									push(@row_items, $item->adjValue());
+									push(@row_items, $value);
 								}	
 							}
 						}
@@ -177,28 +205,28 @@ sub port_hypercubes() {
 				}
 			}
 		}	
-		else {
-			for my $row (@{$row_elements}) {
-				my @row_elements;
-				my $items = &get_free_items($self, $row);  
-				for my $h_context (@{$header_contexts}) {
-					my $value;	
-					for my $item (@{$items}) {
-						my $item_context = $xbrl_doc->get_context($item->context());
-						if ($h_context->label() eq $item_context->label()) {
-							$value = $item->adjValue();	
-							if ($value) {	
-								push(@row_elements, $item->adjValue());
-							}	
-						}	
-					}	
-					if (!$value) {
-						push(@row_elements, '&nbsp;');
-					}	
-				}	
-				$table->addRow($row, @row_elements);	
-			}
-		}	
+#		else {
+#			for my $row (@{$row_elements}) {
+#				my @row_elements;
+#				my $items = &get_free_items($self, $row);  
+#				for my $h_context (@{$header_contexts}) {
+#					my $value;	
+#					for my $item (@{$items}) {
+#						my $item_context = $xbrl_doc->get_context($item->context());
+#						if ($h_context->label() eq $item_context->label()) {
+#							$value = $item->adjValue();	
+#							if ($value) {	
+#								push(@row_elements, $item->adjValue());
+#							}	
+#						}	
+#					}	
+#					if (!$value) {
+#						push(@row_elements, '&nbsp;');
+#					}	
+#				}	
+#				$table->addRow($row, @row_elements);	
+#			}
+#		}	
 	}	
 	
 	&set_row_labels($self, $table, $uri);	
@@ -400,7 +428,8 @@ sub get_member_items() {
 		my $value = shift(@{$items});	
 		if ($value) {	
 			#print "$label\t" . $value->name() . "\t" . $value->value() . "\n";	
-			push(@out_array, $value->adjValue());	
+			#push(@out_array, $value->adjValue());	
+			push(@out_array, $value);	
 		}	
 		else {
 			push(@out_array, '&nbsp;');	
@@ -739,7 +768,13 @@ sub get_hypercubes() {
 	my $uri = $self->{'uri'};	
 	#my ($self, $type, $uri) = @_;
 	my $arcs = $xbrl_tax->get_arcs('def', $uri );   
-	
+
+#	print Dumper($arcs);
+#
+#	if ($self->{'uri'} eq 'http://www.delmonte.com/role/StatementConsolidatedStatementsOfIncomeLoss') {
+#		die "Found the income statement \n";
+#	}
+
 	#my $arcs = $self->{'def_arcs'};	
 	my @hypercubes;	
 				
