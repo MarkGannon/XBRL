@@ -13,5 +13,6 @@ lib/XBRL/Arc.pm
 lib/XBRL/Schema.pm
 lib/XBRL/Table.pm
 lib/XBRL/Taxonomy.pm
+lib/XBRL/TableXML.pm
 lib/XBRL/TableHTML.pm
 lib/XBRL/Unit.pm
