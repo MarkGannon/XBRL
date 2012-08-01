@@ -3,7 +3,7 @@ package XBRL::Item;
 use strict;
 use warnings;
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 use base qw(Class::Accessor);
 

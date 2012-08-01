@@ -3,6 +3,11 @@ Makefile.PL
 MANIFEST
 README
 t/XBRL.t
+t/fubar-01.xml
+t/fubar-01.xsd
+t/fubar-01_pre.xml
+t/fubar-01_def.xml
+t/fubar-01_lab.xml
 lib/XBRL.pm
 lib/XBRL/Item.pm
 lib/XBRL/Context.pm

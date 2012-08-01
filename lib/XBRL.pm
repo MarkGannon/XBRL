@@ -38,7 +38,7 @@ our @EXPORT = qw(
 	
 );
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 our $agent_string = "Perl XBRL Library $VERSION";
 
 our $DEFAULT_CSS = '.label { text-align:left;} 

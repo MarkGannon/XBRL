@@ -6,7 +6,7 @@ use Carp;
 #use XML::LibXML; 
 #use XML::LibXML::XPathContext; 
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 use base qw(Class::Accessor);
 
