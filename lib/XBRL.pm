@@ -538,10 +538,10 @@ sub get_html_report() {
 		}
 	}
 
-	if ($type eq '10-K') {
+	if (($type) && ($type eq '10-K')) {
 		$title = $firm . " 10-K for Year Ending: " . $enddate; 
 	}
-	elsif ($type eq '10-Q') {
+	elsif (($type) && ($type eq '10-Q')) {
 		$title = $firm . " 10-Q for Quarter Ending: " . $enddate; 
 	}
 	else {

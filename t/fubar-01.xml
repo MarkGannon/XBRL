@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<xbrli:xbrl xmlns:xbrli="http://www.xbrl.org/2003/instance" xmlns:fubar="http://www.fubar.com/01" xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:ref="http://www.xbrl.org/2006/ref" xmlns:num="http://www.xbrl.org/dtr/type/numeric" xmlns:nonnum="http://www.xbrl.org/dtr/type/non-numeric" xmlns:xbrldt="http://xbrl.org/2005/xbrldt" xmlns:us-gaap="http://fasb.org/us-gaap/2012-01-31" xmlns:negated="http://www.xbrl.org/2009/role/negated" xmlns:us-types="http://fasb.org/us-types/2012-01-31" xmlns:invest="http://xbrl.sec.gov/invest/2012-01-31" xmlns:xbrldi="http://xbrl.org/2006/xbrldi" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:iso4217="http://www.xbrl.org/2003/iso4217" xmlns:dei="http://xbrl.sec.gov/dei/2012-01-31" xmlns:us-roles="http://fasb.org/us-roles/2012-01-31" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <link:schemaRef xlink:type="simple" xlink:href="fubar-01.xsd" />
+  <xbrli:context id="First">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000000001</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2011-12-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="Second">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000000001</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2011-09-30</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="Third">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000000001</xbrli:identifier>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2011-09-30</xbrli:startDate>
+      <xbrli:endDate>2011-12-31</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:unit id="USD">
+    <xbrli:measure>iso4217:USD</xbrli:measure>
+  </xbrli:unit>
+  <xbrli:unit id="USDPerShare">
+    <xbrli:divide>
+      <xbrli:unitNumerator>
+        <xbrli:measure>iso4217:USD</xbrli:measure>
+      </xbrli:unitNumerator>
+      <xbrli:unitDenominator>
+        <xbrli:measure>xbrli:shares</xbrli:measure>
+      </xbrli:unitDenominator>
+    </xbrli:divide>
+  </xbrli:unit>
+  <xbrli:unit id="Shares">
+    <xbrli:measure>xbrli:shares</xbrli:measure>
+  </xbrli:unit>
+  <us-gaap:CashAndCashEquivalentsAtCarryingValue decimals="-3" contextRef="First" unitRef="USD">48641000</us-gaap:CashAndCashEquivalentsAtCarryingValue>
+  <us-gaap:CashAndCashEquivalentsAtCarryingValue decimals="-3" contextRef="Second" unitRef="USD">29911000</us-gaap:CashAndCashEquivalentsAtCarryingValue>
+  <us-gaap:ReceivablesNetCurrent decimals="-3" contextRef="First" unitRef="USD">89167000</us-gaap:ReceivablesNetCurrent>
+  <us-gaap:ReceivablesNetCurrent decimals="-3" contextRef="Second" unitRef="USD">114381000</us-gaap:ReceivablesNetCurrent>
+  <us-gaap:IncomeTaxesReceivable decimals="-3" contextRef="First" unitRef="USD">1388000</us-gaap:IncomeTaxesReceivable>
+  <us-gaap:InventoryNet decimals="-3" contextRef="First" unitRef="USD">11985000</us-gaap:InventoryNet>
+  <us-gaap:InventoryNet decimals="-3" contextRef="Second" unitRef="USD">21278000</us-gaap:InventoryNet>
+  <us-gaap:DerivativeInstrumentsAndHedges decimals="-3" contextRef="First" unitRef="USD">139346000</us-gaap:DerivativeInstrumentsAndHedges>
+  <us-gaap:DerivativeInstrumentsAndHedges decimals="-3" contextRef="Second" unitRef="USD">174263000</us-gaap:DerivativeInstrumentsAndHedges>
+  <us-gaap:AssetsCurrent decimals="-3" contextRef="First" unitRef="USD">295867000</us-gaap:AssetsCurrent>
+  <us-gaap:AssetsCurrent decimals="-3" contextRef="Second" unitRef="USD">345800000</us-gaap:AssetsCurrent>
+  <us-gaap:PropertyPlantAndEquipmentNet decimals="-3" contextRef="First" unitRef="USD">4061674000</us-gaap:PropertyPlantAndEquipmentNet>
+  <us-gaap:PropertyPlantAndEquipmentNet decimals="-3" contextRef="Second" unitRef="USD">3934584000</us-gaap:PropertyPlantAndEquipmentNet>
+  <us-gaap:OtherAssetsNoncurrent decimals="-3" contextRef="First" unitRef="USD">33892000</us-gaap:OtherAssetsNoncurrent>
+  <us-gaap:OtherAssetsNoncurrent decimals="-3" contextRef="Second" unitRef="USD">29860000</us-gaap:OtherAssetsNoncurrent>
+  <us-gaap:AssetsCurrent decimals="-3" contextRef="First" unitRef="USD">295867000</us-gaap:AssetsCurrent>
+  <us-gaap:AssetsCurrent decimals="-3" contextRef="Second" unitRef="USD">345800000</us-gaap:AssetsCurrent>
+  <us-gaap:AccountsPayableCurrent decimals="-3" contextRef="First" unitRef="USD">237417000</us-gaap:AccountsPayableCurrent>
+  <us-gaap:AccountsPayableCurrent decimals="-3" contextRef="Second" unitRef="USD">217294000</us-gaap:AccountsPayableCurrent>
+  <us-gaap:TaxesPayableCurrent decimals="-3" contextRef="Second" unitRef="USD">3387000</us-gaap:TaxesPayableCurrent>
+  <us-gaap:DeferredTaxLiabilitiesCurrent decimals="-3" contextRef="First" unitRef="USD">45939000</us-gaap:DeferredTaxLiabilitiesCurrent>
+  <us-gaap:DeferredTaxLiabilitiesCurrent decimals="-3" contextRef="Second" unitRef="USD">55132000</us-gaap:DeferredTaxLiabilitiesCurrent>
+  <us-gaap:AccruedLiabilitiesCurrent decimals="-3" contextRef="First" unitRef="USD">54116000</us-gaap:AccruedLiabilitiesCurrent>
+  <us-gaap:AccruedLiabilitiesCurrent decimals="-3" contextRef="Second" unitRef="USD">70918000</us-gaap:AccruedLiabilitiesCurrent>
+  <us-gaap:LiabilitiesCurrent decimals="-3" contextRef="First" unitRef="USD">340859000</us-gaap:LiabilitiesCurrent>
+  <us-gaap:LiabilitiesCurrent decimals="-3" contextRef="Second" unitRef="USD">343344000</us-gaap:LiabilitiesCurrent>
+  <us-gaap:PensionAndOtherPostretirementDefinedBenefitPlansLiabilitiesNoncurrent decimals="-3" contextRef="First" unitRef="USD">40474000</us-gaap:PensionAndOtherPostretirementDefinedBenefitPlansLiabilitiesNoncurrent>
+  <us-gaap:PensionAndOtherPostretirementDefinedBenefitPlansLiabilitiesNoncurrent decimals="-3" contextRef="Second" unitRef="USD">38708000</us-gaap:PensionAndOtherPostretirementDefinedBenefitPlansLiabilitiesNoncurrent>
+  <us-gaap:LongTermDebtNoncurrent decimals="-3" contextRef="First" unitRef="USD">972000000</us-gaap:LongTermDebtNoncurrent>
+  <us-gaap:LongTermDebtNoncurrent decimals="-3" contextRef="Second" unitRef="USD">950000000</us-gaap:LongTermDebtNoncurrent>
+  <us-gaap:OtherLiabilitiesNoncurrent decimals="-3" contextRef="First" unitRef="USD">34550000</us-gaap:OtherLiabilitiesNoncurrent>
+  <us-gaap:OtherLiabilitiesNoncurrent decimals="-3" contextRef="Second" unitRef="USD">31939000</us-gaap:OtherLiabilitiesNoncurrent>
+  <us-gaap:LiabilitiesCurrent decimals="-3" contextRef="First" unitRef="USD">340859000</us-gaap:LiabilitiesCurrent>
+  <us-gaap:LiabilitiesCurrent decimals="-3" contextRef="Second" unitRef="USD">343344000</us-gaap:LiabilitiesCurrent>
+  <us-gaap:AdditionalPaidInCapitalCommonStock decimals="-3" contextRef="First" unitRef="USD">720670000</us-gaap:AdditionalPaidInCapitalCommonStock>
+  <us-gaap:AdditionalPaidInCapitalCommonStock decimals="-3" contextRef="Second" unitRef="USD">724377000</us-gaap:AdditionalPaidInCapitalCommonStock>
+  <us-gaap:RetainedEarningsAccumulatedDeficit decimals="-3" contextRef="First" unitRef="USD">1304178000</us-gaap:RetainedEarningsAccumulatedDeficit>
+  <us-gaap:RetainedEarningsAccumulatedDeficit decimals="-3" contextRef="Second" unitRef="USD">1258291000</us-gaap:RetainedEarningsAccumulatedDeficit>
+  <us-gaap:AccumulatedOtherComprehensiveIncomeLossNetOfTax decimals="-3" contextRef="First" unitRef="USD">88833000</us-gaap:AccumulatedOtherComprehensiveIncomeLossNetOfTax>
+  <us-gaap:AccumulatedOtherComprehensiveIncomeLossNetOfTax decimals="-3" contextRef="Second" unitRef="USD">104547000</us-gaap:AccumulatedOtherComprehensiveIncomeLossNetOfTax>
+  <us-gaap:TreasuryStockValue decimals="-3" contextRef="First" unitRef="USD">3349000</us-gaap:TreasuryStockValue>
+  <us-gaap:TreasuryStockValue decimals="-3" contextRef="Second" unitRef="USD">3349000</us-gaap:TreasuryStockValue>
+  <us-gaap:StockholdersEquity decimals="-3" contextRef="First" unitRef="USD">2131330000</us-gaap:StockholdersEquity>
+  <us-gaap:StockholdersEquity decimals="-3" contextRef="Second" unitRef="USD">2104768000</us-gaap:StockholdersEquity>
+  <us-gaap:CommonStockValue decimals="-3" contextRef="First" unitRef="USD">20998000</us-gaap:CommonStockValue>
+  <us-gaap:CommonStockValue decimals="-3" contextRef="Second" unitRef="USD">20902000</us-gaap:CommonStockValue>
+  <us-gaap:LiabilitiesAndStockholdersEquity decimals="-3" contextRef="First" unitRef="USD">4410192000</us-gaap:LiabilitiesAndStockholdersEquity>
+  <us-gaap:LiabilitiesAndStockholdersEquity decimals="-3" contextRef="Second" unitRef="USD">4331493000</us-gaap:LiabilitiesAndStockholdersEquity>
+  <dei:EntityCentralIndexKey contextRef="First">0000000001</dei:EntityCentralIndexKey>
+  <dei:DocumentType contextRef="First">10-Q</dei:DocumentType>
+  <dei:DocumentPeriodEndDate contextRef="First">2011-12-31</dei:DocumentPeriodEndDate>
+  <dei:AmendmentFlag contextRef="First">false</dei:AmendmentFlag>
+  <dei:CurrentFiscalYearEndDate contextRef="First">--03-31</dei:CurrentFiscalYearEndDate>
+</xbrli:xbrl>
