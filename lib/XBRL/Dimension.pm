@@ -39,9 +39,11 @@ sub get_xml_table() {
 	my ($self) = @_;
 	my $table;
 	if (&is_landscape($self)) {
+			#print "Landscape \n";	
 			$table = &make_land_table($self); 
 		}
 		else {	
+			#print "Portrait \n";	
 			$table = 	&make_port_table($self); 
 		}	
 	
@@ -57,6 +59,7 @@ sub make_port_table() {
 	my $table;
 	
 	if ($hypercubes->[0]) {
+		#print "there are hypercubes \n";	
 		$table = &port_hypercubes($self);
 	}
 	else {
@@ -135,12 +138,11 @@ sub port_hypercubes() {
 	my $hypercubes = &get_hypercubes($self);
 
 	my $tax = $xbrl_doc->get_taxonomy();
-#	my $table = HTML::Table->new(-border => 1);
 	my $table = XBRL::TableXML->new(); 
 	
 	my $header_contexts	= &get_header_contexts($self); 
 	my @col_labels;
-	
+
 	for my $context (@{$header_contexts}) {
 		push(@col_labels, $context->label());	
 	}
@@ -150,10 +152,12 @@ sub port_hypercubes() {
 
 	#my (@domain_names, @row_elements);	
 	for my $hcube (@{$hypercubes}) {
+	#	print $hcube->to_short() . "\n";	
 		my $domain_names = &get_domain_names($self, $hcube);	
 		my $row_elements = &get_row_elements($self, $hcube);	
-
-			for my $row (@{$row_elements}) {
+		
+		for my $row (@{$row_elements}) {
+				#print "\t" . $row . "\n";	
 				my @row_elements;
 				my $items = &get_free_items($self, $row);  
 				for my $h_context (@{$header_contexts}) {
@@ -178,7 +182,9 @@ sub port_hypercubes() {
 		
 		
 		if ($domain_names->[0]) {	
+		#	print "there are domain names \n";	
 			for my $domain (@{$domain_names}) {
+		#		print "\t$domain\n";	
 				my $d_label = $tax->get_label($domain);	
 				$table->addRow($d_label);	
 				for my $thingie (@{$row_elements}) {
@@ -188,6 +194,7 @@ sub port_hypercubes() {
 					for my $h_context (@{$header_contexts}) {
 						my $value;	
 						for my $item (@{$items}) {
+		#					print "\t\t" . $item->id() . "\n";	
 							my $item_context = $xbrl_doc->get_context($item->context());
 							if ($item_context->label() eq $h_context->label()) {	
 								#$value = $item->adjValue();	
@@ -783,6 +790,7 @@ sub get_hypercubes() {
 						push(@hypercubes, $arc);						
 		} 
 	}
+	#print Dumper(\@hypercubes);
 
 	return \@hypercubes;
 }

@@ -8,7 +8,6 @@
 use strict;
 use warnings;
 use Carp;
-use Data::Dumper;
 
 use Test::More tests => 25;
 BEGIN { use_ok('XBRL') };

@@ -1,0 +1,770 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<link:linkbase xsi:schemaLocation="http://www.xbrl.org/2003/linkbase http://www.xbrl.org/2003/xbrl-linkbase-2003-12-31.xsd"
+xmlns:link="http://www.xbrl.org/2003/linkbase"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:xbrli="http://www.xbrl.org/2003/instance"
+xmlns:xlink="http://www.w3.org/1999/xlink">
+  <link:roleRef roleURI="http://www.xbrl.org/2009/role/negatedLabel"
+  xlink:type="simple"
+  xlink:href="http://www.xbrl.org/lrr/role/negated-2009-12-16.xsd#negatedLabel" />
+  <link:roleRef roleURI="http://www.xbrl.org/2009/role/negatedTotalLabel"
+  xlink:type="simple"
+  xlink:href="http://www.xbrl.org/lrr/role/negated-2009-12-16.xsd#negatedTotalLabel" />
+  <link:roleRef roleURI="http://www.xbrl.org/2009/role/negatedTerseLabel"
+  xlink:type="simple"
+  xlink:href="http://www.xbrl.org/lrr/role/negated-2009-12-16.xsd#negatedTerseLabel" />
+  <link:labelLink xlink:type="extended">
+    <link:loc xlink:type="locator"
+    xlink:href="http://xbrl.fasb.org/us-gaap/2012/elts/us-gaap-2012-01-31.xsd#us-gaap_TaxesPayableCurrent"
+    xlink:label="TaxesPayableCurrent"
+    xlink:title="TaxesPayableCurrent" />
+    <link:labelArc xlink:type="arc"
+    xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label"
+    xlink:from="TaxesPayableCurrent"
+    xlink:to="label_TaxesPayableCurrent_2"
+    xlink:title="label: TaxesPayableCurrent to label_TaxesPayableCurrent" />
+    <link:labelArc xlink:type="arc"
+    xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label"
+    xlink:from="TaxesPayableCurrent"
+    xlink:to="label_TaxesPayableCurrent"
+    xlink:title="label: TaxesPayableCurrent to label_TaxesPayableCurrent" />
+    <link:label xlink:type="resource"
+    xlink:label="label_TaxesPayableCurrent_2"
+    xlink:role="http://www.xbrl.org/2003/role/label"
+    xlink:title="label_TaxesPayableCurrent" xml:lang="en-US"
+    id="label_TaxesPayableCurrent_2">Taxes Payable,
+    Current</link:label>
+    <link:label xlink:type="resource"
+    xlink:label="label_TaxesPayableCurrent"
+    xlink:role="http://www.xbrl.org/2003/role/terseLabel"
+    xlink:title="label_TaxesPayableCurrent" xml:lang="en-US"
+    id="label_TaxesPayableCurrent">Income Taxes
+    Payable</link:label>
+    <link:loc xlink:type="locator"
+    xlink:href="http://xbrl.fasb.org/us-gaap/2012/elts/us-gaap-2012-01-31.xsd#us-gaap_StockholdersEquity"
+    xlink:label="StockholdersEquity"
+    xlink:title="StockholdersEquity" />
+    <link:labelArc xlink:type="arc"
+    xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label"
+    xlink:from="StockholdersEquity"
+    xlink:to="label_StockholdersEquity_2"
+    xlink:title="label: StockholdersEquity to label_StockholdersEquity" />
+    <link:labelArc xlink:type="arc"
+    xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label"
+    xlink:from="StockholdersEquity"
+    xlink:to="label_StockholdersEquity"
+    xlink:title="label: StockholdersEquity to label_StockholdersEquity" />
+    <link:labelArc xlink:type="arc"
+    xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label"
+    xlink:from="StockholdersEquity"
+    xlink:to="label_StockholdersEquity_3"
+    xlink:title="label: StockholdersEquity to label_StockholdersEquity" />
+    <link:labelArc xlink:type="arc"
+    xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label"
+    xlink:from="StockholdersEquity"
+    xlink:to="label_StockholdersEquity_4"
+    xlink:title="label: StockholdersEquity to label_StockholdersEquity" />
+    <link:label xlink:type="resource"
+    xlink:label="label_StockholdersEquity_2"
+    xlink:role="http://www.xbrl.org/2003/role/label"
+    xlink:title="label_StockholdersEquity" xml:lang="en-US"
+    id="label_StockholdersEquity_2">Stockholders' Equity
+    Attributable to Parent</link:label>
+    <link:label xlink:type="resource"
+    xlink:label="label_StockholdersEquity"
+    xlink:role="http://www.xbrl.org/2003/role/totalLabel"
+    xlink:title="label_StockholdersEquity" xml:lang="en-US"
+    id="label_StockholdersEquity">Total Stockholders'
+    Equity</link:label>
+    <link:label xlink:type="resource"
+    xlink:label="label_StockholdersEquity_3"
+    xlink:role="http://www.xbrl.org/2003/role/periodStartLabel"
+    xlink:title="label_StockholdersEquity" xml:lang="en-US"
+    id="label_StockholdersEquity_3">Balance</link:label>
+    <link:label xlink:type="resource"
+    xlink:label="label_StockholdersEquity_4"
+    xlink:role="http://www.xbrl.org/2003/role/periodEndLabel"
+    xlink:title="label_StockholdersEquity" xml:lang="en-US"
+    id="label_StockholdersEquity_4">Balance</link:label>
+    <link:loc xlink:type="locator"
+    xlink:href="http://xbrl.fasb.org/us-gaap/2012/elts/us-gaap-2012-01-31.xsd#us-gaap_TreasuryStockValue"
+    xlink:label="TreasuryStockValue"
+    xlink:title="TreasuryStockValue" />
+    <link:labelArc xlink:type="arc"
+    xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label"
+    xlink:from="TreasuryStockValue"
+    xlink:to="label_TreasuryStockValue_2"
+    xlink:title="label: TreasuryStockValue to label_TreasuryStockValue" />
+    <link:labelArc xlink:type="arc"
+    xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label"
+    xlink:from="TreasuryStockValue"
+    xlink:to="label_TreasuryStockValue"
+    xlink:title="label: TreasuryStockValue to label_TreasuryStockValue" />
+    <link:label xlink:type="resource"
+    xlink:label="label_TreasuryStockValue_2"
+    xlink:role="http://www.xbrl.org/2003/role/label"
+    xlink:title="label_TreasuryStockValue" xml:lang="en-US"
+    id="label_TreasuryStockValue_2">Treasury Stock,
+    Value</link:label>
+    <link:label xlink:type="resource"
+    xlink:label="label_TreasuryStockValue"
+    xlink:role="http://www.xbrl.org/2009/role/negatedLabel"
+    xlink:title="label_TreasuryStockValue" xml:lang="en-US"
+    id="label_TreasuryStockValue">Less Treasury Stock, at Cost:
+    404,400 Shares in 2012 and 2012, respectively</link:label>
+    <link:loc xlink:type="locator"
+    xlink:href="http://xbrl.fasb.org/us-gaap/2012/elts/us-gaap-2012-01-31.xsd#us-gaap_LiabilitiesCurrent"
+    xlink:label="LiabilitiesCurrent"
+    xlink:title="LiabilitiesCurrent" />
+    <link:labelArc xlink:type="arc"
+    xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label"
+    xlink:from="LiabilitiesCurrent"
+    xlink:to="label_LiabilitiesCurrent_2"
+    xlink:title="label: LiabilitiesCurrent to label_LiabilitiesCurrent" />
+    <link:labelArc xlink:type="arc"
+    xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label"
+    xlink:from="LiabilitiesCurrent"
+    xlink:to="label_LiabilitiesCurrent"
+    xlink:title="label: LiabilitiesCurrent to label_LiabilitiesCurrent" />
+    <link:label xlink:type="resource"
+    xlink:label="label_LiabilitiesCurrent_2"
+    xlink:role="http://www.xbrl.org/2003/role/label"
+    xlink:title="label_LiabilitiesCurrent" xml:lang="en-US"
+    id="label_LiabilitiesCurrent_2">Liabilities,
+    Current</link:label>
+    <link:label xlink:type="resource"
+    xlink:label="label_LiabilitiesCurrent"
+    xlink:role="http://www.xbrl.org/2003/role/totalLabel"
+    xlink:title="label_LiabilitiesCurrent" xml:lang="en-US"
+    id="label_LiabilitiesCurrent">Total Current
+    Liabilities</link:label>
+    <link:loc xlink:type="locator"
+    xlink:href="http://xbrl.fasb.org/us-gaap/2012/elts/us-gaap-2012-01-31.xsd#us-gaap_ReceivablesNetCurrent"
+    xlink:label="ReceivablesNetCurrent"
+    xlink:title="ReceivablesNetCurrent" />
+    <link:labelArc xlink:type="arc"
+    xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label"
+    xlink:from="ReceivablesNetCurrent"
+    xlink:to="label_ReceivablesNetCurrent_3"
+    xlink:title="label: ReceivablesNetCurrent to label_ReceivablesNetCurrent" />
+    <link:labelArc xlink:type="arc"
+    xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label"
+    xlink:from="ReceivablesNetCurrent"
+    xlink:to="label_ReceivablesNetCurrent"
+    xlink:title="label: ReceivablesNetCurrent to label_ReceivablesNetCurrent" />
+    <link:labelArc xlink:type="arc"
+    xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label"
+    xlink:from="ReceivablesNetCurrent"
+    xlink:to="label_ReceivablesNetCurrent_2"
+    xlink:title="label: ReceivablesNetCurrent to label_ReceivablesNetCurrent" />
+    <link:label xlink:type="resource"
+    xlink:label="label_ReceivablesNetCurrent_3"
+    xlink:role="http://www.xbrl.org/2003/role/label"
+    xlink:title="label_ReceivablesNetCurrent" xml:lang="en-US"
+    id="label_ReceivablesNetCurrent_3">Receivables, Net,
+    Current</link:label>
+    <link:label xlink:type="resource"
+    xlink:label="label_ReceivablesNetCurrent"
+    xlink:role="http://www.xbrl.org/2003/role/terseLabel"
+    xlink:title="label_ReceivablesNetCurrent" xml:lang="en-US"
+    id="label_ReceivablesNetCurrent">Accounts Receivable,
+    Net</link:label>
+    <link:label xlink:type="resource"
+    xlink:label="label_ReceivablesNetCurrent_2"
+    xlink:role="http://www.xbrl.org/2003/role/totalLabel"
+    xlink:title="label_ReceivablesNetCurrent" xml:lang="en-US"
+    id="label_ReceivablesNetCurrent_2">Accounts Receivable,
+    Net</link:label>
+    <link:loc xlink:type="locator"
+    xlink:href="http://xbrl.fasb.org/us-gaap/2012/elts/us-gaap-2012-01-31.xsd#us-gaap_OtherLiabilitiesNoncurrent"
+    xlink:label="OtherLiabilitiesNoncurrent"
+    xlink:title="OtherLiabilitiesNoncurrent" />
+    <link:labelArc xlink:type="arc"
+    xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label"
+    xlink:from="OtherLiabilitiesNoncurrent"
+    xlink:to="label_OtherLiabilitiesNoncurrent_3"
+    xlink:title="label: OtherLiabilitiesNoncurrent to label_OtherLiabilitiesNoncurrent" />
+    <link:labelArc xlink:type="arc"
+    xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label"
+    xlink:from="OtherLiabilitiesNoncurrent"
+    xlink:to="label_OtherLiabilitiesNoncurrent"
+    xlink:title="label: OtherLiabilitiesNoncurrent to label_OtherLiabilitiesNoncurrent" />
+    <link:labelArc xlink:type="arc"
+    xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label"
+    xlink:from="OtherLiabilitiesNoncurrent"
+    xlink:to="label_OtherLiabilitiesNoncurrent_2"
+    xlink:title="label: OtherLiabilitiesNoncurrent to label_OtherLiabilitiesNoncurrent" />
+    <link:label xlink:type="resource"
+    xlink:label="label_OtherLiabilitiesNoncurrent_3"
+    xlink:role="http://www.xbrl.org/2003/role/label"
+    xlink:title="label_OtherLiabilitiesNoncurrent" xml:lang="en-US"
+    id="label_OtherLiabilitiesNoncurrent_3">Other Liabilities,
+    Noncurrent</link:label>
+    <link:label xlink:type="resource"
+    xlink:label="label_OtherLiabilitiesNoncurrent"
+    xlink:role="http://www.xbrl.org/2003/role/terseLabel"
+    xlink:title="label_OtherLiabilitiesNoncurrent" xml:lang="en-US"
+    id="label_OtherLiabilitiesNoncurrent">Other
+    Liabilities</link:label>
+    <link:label xlink:type="resource"
+    xlink:label="label_OtherLiabilitiesNoncurrent_2"
+    xlink:role="http://www.xbrl.org/2003/role/totalLabel"
+    xlink:title="label_OtherLiabilitiesNoncurrent" xml:lang="en-US"
+    id="label_OtherLiabilitiesNoncurrent_2">Other
+    Liabilities</link:label>
+    <link:loc xlink:type="locator"
+    xlink:href="http://xbrl.fasb.org/us-gaap/2012/elts/us-gaap-2012-01-31.xsd#us-gaap_DeferredTaxLiabilitiesCurrent"
+    xlink:label="DeferredTaxLiabilitiesCurrent"
+    xlink:title="DeferredTaxLiabilitiesCurrent" />
+    <link:labelArc xlink:type="arc"
+    xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label"
+    xlink:from="DeferredTaxLiabilitiesCurrent"
+    xlink:to="label_DeferredTaxLiabilitiesCurrent_2"
+    xlink:title="label: DeferredTaxLiabilitiesCurrent to label_DeferredTaxLiabilitiesCurrent" />
+    <link:labelArc xlink:type="arc"
+    xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label"
+    xlink:from="DeferredTaxLiabilitiesCurrent"
+    xlink:to="label_DeferredTaxLiabilitiesCurrent"
+    xlink:title="label: DeferredTaxLiabilitiesCurrent to label_DeferredTaxLiabilitiesCurrent" />
+    <link:label xlink:type="resource"
+    xlink:label="label_DeferredTaxLiabilitiesCurrent_2"
+    xlink:role="http://www.xbrl.org/2003/role/label"
+    xlink:title="label_DeferredTaxLiabilitiesCurrent"
+    xml:lang="en-US" id="label_DeferredTaxLiabilitiesCurrent_2">
+    Deferred Tax Liabilities, Current</link:label>
+    <link:label xlink:type="resource"
+    xlink:label="label_DeferredTaxLiabilitiesCurrent"
+    xlink:role="http://www.xbrl.org/2003/role/terseLabel"
+    xlink:title="label_DeferredTaxLiabilitiesCurrent"
+    xml:lang="en-US" id="label_DeferredTaxLiabilitiesCurrent">
+    Deferred Income Taxes</link:label>
+    <link:loc xlink:type="locator"
+    xlink:href="http://xbrl.fasb.org/us-gaap/2012/elts/us-gaap-2012-01-31.xsd#us-gaap_CommonStockValue"
+    xlink:label="CommonStockValue"
+    xlink:title="CommonStockValue" />
+    <link:labelArc xlink:type="arc"
+    xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label"
+    xlink:from="CommonStockValue" xlink:to="label_CommonStockValue"
+    xlink:title="label: CommonStockValue to label_CommonStockValue" />
+    <link:labelArc xlink:type="arc"
+    xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label"
+    xlink:from="CommonStockValue"
+    xlink:to="label_CommonStockValue_2"
+    xlink:title="label: CommonStockValue to label_CommonStockValue" />
+    <link:label xlink:type="resource"
+    xlink:label="label_CommonStockValue"
+    xlink:role="http://www.xbrl.org/2003/role/verboseLabel"
+    xlink:title="label_CommonStockValue" xml:lang="en-US"
+    id="label_CommonStockValue">Common Stock: Authorized --
+    480,000,000 Shares of $0.10 Par Value in 2012 and 240,000,000
+    Shares of $0.10 Par Value in 2012 Issued--209,975,716 Shares
+    and 209,019,458 Shares in 2012 and 2012,
+    respectively</link:label>
+    <link:label xlink:type="resource"
+    xlink:label="label_CommonStockValue_2"
+    xlink:role="http://www.xbrl.org/2003/role/label"
+    xlink:title="label_CommonStockValue" xml:lang="en-US"
+    id="label_CommonStockValue_2">Common Stock, Value,
+    Issued</link:label>
+    <link:loc xlink:type="locator"
+    xlink:href="http://xbrl.fasb.org/us-gaap/2012/elts/us-gaap-2012-01-31.xsd#us-gaap_CashAndCashEquivalentsAtCarryingValue"
+    xlink:label="CashAndCashEquivalentsAtCarryingValue"
+    xlink:title="CashAndCashEquivalentsAtCarryingValue" />
+    <link:labelArc xlink:type="arc"
+    xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label"
+    xlink:from="CashAndCashEquivalentsAtCarryingValue"
+    xlink:to="label_CashAndCashEquivalentsAtCarryingValue_4"
+    xlink:title="label: CashAndCashEquivalentsAtCarryingValue to label_CashAndCashEquivalentsAtCarryingValue" />
+    <link:labelArc xlink:type="arc"
+    xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label"
+    xlink:from="CashAndCashEquivalentsAtCarryingValue"
+    xlink:to="label_CashAndCashEquivalentsAtCarryingValue"
+    xlink:title="label: CashAndCashEquivalentsAtCarryingValue to label_CashAndCashEquivalentsAtCarryingValue" />
+    <link:labelArc xlink:type="arc"
+    xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label"
+    xlink:from="CashAndCashEquivalentsAtCarryingValue"
+    xlink:to="label_CashAndCashEquivalentsAtCarryingValue_2"
+    xlink:title="label: CashAndCashEquivalentsAtCarryingValue to label_CashAndCashEquivalentsAtCarryingValue" />
+    <link:labelArc xlink:type="arc"
+    xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label"
+    xlink:from="CashAndCashEquivalentsAtCarryingValue"
+    xlink:to="label_CashAndCashEquivalentsAtCarryingValue_3"
+    xlink:title="label: CashAndCashEquivalentsAtCarryingValue to label_CashAndCashEquivalentsAtCarryingValue" />
+    <link:label xlink:type="resource"
+    xlink:label="label_CashAndCashEquivalentsAtCarryingValue_4"
+    xlink:role="http://www.xbrl.org/2003/role/label"
+    xlink:title="label_CashAndCashEquivalentsAtCarryingValue"
+    xml:lang="en-US"
+    id="label_CashAndCashEquivalentsAtCarryingValue_4">Cash and
+    Cash Equivalents, at Carrying Value</link:label>
+    <link:label xlink:type="resource"
+    xlink:label="label_CashAndCashEquivalentsAtCarryingValue"
+    xlink:role="http://www.xbrl.org/2003/role/terseLabel"
+    xlink:title="label_CashAndCashEquivalentsAtCarryingValue"
+    xml:lang="en-US"
+    id="label_CashAndCashEquivalentsAtCarryingValue">Cash and Cash
+    Equivalents</link:label>
+    <link:label xlink:type="resource"
+    xlink:label="label_CashAndCashEquivalentsAtCarryingValue_2"
+    xlink:role="http://www.xbrl.org/2003/role/periodStartLabel"
+    xlink:title="label_CashAndCashEquivalentsAtCarryingValue"
+    xml:lang="en-US"
+    id="label_CashAndCashEquivalentsAtCarryingValue_2">Cash and
+    Cash Equivalents, Beginning of Period</link:label>
+    <link:label xlink:type="resource"
+    xlink:label="label_CashAndCashEquivalentsAtCarryingValue_3"
+    xlink:role="http://www.xbrl.org/2003/role/periodEndLabel"
+    xlink:title="label_CashAndCashEquivalentsAtCarryingValue"
+    xml:lang="en-US"
+    id="label_CashAndCashEquivalentsAtCarryingValue_3">Cash and
+    Cash Equivalents, End of Period</link:label>
+    <link:loc xlink:type="locator"
+    xlink:href="http://xbrl.fasb.org/us-gaap/2012/elts/us-gaap-2012-01-31.xsd#us-gaap_AssetsCurrent"
+    xlink:label="AssetsCurrent" xlink:title="AssetsCurrent" />
+    <link:labelArc xlink:type="arc"
+    xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label"
+    xlink:from="AssetsCurrent" xlink:to="label_AssetsCurrent_2"
+    xlink:title="label: AssetsCurrent to label_AssetsCurrent" />
+    <link:labelArc xlink:type="arc"
+    xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label"
+    xlink:from="AssetsCurrent" xlink:to="label_AssetsCurrent"
+    xlink:title="label: AssetsCurrent to label_AssetsCurrent" />
+    <link:label xlink:type="resource"
+    xlink:label="label_AssetsCurrent_2"
+    xlink:role="http://www.xbrl.org/2003/role/label"
+    xlink:title="label_AssetsCurrent" xml:lang="en-US"
+    id="label_AssetsCurrent_2">Assets, Current</link:label>
+    <link:label xlink:type="resource"
+    xlink:label="label_AssetsCurrent"
+    xlink:role="http://www.xbrl.org/2003/role/totalLabel"
+    xlink:title="label_AssetsCurrent" xml:lang="en-US"
+    id="label_AssetsCurrent">Total Current Assets</link:label>
+    <link:loc xlink:type="locator"
+    xlink:href="http://xbrl.fasb.org/us-gaap/2012/elts/us-gaap-2012-01-31.xsd#us-gaap_IncomeTaxesReceivable"
+    xlink:label="IncomeTaxesReceivable"
+    xlink:title="IncomeTaxesReceivable" />
+    <link:labelArc xlink:type="arc"
+    xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label"
+    xlink:from="IncomeTaxesReceivable"
+    xlink:to="label_IncomeTaxesReceivable_2"
+    xlink:title="label: IncomeTaxesReceivable to label_IncomeTaxesReceivable" />
+    <link:labelArc xlink:type="arc"
+    xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label"
+    xlink:from="IncomeTaxesReceivable"
+    xlink:to="label_IncomeTaxesReceivable"
+    xlink:title="label: IncomeTaxesReceivable to label_IncomeTaxesReceivable" />
+    <link:label xlink:type="resource"
+    xlink:label="label_IncomeTaxesReceivable_2"
+    xlink:role="http://www.xbrl.org/2003/role/label"
+    xlink:title="label_IncomeTaxesReceivable" xml:lang="en-US"
+    id="label_IncomeTaxesReceivable_2">Income Taxes Receivable,
+    Current</link:label>
+    <link:label xlink:type="resource"
+    xlink:label="label_IncomeTaxesReceivable"
+    xlink:role="http://www.xbrl.org/2003/role/terseLabel"
+    xlink:title="label_IncomeTaxesReceivable" xml:lang="en-US"
+    id="label_IncomeTaxesReceivable">Income Taxes
+    Receivable</link:label>
+    <link:loc xlink:type="locator"
+    xlink:href="http://xbrl.fasb.org/us-gaap/2012/elts/us-gaap-2012-01-31.xsd#us-gaap_AccumulatedOtherComprehensiveIncomeLossNetOfTax"
+    xlink:label="AccumulatedOtherComprehensiveIncomeLossNetOfTax"
+    xlink:title="AccumulatedOtherComprehensiveIncomeLossNetOfTax" />
+    <link:labelArc xlink:type="arc"
+    xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label"
+    xlink:from="AccumulatedOtherComprehensiveIncomeLossNetOfTax"
+    xlink:to="label_AccumulatedOtherComprehensiveIncomeLossNetOfTax_4"
+    xlink:title="label: AccumulatedOtherComprehensiveIncomeLossNetOfTax to label_AccumulatedOtherComprehensiveIncomeLossNetOfTax" />
+    <link:labelArc xlink:type="arc"
+    xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label"
+    xlink:from="AccumulatedOtherComprehensiveIncomeLossNetOfTax"
+    xlink:to="label_AccumulatedOtherComprehensiveIncomeLossNetOfTax"
+    xlink:title="label: AccumulatedOtherComprehensiveIncomeLossNetOfTax to label_AccumulatedOtherComprehensiveIncomeLossNetOfTax" />
+    <link:labelArc xlink:type="arc"
+    xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label"
+    xlink:from="AccumulatedOtherComprehensiveIncomeLossNetOfTax"
+    xlink:to="label_AccumulatedOtherComprehensiveIncomeLossNetOfTax_2"
+    xlink:title="label: AccumulatedOtherComprehensiveIncomeLossNetOfTax to label_AccumulatedOtherComprehensiveIncomeLossNetOfTax" />
+    <link:labelArc xlink:type="arc"
+    xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label"
+    xlink:from="AccumulatedOtherComprehensiveIncomeLossNetOfTax"
+    xlink:to="label_AccumulatedOtherComprehensiveIncomeLossNetOfTax_3"
+    xlink:title="label: AccumulatedOtherComprehensiveIncomeLossNetOfTax to label_AccumulatedOtherComprehensiveIncomeLossNetOfTax" />
+    <link:label xlink:type="resource"
+    xlink:label="label_AccumulatedOtherComprehensiveIncomeLossNetOfTax_4"
+    xlink:role="http://www.xbrl.org/2003/role/label"
+    xlink:title="label_AccumulatedOtherComprehensiveIncomeLossNetOfTax"
+    xml:lang="en-US"
+    id="label_AccumulatedOtherComprehensiveIncomeLossNetOfTax_4">
+    Accumulated Other Comprehensive Income (Loss), Net of
+    Tax</link:label>
+    <link:label xlink:type="resource"
+    xlink:label="label_AccumulatedOtherComprehensiveIncomeLossNetOfTax"
+    xlink:role="http://www.xbrl.org/2003/role/terseLabel"
+    xlink:title="label_AccumulatedOtherComprehensiveIncomeLossNetOfTax"
+    xml:lang="en-US"
+    id="label_AccumulatedOtherComprehensiveIncomeLossNetOfTax">
+    Accumulated Other Comprehensive Income</link:label>
+    <link:label xlink:type="resource"
+    xlink:label="label_AccumulatedOtherComprehensiveIncomeLossNetOfTax_2"
+    xlink:role="http://www.xbrl.org/2003/role/periodStartLabel"
+    xlink:title="label_AccumulatedOtherComprehensiveIncomeLossNetOfTax"
+    xml:lang="en-US"
+    id="label_AccumulatedOtherComprehensiveIncomeLossNetOfTax_2">
+    Balance at beginning of period</link:label>
+    <link:label xlink:type="resource"
+    xlink:label="label_AccumulatedOtherComprehensiveIncomeLossNetOfTax_3"
+    xlink:role="http://www.xbrl.org/2003/role/periodEndLabel"
+    xlink:title="label_AccumulatedOtherComprehensiveIncomeLossNetOfTax"
+    xml:lang="en-US"
+    id="label_AccumulatedOtherComprehensiveIncomeLossNetOfTax_3">
+    Balance at end of period</link:label>
+    <link:loc xlink:type="locator"
+    xlink:href="http://xbrl.fasb.org/us-gaap/2012/elts/us-gaap-2012-01-31.xsd#us-gaap_RetainedEarningsAccumulatedDeficit"
+    xlink:label="RetainedEarningsAccumulatedDeficit"
+    xlink:title="RetainedEarningsAccumulatedDeficit" />
+    <link:labelArc xlink:type="arc"
+    xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label"
+    xlink:from="RetainedEarningsAccumulatedDeficit"
+    xlink:to="label_RetainedEarningsAccumulatedDeficit_2"
+    xlink:title="label: RetainedEarningsAccumulatedDeficit to label_RetainedEarningsAccumulatedDeficit" />
+    <link:labelArc xlink:type="arc"
+    xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label"
+    xlink:from="RetainedEarningsAccumulatedDeficit"
+    xlink:to="label_RetainedEarningsAccumulatedDeficit"
+    xlink:title="label: RetainedEarningsAccumulatedDeficit to label_RetainedEarningsAccumulatedDeficit" />
+    <link:label xlink:type="resource"
+    xlink:label="label_RetainedEarningsAccumulatedDeficit_2"
+    xlink:role="http://www.xbrl.org/2003/role/label"
+    xlink:title="label_RetainedEarningsAccumulatedDeficit"
+    xml:lang="en-US"
+    id="label_RetainedEarningsAccumulatedDeficit_2">Retained
+    Earnings (Accumulated Deficit)</link:label>
+    <link:label xlink:type="resource"
+    xlink:label="label_RetainedEarningsAccumulatedDeficit"
+    xlink:role="http://www.xbrl.org/2003/role/terseLabel"
+    xlink:title="label_RetainedEarningsAccumulatedDeficit"
+    xml:lang="en-US" id="label_RetainedEarningsAccumulatedDeficit">
+    Retained Earnings</link:label>
+    <link:loc xlink:type="locator"
+    xlink:href="http://xbrl.fasb.org/us-gaap/2012/elts/us-gaap-2012-01-31.xsd#us-gaap_OtherAssetsNoncurrent"
+    xlink:label="OtherAssetsNoncurrent"
+    xlink:title="OtherAssetsNoncurrent" />
+    <link:labelArc xlink:type="arc"
+    xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label"
+    xlink:from="OtherAssetsNoncurrent"
+    xlink:to="label_OtherAssetsNoncurrent_3"
+    xlink:title="label: OtherAssetsNoncurrent to label_OtherAssetsNoncurrent" />
+    <link:labelArc xlink:type="arc"
+    xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label"
+    xlink:from="OtherAssetsNoncurrent"
+    xlink:to="label_OtherAssetsNoncurrent"
+    xlink:title="label: OtherAssetsNoncurrent to label_OtherAssetsNoncurrent" />
+    <link:labelArc xlink:type="arc"
+    xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label"
+    xlink:from="OtherAssetsNoncurrent"
+    xlink:to="label_OtherAssetsNoncurrent_2"
+    xlink:title="label: OtherAssetsNoncurrent to label_OtherAssetsNoncurrent" />
+    <link:label xlink:type="resource"
+    xlink:label="label_OtherAssetsNoncurrent_3"
+    xlink:role="http://www.xbrl.org/2003/role/label"
+    xlink:title="label_OtherAssetsNoncurrent" xml:lang="en-US"
+    id="label_OtherAssetsNoncurrent_3">Other Assets,
+    Noncurrent</link:label>
+    <link:label xlink:type="resource"
+    xlink:label="label_OtherAssetsNoncurrent"
+    xlink:role="http://www.xbrl.org/2003/role/terseLabel"
+    xlink:title="label_OtherAssetsNoncurrent" xml:lang="en-US"
+    id="label_OtherAssetsNoncurrent">Other Assets</link:label>
+    <link:label xlink:type="resource"
+    xlink:label="label_OtherAssetsNoncurrent_2"
+    xlink:role="http://www.xbrl.org/2003/role/totalLabel"
+    xlink:title="label_OtherAssetsNoncurrent" xml:lang="en-US"
+    id="label_OtherAssetsNoncurrent_2">Other Assets</link:label>
+    <link:loc xlink:type="locator"
+    xlink:href="http://xbrl.fasb.org/us-gaap/2012/elts/us-gaap-2012-01-31.xsd#us-gaap_DerivativeInstrumentsAndHedges"
+    xlink:label="DerivativeInstrumentsAndHedges"
+    xlink:title="DerivativeInstrumentsAndHedges" />
+    <link:labelArc xlink:type="arc"
+    xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label"
+    xlink:from="DerivativeInstrumentsAndHedges"
+    xlink:to="label_DerivativeInstrumentsAndHedges_2"
+    xlink:title="label: DerivativeInstrumentsAndHedges to label_DerivativeInstrumentsAndHedges" />
+    <link:labelArc xlink:type="arc"
+    xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label"
+    xlink:from="DerivativeInstrumentsAndHedges"
+    xlink:to="label_DerivativeInstrumentsAndHedges"
+    xlink:title="label: DerivativeInstrumentsAndHedges to label_DerivativeInstrumentsAndHedges" />
+    <link:label xlink:type="resource"
+    xlink:label="label_DerivativeInstrumentsAndHedges_2"
+    xlink:role="http://www.xbrl.org/2003/role/label"
+    xlink:title="label_DerivativeInstrumentsAndHedges"
+    xml:lang="en-US" id="label_DerivativeInstrumentsAndHedges_2">
+    Derivative Instruments and Hedges, Assets</link:label>
+    <link:label xlink:type="resource"
+    xlink:label="label_DerivativeInstrumentsAndHedges"
+    xlink:role="http://www.xbrl.org/2003/role/terseLabel"
+    xlink:title="label_DerivativeInstrumentsAndHedges"
+    xml:lang="en-US" id="label_DerivativeInstrumentsAndHedges">
+    Derivative Instruments</link:label>
+    <link:loc xlink:type="locator"
+    xlink:href="http://xbrl.fasb.org/us-gaap/2012/elts/us-gaap-2012-01-31.xsd#us-gaap_PropertyPlantAndEquipmentNet"
+    xlink:label="PropertyPlantAndEquipmentNet"
+    xlink:title="PropertyPlantAndEquipmentNet" />
+    <link:labelArc xlink:type="arc"
+    xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label"
+    xlink:from="PropertyPlantAndEquipmentNet"
+    xlink:to="label_PropertyPlantAndEquipmentNet_3"
+    xlink:title="label: PropertyPlantAndEquipmentNet to label_PropertyPlantAndEquipmentNet" />
+    <link:labelArc xlink:type="arc"
+    xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label"
+    xlink:from="PropertyPlantAndEquipmentNet"
+    xlink:to="label_PropertyPlantAndEquipmentNet"
+    xlink:title="label: PropertyPlantAndEquipmentNet to label_PropertyPlantAndEquipmentNet" />
+    <link:labelArc xlink:type="arc"
+    xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label"
+    xlink:from="PropertyPlantAndEquipmentNet"
+    xlink:to="label_PropertyPlantAndEquipmentNet_2"
+    xlink:title="label: PropertyPlantAndEquipmentNet to label_PropertyPlantAndEquipmentNet" />
+    <link:label xlink:type="resource"
+    xlink:label="label_PropertyPlantAndEquipmentNet_3"
+    xlink:role="http://www.xbrl.org/2003/role/label"
+    xlink:title="label_PropertyPlantAndEquipmentNet"
+    xml:lang="en-US" id="label_PropertyPlantAndEquipmentNet_3">
+    Property, Plant and Equipment, Net</link:label>
+    <link:label xlink:type="resource"
+    xlink:label="label_PropertyPlantAndEquipmentNet"
+    xlink:role="http://www.xbrl.org/2003/role/terseLabel"
+    xlink:title="label_PropertyPlantAndEquipmentNet"
+    xml:lang="en-US" id="label_PropertyPlantAndEquipmentNet">
+    Properties and Equipment, Net (Successful Efforts
+    Method)</link:label>
+    <link:label xlink:type="resource"
+    xlink:label="label_PropertyPlantAndEquipmentNet_2"
+    xlink:role="http://www.xbrl.org/2003/role/totalLabel"
+    xlink:title="label_PropertyPlantAndEquipmentNet"
+    xml:lang="en-US" id="label_PropertyPlantAndEquipmentNet_2">
+    Properties and Equipment, Net</link:label>
+    <link:loc xlink:type="locator"
+    xlink:href="http://xbrl.fasb.org/us-gaap/2012/elts/us-gaap-2012-01-31.xsd#us-gaap_LongTermDebtNoncurrent"
+    xlink:label="LongTermDebtNoncurrent"
+    xlink:title="LongTermDebtNoncurrent" />
+    <link:labelArc xlink:type="arc"
+    xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label"
+    xlink:from="LongTermDebtNoncurrent"
+    xlink:to="label_LongTermDebtNoncurrent_2"
+    xlink:title="label: LongTermDebtNoncurrent to label_LongTermDebtNoncurrent" />
+    <link:labelArc xlink:type="arc"
+    xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label"
+    xlink:from="LongTermDebtNoncurrent"
+    xlink:to="label_LongTermDebtNoncurrent"
+    xlink:title="label: LongTermDebtNoncurrent to label_LongTermDebtNoncurrent" />
+    <link:label xlink:type="resource"
+    xlink:label="label_LongTermDebtNoncurrent_2"
+    xlink:role="http://www.xbrl.org/2003/role/label"
+    xlink:title="label_LongTermDebtNoncurrent" xml:lang="en-US"
+    id="label_LongTermDebtNoncurrent_2">Long-term Debt, Excluding
+    Current Maturities</link:label>
+    <link:label xlink:type="resource"
+    xlink:label="label_LongTermDebtNoncurrent"
+    xlink:role="http://www.xbrl.org/2003/role/terseLabel"
+    xlink:title="label_LongTermDebtNoncurrent" xml:lang="en-US"
+    id="label_LongTermDebtNoncurrent">Long-Term Debt</link:label>
+    <link:loc xlink:type="locator"
+    xlink:href="http://xbrl.fasb.org/us-gaap/2012/elts/us-gaap-2012-01-31.xsd#us-gaap_PensionAndOtherPostretirementDefinedBenefitPlansLiabilitiesNoncurrent"
+    xlink:label="PensionAndOtherPostretirementDefinedBenefitPlansLiabilitiesNoncurrent"
+    xlink:title="PensionAndOtherPostretirementDefinedBenefitPlansLiabilitiesNoncurrent" />
+    <link:labelArc xlink:type="arc"
+    xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label"
+    xlink:from="PensionAndOtherPostretirementDefinedBenefitPlansLiabilitiesNoncurrent"
+    xlink:to="label_PensionAndOtherPostretirementDefinedBenefitPlansLiabilitiesNoncurrent_2"
+    xlink:title="label: PensionAndOtherPostretirementDefinedBenefitPlansLiabilitiesNoncurrent to label_PensionAndOtherPostretirementDefinedBenefitPlansLiabilitiesNoncurrent" />
+    <link:labelArc xlink:type="arc"
+    xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label"
+    xlink:from="PensionAndOtherPostretirementDefinedBenefitPlansLiabilitiesNoncurrent"
+    xlink:to="label_PensionAndOtherPostretirementDefinedBenefitPlansLiabilitiesNoncurrent"
+    xlink:title="label: PensionAndOtherPostretirementDefinedBenefitPlansLiabilitiesNoncurrent to label_PensionAndOtherPostretirementDefinedBenefitPlansLiabilitiesNoncurrent" />
+    <link:labelArc xlink:type="arc"
+    xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label"
+    xlink:from="PensionAndOtherPostretirementDefinedBenefitPlansLiabilitiesNoncurrent"
+    xlink:to="label_PensionAndOtherPostretirementDefinedBenefitPlansLiabilitiesNoncurrent_3"
+    xlink:title="label: PensionAndOtherPostretirementDefinedBenefitPlansLiabilitiesNoncurrent to label_PensionAndOtherPostretirementDefinedBenefitPlansLiabilitiesNoncurrent" />
+    <link:label xlink:type="resource"
+    xlink:label="label_PensionAndOtherPostretirementDefinedBenefitPlansLiabilitiesNoncurrent_2"
+    xlink:role="http://www.xbrl.org/2003/role/label"
+    xlink:title="label_PensionAndOtherPostretirementDefinedBenefitPlansLiabilitiesNoncurrent"
+    xml:lang="en-US"
+    id="label_PensionAndOtherPostretirementDefinedBenefitPlansLiabilitiesNoncurrent_2">
+    Pension and Other Postretirement Defined Benefit Plans,
+    Liabilities, Noncurrent</link:label>
+    <link:label xlink:type="resource"
+    xlink:label="label_PensionAndOtherPostretirementDefinedBenefitPlansLiabilitiesNoncurrent"
+    xlink:role="http://www.xbrl.org/2003/role/terseLabel"
+    xlink:title="label_PensionAndOtherPostretirementDefinedBenefitPlansLiabilitiesNoncurrent"
+    xml:lang="en-US"
+    id="label_PensionAndOtherPostretirementDefinedBenefitPlansLiabilitiesNoncurrent">
+    Postretirement Benefits</link:label>
+    <link:label xlink:type="resource"
+    xlink:label="label_PensionAndOtherPostretirementDefinedBenefitPlansLiabilitiesNoncurrent_3"
+    xlink:role="http://www.xbrl.org/2003/role/verboseLabel"
+    xlink:title="label_PensionAndOtherPostretirementDefinedBenefitPlansLiabilitiesNoncurrent"
+    xml:lang="en-US"
+    id="label_PensionAndOtherPostretirementDefinedBenefitPlansLiabilitiesNoncurrent_3">
+    Long-Term Liabilities</link:label>
+    <link:loc xlink:type="locator"
+    xlink:href="http://xbrl.fasb.org/us-gaap/2012/elts/us-gaap-2012-01-31.xsd#us-gaap_LiabilitiesAndStockholdersEquity"
+    xlink:label="LiabilitiesAndStockholdersEquity"
+    xlink:title="LiabilitiesAndStockholdersEquity" />
+    <link:labelArc xlink:type="arc"
+    xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label"
+    xlink:from="LiabilitiesAndStockholdersEquity"
+    xlink:to="label_LiabilitiesAndStockholdersEquity_2"
+    xlink:title="label: LiabilitiesAndStockholdersEquity to label_LiabilitiesAndStockholdersEquity" />
+    <link:labelArc xlink:type="arc"
+    xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label"
+    xlink:from="LiabilitiesAndStockholdersEquity"
+    xlink:to="label_LiabilitiesAndStockholdersEquity"
+    xlink:title="label: LiabilitiesAndStockholdersEquity to label_LiabilitiesAndStockholdersEquity" />
+    <link:label xlink:type="resource"
+    xlink:label="label_LiabilitiesAndStockholdersEquity_2"
+    xlink:role="http://www.xbrl.org/2003/role/label"
+    xlink:title="label_LiabilitiesAndStockholdersEquity"
+    xml:lang="en-US" id="label_LiabilitiesAndStockholdersEquity_2">
+    Liabilities and Equity</link:label>
+    <link:label xlink:type="resource"
+    xlink:label="label_LiabilitiesAndStockholdersEquity"
+    xlink:role="http://www.xbrl.org/2003/role/totalLabel"
+    xlink:title="label_LiabilitiesAndStockholdersEquity"
+    xml:lang="en-US" id="label_LiabilitiesAndStockholdersEquity">
+    TOTAL LIABILITIES AND STOCKHOLDERS' EQUITY</link:label>
+    <link:loc xlink:type="locator"
+    xlink:href="http://xbrl.fasb.org/us-gaap/2012/elts/us-gaap-2012-01-31.xsd#us-gaap_AdditionalPaidInCapitalCommonStock"
+    xlink:label="AdditionalPaidInCapitalCommonStock"
+    xlink:title="AdditionalPaidInCapitalCommonStock" />
+    <link:labelArc xlink:type="arc"
+    xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label"
+    xlink:from="AdditionalPaidInCapitalCommonStock"
+    xlink:to="label_AdditionalPaidInCapitalCommonStock_2"
+    xlink:title="label: AdditionalPaidInCapitalCommonStock to label_AdditionalPaidInCapitalCommonStock" />
+    <link:labelArc xlink:type="arc"
+    xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label"
+    xlink:from="AdditionalPaidInCapitalCommonStock"
+    xlink:to="label_AdditionalPaidInCapitalCommonStock"
+    xlink:title="label: AdditionalPaidInCapitalCommonStock to label_AdditionalPaidInCapitalCommonStock" />
+    <link:label xlink:type="resource"
+    xlink:label="label_AdditionalPaidInCapitalCommonStock_2"
+    xlink:role="http://www.xbrl.org/2003/role/label"
+    xlink:title="label_AdditionalPaidInCapitalCommonStock"
+    xml:lang="en-US"
+    id="label_AdditionalPaidInCapitalCommonStock_2">Additional Paid
+    in Capital, Common Stock</link:label>
+    <link:label xlink:type="resource"
+    xlink:label="label_AdditionalPaidInCapitalCommonStock"
+    xlink:role="http://www.xbrl.org/2003/role/terseLabel"
+    xlink:title="label_AdditionalPaidInCapitalCommonStock"
+    xml:lang="en-US" id="label_AdditionalPaidInCapitalCommonStock">
+    Additional Paid-in Capital</link:label>
+    <link:loc xlink:type="locator"
+    xlink:href="http://xbrl.fasb.org/us-gaap/2012/elts/us-gaap-2012-01-31.xsd#us-gaap_AccountsPayableCurrent"
+    xlink:label="AccountsPayableCurrent"
+    xlink:title="AccountsPayableCurrent" />
+    <link:labelArc xlink:type="arc"
+    xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label"
+    xlink:from="AccountsPayableCurrent"
+    xlink:to="label_AccountsPayableCurrent_3"
+    xlink:title="label: AccountsPayableCurrent to label_AccountsPayableCurrent" />
+    <link:labelArc xlink:type="arc"
+    xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label"
+    xlink:from="AccountsPayableCurrent"
+    xlink:to="label_AccountsPayableCurrent"
+    xlink:title="label: AccountsPayableCurrent to label_AccountsPayableCurrent" />
+    <link:labelArc xlink:type="arc"
+    xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label"
+    xlink:from="AccountsPayableCurrent"
+    xlink:to="label_AccountsPayableCurrent_2"
+    xlink:title="label: AccountsPayableCurrent to label_AccountsPayableCurrent" />
+    <link:label xlink:type="resource"
+    xlink:label="label_AccountsPayableCurrent_3"
+    xlink:role="http://www.xbrl.org/2003/role/label"
+    xlink:title="label_AccountsPayableCurrent" xml:lang="en-US"
+    id="label_AccountsPayableCurrent_3">Accounts Payable,
+    Current</link:label>
+    <link:label xlink:type="resource"
+    xlink:label="label_AccountsPayableCurrent"
+    xlink:role="http://www.xbrl.org/2003/role/terseLabel"
+    xlink:title="label_AccountsPayableCurrent" xml:lang="en-US"
+    id="label_AccountsPayableCurrent">Accounts Payable</link:label>
+    <link:label xlink:type="resource"
+    xlink:label="label_AccountsPayableCurrent_2"
+    xlink:role="http://www.xbrl.org/2003/role/totalLabel"
+    xlink:title="label_AccountsPayableCurrent" xml:lang="en-US"
+    id="label_AccountsPayableCurrent_2">Accounts Payable
+    Current</link:label>
+    <link:loc xlink:type="locator"
+    xlink:href="http://xbrl.fasb.org/us-gaap/2012/elts/us-gaap-2012-01-31.xsd#us-gaap_InventoryNet"
+    xlink:label="InventoryNet" xlink:title="InventoryNet" />
+    <link:labelArc xlink:type="arc"
+    xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label"
+    xlink:from="InventoryNet" xlink:to="label_InventoryNet_3"
+    xlink:title="label: InventoryNet to label_InventoryNet" />
+    <link:labelArc xlink:type="arc"
+    xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label"
+    xlink:from="InventoryNet" xlink:to="label_InventoryNet"
+    xlink:title="label: InventoryNet to label_InventoryNet" />
+    <link:labelArc xlink:type="arc"
+    xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label"
+    xlink:from="InventoryNet" xlink:to="label_InventoryNet_2"
+    xlink:title="label: InventoryNet to label_InventoryNet" />
+    <link:label xlink:type="resource"
+    xlink:label="label_InventoryNet_3"
+    xlink:role="http://www.xbrl.org/2003/role/label"
+    xlink:title="label_InventoryNet" xml:lang="en-US"
+    id="label_InventoryNet_3">Inventory, Net</link:label>
+    <link:label xlink:type="resource"
+    xlink:label="label_InventoryNet"
+    xlink:role="http://www.xbrl.org/2003/role/terseLabel"
+    xlink:title="label_InventoryNet" xml:lang="en-US"
+    id="label_InventoryNet">Inventories</link:label>
+    <link:label xlink:type="resource"
+    xlink:label="label_InventoryNet_2"
+    xlink:role="http://www.xbrl.org/2003/role/totalLabel"
+    xlink:title="label_InventoryNet" xml:lang="en-US"
+    id="label_InventoryNet_2">Inventory, Net</link:label>
+    <link:loc xlink:type="locator"
+    xlink:href="http://xbrl.fasb.org/us-gaap/2012/elts/us-gaap-2012-01-31.xsd#us-gaap_AccruedLiabilitiesCurrent"
+    xlink:label="AccruedLiabilitiesCurrent"
+    xlink:title="AccruedLiabilitiesCurrent" />
+    <link:labelArc xlink:type="arc"
+    xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label"
+    xlink:from="AccruedLiabilitiesCurrent"
+    xlink:to="label_AccruedLiabilitiesCurrent_3"
+    xlink:title="label: AccruedLiabilitiesCurrent to label_AccruedLiabilitiesCurrent" />
+    <link:labelArc xlink:type="arc"
+    xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label"
+    xlink:from="AccruedLiabilitiesCurrent"
+    xlink:to="label_AccruedLiabilitiesCurrent"
+    xlink:title="label: AccruedLiabilitiesCurrent to label_AccruedLiabilitiesCurrent" />
+    <link:labelArc xlink:type="arc"
+    xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label"
+    xlink:from="AccruedLiabilitiesCurrent"
+    xlink:to="label_AccruedLiabilitiesCurrent_2"
+    xlink:title="label: AccruedLiabilitiesCurrent to label_AccruedLiabilitiesCurrent" />
+    <link:label xlink:type="resource"
+    xlink:label="label_AccruedLiabilitiesCurrent_3"
+    xlink:role="http://www.xbrl.org/2003/role/label"
+    xlink:title="label_AccruedLiabilitiesCurrent" xml:lang="en-US"
+    id="label_AccruedLiabilitiesCurrent_3">Accrued Liabilities,
+    Current</link:label>
+    <link:label xlink:type="resource"
+    xlink:label="label_AccruedLiabilitiesCurrent"
+    xlink:role="http://www.xbrl.org/2003/role/terseLabel"
+    xlink:title="label_AccruedLiabilitiesCurrent" xml:lang="en-US"
+    id="label_AccruedLiabilitiesCurrent">Accrued
+    Liabilities</link:label>
+    <link:label xlink:type="resource"
+    xlink:label="label_AccruedLiabilitiesCurrent_2"
+    xlink:role="http://www.xbrl.org/2003/role/totalLabel"
+    xlink:title="label_AccruedLiabilitiesCurrent" xml:lang="en-US"
+    id="label_AccruedLiabilitiesCurrent_2">Accrued
+    Liabilities</link:label>
+  </link:labelLink>
+</link:linkbase>
