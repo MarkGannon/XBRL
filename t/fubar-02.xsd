@@ -15,7 +15,19 @@
         <link:usedOn>link:presentationLink</link:usedOn>
         <link:usedOn>link:definitionLink</link:usedOn>
       </link:roleType>
-    </xsd:appinfo>
+      <link:roleType roleURI="http://www.fubar.com/role/DisclosureDescriptionOfBusinessBasisOfPresentationAndSummaryOfSignificantAccountingPoliciesDetails" id="DisclosureDescriptionOfBusinessBasisOfPresentationAndSummaryOfSignificantAccountingPoliciesDetails">
+        <link:definition>0020 - Disclosure - Description of Business, Basis of Presentation and Summary of Significant Accounting Policies (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+			</link:roleType>	
+      
+			<link:roleType roleURI="http://www.fubar.com/role/AcquisitionsNarrativeDetails"> 
+        <link:definition>0030 -Disclosure - Acquisitions (Narrative) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+			</link:roleType>	
+		
+		</xsd:appinfo>
   </xsd:annotation>
   <xsd:import namespace="http://www.xbrl.org/2003/instance" schemaLocation="http://www.xbrl.org/2003/xbrl-instance-2003-12-31.xsd" />
   <xsd:import namespace="http://fasb.org/us-types/2012-01-31" schemaLocation="http://xbrl.fasb.org/us-gaap/2012/elts/us-types-2012-01-31.xsd" />
@@ -29,4 +41,29 @@
   <xsd:import namespace="http://xbrl.sec.gov/invest/2012-01-31" schemaLocation="http://xbrl.sec.gov/invest/2012/invest-2012-01-31.xsd" />
   <xsd:element name="AccountsPayablePolicyTextBlock" id="fubar_AccountsPayablePolicyTextBlock" type="nonnum:textBlockItemType" substitutionGroup="xbrli:item" nillable="true" xbrli:periodType="duration" />
   <xsd:element name="DescriptionOfDerivativeRiskManagementPolicyTextBlock" id="fubar_DescriptionOfDerivativeRiskManagementPolicyTextBlock" type="nonnum:textBlockItemType" substitutionGroup="xbrli:item" nillable="true" xbrli:periodType="duration" />
+	<!-- Entries for geography dimension table -->
+	<element name="RevenueByGeographyTable" id="fubar_RevenueByGeographyTable" type="xbrli:stringItemType" substitutionGroup="xbrldt:hypercubeItem" abstract="true" nillable="true" xbrli:periodType="duration" />
+	<element name="RevenueByGeographyAxis" id="fubar_RevenueByGeographyAxis" type="xbrli:stringItemType" substitutionGroup="xbrldt:dimensionItem" abstract="true" nillable="true" xbrli:periodType="duration" />
+	<element name="GeographicAreaDomain" id="fubar_GeographicAreaDomain" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+	<element name="UnitedStatesMember" id="fubar_UnitedStatesMember" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+	<element name="UnitedKingdomMember" id="fubar_UnitedKingdomMember" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+  <element name="GermanyMember" id="fubar_GermanyMember" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+  <element name="CanadaMember" id="fubar_CanadaMember" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+  <element name="OtherInternationalMember" id="fubar_OtherInternationalMember" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+  <element name="TotalRestructuringMember" id="fubar_TotalRestructuringMember" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+  <element name="TotalInternationalMember" id="fubar_TotalInternationalMember" type="nonnum:domainItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+  <element name="OrganizationConsolidationAndPresentationOfFinancialStatementsLineItems" id="fubar_OrganizationConsolidationAndPresentationOfFinancialStatementsLineItems" type="xbrli:stringItemType" substitutionGroup="xbrli:item" abstract="true" nillable="true" xbrli:periodType="duration" />
+
+	<!-- /AcquisitionsNarrativeDetails" --> 
+	<xsd:element abstract="true" id="fubar_SubSaharanAfricanMember" name="SubSaharanAfricanMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+ 	<xsd:element abstract="true" id="fubar_PaymentTypeByAcquisitionAxis" name="PaymentTypeByAcquisitionAxis" nillable="true" substitutionGroup="xbrldt:dimensionItem" type="xbrli:stringItemType" xbrli:periodType="duration" />
+ 	<xsd:element abstract="true" id="fubar_PaymentTypeByAcquisitionDomain" name="PaymentTypeByAcquisitionDomain" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+	<xsd:element abstract="true" id="fubar_InitialInterestMember" name="InitialInterestMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+	<xsd:element abstract="true" id="fubar_AdditionalConsiderationMember" name="AdditionalConsiderationMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+	<xsd:element abstract="true" id="fubar_NettoFoodStoresLimitedMember" name="NettoFoodStoresLimitedMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+	<xsd:element abstract="true" id="fubar_MassmartHoldingsLimitedMember" name="MassmartHoldingsLimitedMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+ 	<xsd:element abstract="true" id="fubar_BounteousCompanyLimitedMember" name="BounteousCompanyLimitedMember" nillable="true" substitutionGroup="xbrli:item" type="nonnum:domainItemType" xbrli:periodType="duration" />
+	<xsd:element abstract="true" id="fubar_EquityMethodInvestmentInitialOwnershipPercentage" name="EquityMethodInvestmentInitialOwnershipPercentage" nillable="true" substitutionGroup="xbrli:item" type="num:percentItemType" xbrli:periodType="instant" />
+	<xsd:element abstract="true" id="fubar_EquityMethodInvestmentAdditionalOwnershipPercentage" name="EquityMethodInvestmentAdditionalOwnershipPercentage" nillable="true" substitutionGroup="xbrli:item" type="num:percentItemType" xbrli:periodType="instant" />
+
 </xsd:schema>

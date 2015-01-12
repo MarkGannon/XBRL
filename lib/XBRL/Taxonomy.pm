@@ -143,8 +143,14 @@ sub get_sections() {
 	for my $section (@$sections) {
 		my $uri = $section->getAttribute('roleURI');	
 		my $def = $section->findnodes('link:definition');
-		$def =~ m/(^\d+\d)/;	
-		my $order = $1;	
+		$def =~ m/(^\d+\d)|^\[(\d+\d)/;	
+		my $order;	
+		if ($2) {
+			$order = $2;
+		}
+		else {
+			$order = $1;	
+		}	
 		push(@out_array, { def => $def, uri => $uri, order => $order }); 
 	}
 	

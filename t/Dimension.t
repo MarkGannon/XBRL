@@ -9,7 +9,7 @@ use strict;
 use warnings;
 use Carp;
 
-use Test::More tests => 4;
+use Test::More tests => 10;
 BEGIN { use_ok('XBRL') };
 require_ok( 'XBRL' );
 
@@ -31,13 +31,50 @@ my $lab_doc    	= 't/fubar-02_lab.xml';
 
 my $doc = XBRL->new({file => $main_doc}); 
 
-ok($doc);
+ok($doc, "Document Created");
 
-my $context;
+my $dim_uri = 'http://www.fubar.com/role/DisclosureDescriptionOfBusinessBasisOfPresentationAndSummaryOfSignificantAccountingPoliciesDetails';
 
-my $test_id = "Third";
+my $dim = XBRL::Dimension->new($doc, $dim_uri);
 
-ok($context = $doc->get_context($test_id));
+ok($dim, "Dimension Created");
+
+my $xml_table = $dim->get_xml_table();
+
+ok($xml_table, "Create XML Table");
+
+my $row_array_ref = $xml_table->getRows();
+
+my $row_num = scalar @{$row_array_ref};
+
+ok($row_num eq '7', "Number of Rows");
+
+my $expected_label = 'Entity Wide Disclosure On Geographic Areas Revenue From External Customers Attributed To Entitys Country Of Domicile';
+
+my $label = $xml_table->label('2');
+
+ok($label eq $expected_label, "XML Table Row Label");
+
+my $expected_id = 'us-gaap_EntityWideDisclosureOnGeographicAreasRevenueFromExternalCustomersAttributedToEntitysCountryOfDomicile';
+
+my $row_id = $xml_table->get_row_id('2');
+
+ok($row_id eq $expected_id, "XML Table Row ID");
+
+my $expected_contents = '24400000'; 
+
+my $cell_contents = $xml_table->getCell('2', '2');
+
+ok($cell_contents eq $expected_contents, "Get Cell Contents");
+
+my $new_contents = '25';
+
+$xml_table->setCell('2', '2', $new_contents);
+
+$cell_contents = $xml_table->getCell('2', '2'); 
+
+ok($cell_contents eq $new_contents, "XML Table Set Cell"); 
+
 
 
 

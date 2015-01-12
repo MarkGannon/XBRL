@@ -6,9 +6,134 @@ xmlns:link="http://www.xbrl.org/2003/linkbase"
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xmlns:xbrli="http://www.xbrl.org/2003/instance"
 xmlns:xlink="http://www.w3.org/1999/xlink"
-xmlns:p0="http://xbrl.org/2005/xbrldt">
-  <link:roleRef roleURI="http://www.fubar.com/role/BalanceSheet"
+xmlns:p0="http://xbrl.org/2005/xbrldt"
+xmlns:xbrldt="http://xbrl.org/2005/xbrldt"> 
+
+<link:roleRef roleURI="http://www.fubar.com/role/BalanceSheet"
   xlink:type="simple" xlink:href="fubar-01.xsd#BalanceSheet" />
-  <link:definitionLink xlink:type="extended"
+  
+	<link:roleRef roleURI="http://www.fubar.com/role/DisclosureDescriptionOfBusinessBasisOfPresentationAndSummaryOfSignificantAccountingPoliciesDetails" xlink:type="simple" xlink:href="DisclosureDescriptionOfBusinessBasisOfPresentationAndSummaryOfSignificantAccountingPoliciesDetails"/>
+	<link:roleRef roleURI="http://www.fubar.com/role/AcquisitionsNarrativeDetails" xlink:href="fubar-02.xsd#AcquisitionsNarrativeDetails" xlink:type="simple" />
+   
+	<link:definitionLink xlink:type="extended"
   xlink:role="http://www.fubar.com/role/BalanceSheet" />
+
+
+  <definitionLink xlink:type="extended" xlink:role="http://www.fubar.com/role/DisclosureDescriptionOfBusinessBasisOfPresentationAndSummaryOfSignificantAccountingPoliciesDetails">
+    <loc xlink:type="locator" xlink:href="fubar-02.xsd#fubar_OrganizationConsolidationAndPresentationOfFinancialStatementsLineItems" xlink:label="Locator_fubar_OrganizationConsolidationAndPresentationOfFinancialStatementsLineItems_673" />
+    <loc xlink:type="locator" xlink:href="fubar-02.xsd#fubar_RevenueByGeographyTable" xlink:label="Locator_fubar_RevenueByGeographyTable_674" />
+    <definitionArc xlink:type="arc" xlink:arcrole="http://xbrl.org/int/dim/arcrole/all" xlink:from="Locator_fubar_OrganizationConsolidationAndPresentationOfFinancialStatementsLineItems_673" xlink:to="Locator_fubar_RevenueByGeographyTable_674" order="-1.0" xbrldt:contextElement="segment" xbrldt:closed="true" />
+    <loc xlink:type="locator" xlink:href="fubar-02.xsd#fubar_RevenueByGeographyTable" xlink:label="Locator_fubar_RevenueByGeographyTable_675" />
+    <loc xlink:type="locator" xlink:href="fubar-02.xsd#fubar_RevenueByGeographyAxis" xlink:label="Locator_fubar_RevenueByGeographyAxis_676" />
+    <definitionArc xlink:type="arc" xlink:arcrole="http://xbrl.org/int/dim/arcrole/hypercube-dimension" xlink:from="Locator_fubar_RevenueByGeographyTable_675" xlink:to="Locator_fubar_RevenueByGeographyAxis_676" order="0.0" />
+    <loc xlink:type="locator" xlink:href="fubar-02.xsd#fubar_RevenueByGeographyAxis" xlink:label="Locator_fubar_RevenueByGeographyAxis_665" />
+    <loc xlink:type="locator" xlink:href="fubar-02.xsd#fubar_GeographicAreaDomain" xlink:label="Locator_fubar_GeographicAreaDomain_666" />
+    <definitionArc xlink:type="arc" xlink:arcrole="http://xbrl.org/int/dim/arcrole/dimension-default" xlink:from="Locator_fubar_RevenueByGeographyAxis_665" xlink:to="Locator_fubar_GeographicAreaDomain_666" order="1.0" />
+    <loc xlink:type="locator" xlink:href="fubar-02.xsd#fubar_RevenueByGeographyAxis" xlink:label="Locator_fubar_RevenueByGeographyAxis_677" />
+    <loc xlink:type="locator" xlink:href="fubar-02.xsd#fubar_GeographicAreaDomain" xlink:label="Locator_fubar_GeographicAreaDomain_678" />
+    <definitionArc xlink:type="arc" xlink:arcrole="http://xbrl.org/int/dim/arcrole/dimension-domain" xlink:from="Locator_fubar_RevenueByGeographyAxis_677" xlink:to="Locator_fubar_GeographicAreaDomain_678" order="0.0" />
+    <loc xlink:type="locator" xlink:href="fubar-02.xsd#fubar_GeographicAreaDomain" xlink:label="Locator_fubar_GeographicAreaDomain_679" />
+    <loc xlink:type="locator" xlink:href="fubar-02.xsd#fubar_UnitedStatesMember" xlink:label="Locator_fubar_UnitedStatesMember_680" />
+    <definitionArc xlink:type="arc" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:from="Locator_fubar_GeographicAreaDomain_679" xlink:to="Locator_fubar_UnitedStatesMember_680" order="0.0" />
+    <loc xlink:type="locator" xlink:href="fubar-02.xsd#fubar_GeographicAreaDomain" xlink:label="Locator_fubar_GeographicAreaDomain_681" />
+    <loc xlink:type="locator" xlink:href="fubar-02.xsd#fubar_UnitedKingdomMember" xlink:label="Locator_fubar_UnitedKingdomMember_682" />
+    <definitionArc xlink:type="arc" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:from="Locator_fubar_GeographicAreaDomain_681" xlink:to="Locator_fubar_UnitedKingdomMember_682" order="1.0" />
+    <loc xlink:type="locator" xlink:href="fubar-02.xsd#fubar_GeographicAreaDomain" xlink:label="Locator_fubar_GeographicAreaDomain_683" />
+    <loc xlink:type="locator" xlink:href="fubar-02.xsd#fubar_GermanyMember" xlink:label="Locator_fubar_GermanyMember_684" />
+    <definitionArc xlink:type="arc" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:from="Locator_fubar_GeographicAreaDomain_683" xlink:to="Locator_fubar_GermanyMember_684" order="2.0" />
+    <loc xlink:type="locator" xlink:href="fubar-02.xsd#fubar_GeographicAreaDomain" xlink:label="Locator_fubar_GeographicAreaDomain_685" />
+    <loc xlink:type="locator" xlink:href="fubar-02.xsd#fubar_CanadaMember" xlink:label="Locator_fubar_CanadaMember_686" />
+    <definitionArc xlink:type="arc" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:from="Locator_fubar_GeographicAreaDomain_685" xlink:to="Locator_fubar_CanadaMember_686" order="3.0" />
+    <loc xlink:type="locator" xlink:href="fubar-02.xsd#fubar_GeographicAreaDomain" xlink:label="Locator_fubar_GeographicAreaDomain_687" />
+    <loc xlink:type="locator" xlink:href="fubar-02.xsd#fubar_JapanMember" xlink:label="Locator_fubar_JapanMember_688" />
+    <definitionArc xlink:type="arc" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:from="Locator_fubar_GeographicAreaDomain_687" xlink:to="Locator_fubar_JapanMember_688" order="4.0" />
+    <loc xlink:type="locator" xlink:href="fubar-02.xsd#fubar_GeographicAreaDomain" xlink:label="Locator_fubar_GeographicAreaDomain_689" />
+    <loc xlink:type="locator" xlink:href="fubar-02.xsd#fubar_OtherInternationalMember" xlink:label="Locator_fubar_OtherInternationalMember_690" />
+    <definitionArc xlink:type="arc" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:from="Locator_fubar_GeographicAreaDomain_689" xlink:to="Locator_fubar_OtherInternationalMember_690" order="5.0" />
+    <loc xlink:type="locator" xlink:href="fubar-02.xsd#fubar_GeographicAreaDomain" xlink:label="Locator_fubar_GeographicAreaDomain_691" />
+    <loc xlink:type="locator" xlink:href="fubar-02.xsd#fubar_TotalInternationalMember" xlink:label="Locator_fubar_TotalInternationalMember_692" />
+    <definitionArc xlink:type="arc" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:from="Locator_fubar_GeographicAreaDomain_691" xlink:to="Locator_fubar_TotalInternationalMember_692" order="6.0" />
+    <loc xlink:type="locator" xlink:href="fubar-02.xsd#fubar_OrganizationConsolidationAndPresentationOfFinancialStatementsLineItems" xlink:label="Locator_fubar_OrganizationConsolidationAndPresentationOfFinancialStatementsLineItems_693" />
+    <loc xlink:type="locator" xlink:href="http://xbrl.fasb.org/us-gaap/2011/elts/us-gaap-2011-01-31.xsd#us-gaap_RestrictedCashAndCashEquivalentsNoncurrent" xlink:label="Locator_us-gaap_RestrictedCashAndCashEquivalentsNoncurrent_694" />
+    <definitionArc xlink:type="arc" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:from="Locator_fubar_OrganizationConsolidationAndPresentationOfFinancialStatementsLineItems_693" xlink:to="Locator_us-gaap_RestrictedCashAndCashEquivalentsNoncurrent_694" order="1.0" />
+    <loc xlink:type="locator" xlink:href="fubar-02.xsd#fubar_OrganizationConsolidationAndPresentationOfFinancialStatementsLineItems" xlink:label="Locator_fubar_OrganizationConsolidationAndPresentationOfFinancialStatementsLineItems_695" />
+    <loc xlink:type="locator" xlink:href="http://xbrl.fasb.org/us-gaap/2011/elts/us-gaap-2011-01-31.xsd#us-gaap_EntityWideDisclosureOnGeographicAreasRevenueFromExternalCustomersAttributedToEntitysCountryOfDomicile" xlink:label="Locator_us-gaap_EntityWideDisclosureOnGeographicAreasRevenueFromExternalCustomersAttributedToEntitysCountryOfDomicile_696" />
+    <definitionArc xlink:type="arc" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:from="Locator_fubar_OrganizationConsolidationAndPresentationOfFinancialStatementsLineItems_695" xlink:to="Locator_us-gaap_EntityWideDisclosureOnGeographicAreasRevenueFromExternalCustomersAttributedToEntitysCountryOfDomicile_696" order="2.0" />
+    <loc xlink:type="locator" xlink:href="fubar-02.xsd#fubar_OrganizationConsolidationAndPresentationOfFinancialStatementsLineItems" xlink:label="Locator_fubar_OrganizationConsolidationAndPresentationOfFinancialStatementsLineItems_697" />
+    <loc xlink:type="locator" xlink:href="http://xbrl.fasb.org/us-gaap/2011/elts/us-gaap-2011-01-31.xsd#us-gaap_Revenues" xlink:label="Locator_us-gaap_Revenues_698" />
+    <definitionArc xlink:type="arc" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:from="Locator_fubar_OrganizationConsolidationAndPresentationOfFinancialStatementsLineItems_697" xlink:to="Locator_us-gaap_Revenues_698" order="3.0" />
+  </definitionLink>
+
+
+ 
+ <link:definitionLink xlink:role="http://www.fubar.com/role/AcquisitionsNarrativeDetails" xlink:type="extended">
+    <link:loc xlink:href="http://xbrl.fasb.org/us-gaap/2012/elts/us-gaap-2012-01-31.xsd#us-gaap_BusinessAcquisitionLineItems" xlink:label="loc_us-gaap_BusinessAcquisitionLineItems_1A766EC9B2D6B132C4B01DCBDC55DC41" xlink:type="locator" />
+    <link:loc xlink:href="http://xbrl.fasb.org/us-gaap/2012/elts/us-gaap-2012-01-31.xsd#us-gaap_ScheduleOfBusinessAcquisitionsByAcquisitionTable" xlink:label="loc_us-gaap_ScheduleOfBusinessAcquisitionsByAcquisitionTable_DA2F686524AC4DFF8A801DCBDC5508FD" xlink:type="locator" />
+    <link:definitionArc order="1" xlink:arcrole="http://xbrl.org/int/dim/arcrole/all" xlink:from="loc_us-gaap_BusinessAcquisitionLineItems_1A766EC9B2D6B132C4B01DCBDC55DC41" xlink:to="loc_us-gaap_ScheduleOfBusinessAcquisitionsByAcquisitionTable_DA2F686524AC4DFF8A801DCBDC5508FD" xlink:type="arc" xbrldt:closed="true" xbrldt:contextElement="segment" />
+    <link:loc xlink:href="http://xbrl.fasb.org/us-gaap/2012/elts/us-gaap-2012-01-31.xsd#us-gaap_StatementGeographicalAxis" xlink:label="loc_us-gaap_StatementGeographicalAxis_6E54255645066BCCD8821DCBDC55FCE2" xlink:type="locator" />
+    <link:definitionArc order="1" xlink:arcrole="http://xbrl.org/int/dim/arcrole/hypercube-dimension" xlink:from="loc_us-gaap_ScheduleOfBusinessAcquisitionsByAcquisitionTable_DA2F686524AC4DFF8A801DCBDC5508FD" xlink:to="loc_us-gaap_StatementGeographicalAxis_6E54255645066BCCD8821DCBDC55FCE2" xlink:type="arc" />
+    <link:loc xlink:href="http://xbrl.fasb.org/us-gaap/2012/elts/us-gaap-2012-01-31.xsd#us-gaap_SegmentGeographicalDomain" xlink:label="loc_us-gaap_SegmentGeographicalDomain_CBB7095DE66E53F728821DCBDC559C89_default" xlink:type="locator" />
+    <link:definitionArc order="1" xlink:arcrole="http://xbrl.org/int/dim/arcrole/dimension-default" xlink:from="loc_us-gaap_StatementGeographicalAxis_6E54255645066BCCD8821DCBDC55FCE2" xlink:to="loc_us-gaap_SegmentGeographicalDomain_CBB7095DE66E53F728821DCBDC559C89_default" xlink:type="arc" />
+    <link:loc xlink:href="http://xbrl.fasb.org/us-gaap/2012/elts/us-gaap-2012-01-31.xsd#us-gaap_SegmentGeographicalDomain" xlink:label="loc_us-gaap_SegmentGeographicalDomain_CBB7095DE66E53F728821DCBDC559C89" xlink:type="locator" />
+    <link:definitionArc order="1" xlink:arcrole="http://xbrl.org/int/dim/arcrole/dimension-domain" xlink:from="loc_us-gaap_StatementGeographicalAxis_6E54255645066BCCD8821DCBDC55FCE2" xlink:to="loc_us-gaap_SegmentGeographicalDomain_CBB7095DE66E53F728821DCBDC559C89" xlink:type="arc" />
+    <link:loc xlink:href="fubar-02.xsd#fubar_SubSaharanAfricanMember" xlink:label="loc_fubar_SubSaharanAfricanMember_04FB537DFFB662B7BA821DCBDC55366C" xlink:type="locator" />
+    <link:definitionArc order="1" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:from="loc_us-gaap_SegmentGeographicalDomain_CBB7095DE66E53F728821DCBDC559C89" xlink:to="loc_fubar_SubSaharanAfricanMember_04FB537DFFB662B7BA821DCBDC55366C" xlink:type="arc" />
+    <link:loc xlink:href="http://xbrl.sec.gov/country/2012/country-2012-01-31.xsd#country_GB" xlink:label="loc_country_GB_8FD32C96D990AD37B0471DCBDC552B01" xlink:type="locator" />
+    <link:definitionArc order="2" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:from="loc_us-gaap_SegmentGeographicalDomain_CBB7095DE66E53F728821DCBDC559C89" xlink:to="loc_country_GB_8FD32C96D990AD37B0471DCBDC552B01" xlink:type="arc" />
+    <link:loc xlink:href="fubar-02.xsd#fubar_PaymentTypeByAcquisitionAxis" xlink:label="loc_fubar_PaymentTypeByAcquisitionAxis_12396E795502C54139EC1DCBDC55E9B8" xlink:type="locator" />
+    <link:definitionArc order="2" xlink:arcrole="http://xbrl.org/int/dim/arcrole/hypercube-dimension" xlink:from="loc_us-gaap_ScheduleOfBusinessAcquisitionsByAcquisitionTable_DA2F686524AC4DFF8A801DCBDC5508FD" xlink:to="loc_fubar_PaymentTypeByAcquisitionAxis_12396E795502C54139EC1DCBDC55E9B8" xlink:type="arc" />
+    <link:loc xlink:href="fubar-02.xsd#fubar_PaymentTypeByAcquisitionDomain" xlink:label="loc_fubar_PaymentTypeByAcquisitionDomain_AEF1EAB1262E99D4CAA71DCBDC55C864_default" xlink:type="locator" />
+    <link:definitionArc order="1" xlink:arcrole="http://xbrl.org/int/dim/arcrole/dimension-default" xlink:from="loc_fubar_PaymentTypeByAcquisitionAxis_12396E795502C54139EC1DCBDC55E9B8" xlink:to="loc_fubar_PaymentTypeByAcquisitionDomain_AEF1EAB1262E99D4CAA71DCBDC55C864_default" xlink:type="arc" />
+    <link:loc xlink:href="fubar-02.xsd#fubar_PaymentTypeByAcquisitionDomain" xlink:label="loc_fubar_PaymentTypeByAcquisitionDomain_AEF1EAB1262E99D4CAA71DCBDC55C864" xlink:type="locator" />
+    <link:definitionArc order="1" xlink:arcrole="http://xbrl.org/int/dim/arcrole/dimension-domain" xlink:from="loc_fubar_PaymentTypeByAcquisitionAxis_12396E795502C54139EC1DCBDC55E9B8" xlink:to="loc_fubar_PaymentTypeByAcquisitionDomain_AEF1EAB1262E99D4CAA71DCBDC55C864" xlink:type="arc" />
+    <link:loc xlink:href="fubar-02.xsd#fubar_InitialInterestMember" xlink:label="loc_fubar_InitialInterestMember_7E51C5D15DEB7DDF73071DCBDC551B0E" xlink:type="locator" />
+    <link:definitionArc order="1" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:from="loc_fubar_PaymentTypeByAcquisitionDomain_AEF1EAB1262E99D4CAA71DCBDC55C864" xlink:to="loc_fubar_InitialInterestMember_7E51C5D15DEB7DDF73071DCBDC551B0E" xlink:type="arc" />
+    <link:loc xlink:href="fubar-02.xsd#fubar_AdditionalConsiderationMember" xlink:label="loc_fubar_AdditionalConsiderationMember_F1F917C77C0776997CD61DCBDC550CC6" xlink:type="locator" />
+    <link:definitionArc order="2" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:from="loc_fubar_PaymentTypeByAcquisitionDomain_AEF1EAB1262E99D4CAA71DCBDC55C864" xlink:to="loc_fubar_AdditionalConsiderationMember_F1F917C77C0776997CD61DCBDC550CC6" xlink:type="arc" />
+    <link:loc xlink:href="http://xbrl.fasb.org/us-gaap/2012/elts/us-gaap-2012-01-31.xsd#us-gaap_BusinessAcquisitionAxis" xlink:label="loc_us-gaap_BusinessAcquisitionAxis_6B8809EAE3D076F27EF11DCBDC55369F" xlink:type="locator" />
+    <link:definitionArc order="3" xlink:arcrole="http://xbrl.org/int/dim/arcrole/hypercube-dimension" xlink:from="loc_us-gaap_ScheduleOfBusinessAcquisitionsByAcquisitionTable_DA2F686524AC4DFF8A801DCBDC5508FD" xlink:to="loc_us-gaap_BusinessAcquisitionAxis_6B8809EAE3D076F27EF11DCBDC55369F" xlink:type="arc" />
+    <link:loc xlink:href="http://xbrl.fasb.org/us-gaap/2012/elts/us-gaap-2012-01-31.xsd#us-gaap_BusinessAcquisitionAcquireeDomain" xlink:label="loc_us-gaap_BusinessAcquisitionAcquireeDomain_31678EA4E83F05DD7E421DCBDC55D1F2_default" xlink:type="locator" />
+    <link:definitionArc order="1" xlink:arcrole="http://xbrl.org/int/dim/arcrole/dimension-default" xlink:from="loc_us-gaap_BusinessAcquisitionAxis_6B8809EAE3D076F27EF11DCBDC55369F" xlink:to="loc_us-gaap_BusinessAcquisitionAcquireeDomain_31678EA4E83F05DD7E421DCBDC55D1F2_default" xlink:type="arc" />
+    <link:loc xlink:href="http://xbrl.fasb.org/us-gaap/2012/elts/us-gaap-2012-01-31.xsd#us-gaap_BusinessAcquisitionAcquireeDomain" xlink:label="loc_us-gaap_BusinessAcquisitionAcquireeDomain_31678EA4E83F05DD7E421DCBDC55D1F2" xlink:type="locator" />
+    <link:definitionArc order="1" xlink:arcrole="http://xbrl.org/int/dim/arcrole/dimension-domain" xlink:from="loc_us-gaap_BusinessAcquisitionAxis_6B8809EAE3D076F27EF11DCBDC55369F" xlink:to="loc_us-gaap_BusinessAcquisitionAcquireeDomain_31678EA4E83F05DD7E421DCBDC55D1F2" xlink:type="arc" />
+    <link:loc xlink:href="fubar-02.xsd#fubar_NettoFoodStoresLimitedMember" xlink:label="loc_fubar_NettoFoodStoresLimitedMember_9AD91D1E29BA5B4A128C1DCBDC555F89" xlink:type="locator" />
+    <link:definitionArc order="1" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:from="loc_us-gaap_BusinessAcquisitionAcquireeDomain_31678EA4E83F05DD7E421DCBDC55D1F2" xlink:to="loc_fubar_NettoFoodStoresLimitedMember_9AD91D1E29BA5B4A128C1DCBDC555F89" xlink:type="arc" />
+    <link:loc xlink:href="fubar-02.xsd#fubar_MassmartHoldingsLimitedMember" xlink:label="loc_fubar_MassmartHoldingsLimitedMember_B04FF8D4B2E11A4D7BA31DCBDC55ACEE" xlink:type="locator" />
+    <link:definitionArc order="2" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:from="loc_us-gaap_BusinessAcquisitionAcquireeDomain_31678EA4E83F05DD7E421DCBDC55D1F2" xlink:to="loc_fubar_MassmartHoldingsLimitedMember_B04FF8D4B2E11A4D7BA31DCBDC55ACEE" xlink:type="arc" />
+    <link:loc xlink:href="fubar-02.xsd#fubar_BounteousCompanyLimitedMember" xlink:label="loc_fubar_BounteousCompanyLimitedMember_BED45E098E37698FFD8A1DCBDC55A812" xlink:type="locator" />
+    <link:definitionArc order="3" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:from="loc_us-gaap_BusinessAcquisitionAcquireeDomain_31678EA4E83F05DD7E421DCBDC55D1F2" xlink:to="loc_fubar_BounteousCompanyLimitedMember_BED45E098E37698FFD8A1DCBDC55A812" xlink:type="arc" />
+    <link:loc xlink:href="fubar-02.xsd#fubar_EquityMethodInvestmentInitialOwnershipPercentage" xlink:label="loc_fubar_EquityMethodInvestmentInitialOwnershipPercentage_968D32FFE06B36BEE1861DCBDC55514D" xlink:type="locator" />
+    <link:definitionArc order="1" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:from="loc_us-gaap_BusinessAcquisitionLineItems_1A766EC9B2D6B132C4B01DCBDC55DC41" xlink:to="loc_fubar_EquityMethodInvestmentInitialOwnershipPercentage_968D32FFE06B36BEE1861DCBDC55514D" xlink:type="arc" />
+    <link:loc xlink:href="http://xbrl.fasb.org/us-gaap/2012/elts/us-gaap-2012-01-31.xsd#us-gaap_EquityMethodInvestmentOwnershipPercentage" xlink:label="loc_us-gaap_EquityMethodInvestmentOwnershipPercentage_F6B7503B890E78EF7C2A1DCBDC553797" xlink:type="locator" />
+    <link:definitionArc order="2" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:from="loc_us-gaap_BusinessAcquisitionLineItems_1A766EC9B2D6B132C4B01DCBDC55DC41" xlink:to="loc_us-gaap_EquityMethodInvestmentOwnershipPercentage_F6B7503B890E78EF7C2A1DCBDC553797" xlink:type="arc" />
+    <link:loc xlink:href="http://xbrl.fasb.org/us-gaap/2012/elts/us-gaap-2012-01-31.xsd#us-gaap_BusinessAcquisitionCostOfAcquiredEntityCashPaid" xlink:label="loc_us-gaap_BusinessAcquisitionCostOfAcquiredEntityCashPaid_4D1748F7ACCDF4DD6C901DCBDC55102E" xlink:type="locator" />
+    <link:definitionArc order="3" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:from="loc_us-gaap_BusinessAcquisitionLineItems_1A766EC9B2D6B132C4B01DCBDC55DC41" xlink:to="loc_us-gaap_BusinessAcquisitionCostOfAcquiredEntityCashPaid_4D1748F7ACCDF4DD6C901DCBDC55102E" xlink:type="arc" />
+    <link:loc xlink:href="fubar-02.xsd#fubar_EquityMethodInvestmentAdditionalOwnershipPercentage" xlink:label="loc_fubar_EquityMethodInvestmentAdditionalOwnershipPercentage_1E432C7E8745F398DD661DCBDC55D1FA" xlink:type="locator" />
+    <link:definitionArc order="4" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:from="loc_us-gaap_BusinessAcquisitionLineItems_1A766EC9B2D6B132C4B01DCBDC55DC41" xlink:to="loc_fubar_EquityMethodInvestmentAdditionalOwnershipPercentage_1E432C7E8745F398DD661DCBDC55D1FA" xlink:type="arc" />
+    <link:loc xlink:href="http://xbrl.fasb.org/us-gaap/2012/elts/us-gaap-2012-01-31.xsd#us-gaap_BusinessAcquisitionPercentageOfVotingInterestsAcquired" xlink:label="loc_us-gaap_BusinessAcquisitionPercentageOfVotingInterestsAcquired_790FAFF48410F208B8621DCBDC5539A9" xlink:type="locator" />
+    <link:definitionArc order="5" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:from="loc_us-gaap_BusinessAcquisitionLineItems_1A766EC9B2D6B132C4B01DCBDC55DC41" xlink:to="loc_us-gaap_BusinessAcquisitionPercentageOfVotingInterestsAcquired_790FAFF48410F208B8621DCBDC5539A9" xlink:type="arc" />
+    <link:loc xlink:href="http://xbrl.fasb.org/us-gaap/2012/elts/us-gaap-2012-01-31.xsd#us-gaap_BusinessAcquisitionCostOfAcquiredEntityPurchasePrice" xlink:label="loc_us-gaap_BusinessAcquisitionCostOfAcquiredEntityPurchasePrice_D7A277C8DD69035717D41DCBDC5530CB" xlink:type="locator" />
+    <link:definitionArc order="6" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:from="loc_us-gaap_BusinessAcquisitionLineItems_1A766EC9B2D6B132C4B01DCBDC55DC41" xlink:to="loc_us-gaap_BusinessAcquisitionCostOfAcquiredEntityPurchasePrice_D7A277C8DD69035717D41DCBDC5530CB" xlink:type="arc" />
+    <link:loc xlink:href="http://xbrl.fasb.org/us-gaap/2012/elts/us-gaap-2012-01-31.xsd#us-gaap_BusinessAcquisitionPurchasePriceAllocationAssetsAcquired" xlink:label="loc_us-gaap_BusinessAcquisitionPurchasePriceAllocationAssetsAcquired_E568FCF1F09F6DFDF1701DCBDC55991B" xlink:type="locator" />
+    <link:definitionArc order="7" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:from="loc_us-gaap_BusinessAcquisitionLineItems_1A766EC9B2D6B132C4B01DCBDC55DC41" xlink:to="loc_us-gaap_BusinessAcquisitionPurchasePriceAllocationAssetsAcquired_E568FCF1F09F6DFDF1701DCBDC55991B" xlink:type="arc" />
+    <link:loc xlink:href="http://xbrl.fasb.org/us-gaap/2012/elts/us-gaap-2012-01-31.xsd#us-gaap_BusinessAcquisitionPurchasePriceAllocationGoodwillAmount" xlink:label="loc_us-gaap_BusinessAcquisitionPurchasePriceAllocationGoodwillAmount_9DD09577824E413A75D41DCBDC55FEF6" xlink:type="locator" />
+    <link:definitionArc order="8" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:from="loc_us-gaap_BusinessAcquisitionLineItems_1A766EC9B2D6B132C4B01DCBDC55DC41" xlink:to="loc_us-gaap_BusinessAcquisitionPurchasePriceAllocationGoodwillAmount_9DD09577824E413A75D41DCBDC55FEF6" xlink:type="arc" />
+    <link:loc xlink:href="http://xbrl.fasb.org/us-gaap/2012/elts/us-gaap-2012-01-31.xsd#us-gaap_BusinessAcquisitionPurchasePriceAllocationLiabilitiesAssumed" xlink:label="loc_us-gaap_BusinessAcquisitionPurchasePriceAllocationLiabilitiesAssumed_0ECD55B8D468C81CB7AB1DCBDC55C828" xlink:type="locator" />
+    <link:definitionArc order="9" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:from="loc_us-gaap_BusinessAcquisitionLineItems_1A766EC9B2D6B132C4B01DCBDC55DC41" xlink:to="loc_us-gaap_BusinessAcquisitionPurchasePriceAllocationLiabilitiesAssumed_0ECD55B8D468C81CB7AB1DCBDC55C828" xlink:type="arc" />
+    <link:loc xlink:href="http://xbrl.fasb.org/us-gaap/2012/elts/us-gaap-2012-01-31.xsd#us-gaap_PaymentsToAcquireAdditionalInterestInSubsidiaries" xlink:label="loc_us-gaap_PaymentsToAcquireAdditionalInterestInSubsidiaries_93D6AD799BC1DF2C68501DCBDC55B16E" xlink:type="locator" />
+    <link:definitionArc order="10" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:from="loc_us-gaap_BusinessAcquisitionLineItems_1A766EC9B2D6B132C4B01DCBDC55DC41" xlink:to="loc_us-gaap_PaymentsToAcquireAdditionalInterestInSubsidiaries_93D6AD799BC1DF2C68501DCBDC55B16E" xlink:type="arc" />
+    <link:loc xlink:href="http://xbrl.fasb.org/us-gaap/2012/elts/us-gaap-2012-01-31.xsd#us-gaap_NumberOfStores" xlink:label="loc_us-gaap_NumberOfStores_1DF53164A06E9248FC401DCBDC55F252" xlink:type="locator" />
+    <link:definitionArc order="11" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:from="loc_us-gaap_BusinessAcquisitionLineItems_1A766EC9B2D6B132C4B01DCBDC55DC41" xlink:to="loc_us-gaap_NumberOfStores_1DF53164A06E9248FC401DCBDC55F252" xlink:type="arc" />
+    <link:loc xlink:href="http://xbrl.fasb.org/us-gaap/2012/elts/us-gaap-2012-01-31.xsd#us-gaap_NumberOfCountriesInWhichEntityOperates" xlink:label="loc_us-gaap_NumberOfCountriesInWhichEntityOperates_CA0D0D1AF7CADFC171D11DCBDC55D0D2" xlink:type="locator" />
+    <link:definitionArc order="12" xlink:arcrole="http://xbrl.org/int/dim/arcrole/domain-member" xlink:from="loc_us-gaap_BusinessAcquisitionLineItems_1A766EC9B2D6B132C4B01DCBDC55DC41" xlink:to="loc_us-gaap_NumberOfCountriesInWhichEntityOperates_CA0D0D1AF7CADFC171D11DCBDC55D0D2" xlink:type="arc" />
+  </link:definitionLink>
+
+
+
+
+
+
+
+
+
 </link:linkbase>

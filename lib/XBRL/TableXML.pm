@@ -184,7 +184,8 @@ sub setCell() {
 
 	my @cells = $rows->[$row_number]->getChildrenByLocalName('cell'); 
 	if ($cells[$col_number]) {
-		$cells[$col_number]->nodeValue($content);
+		$cells[$col_number]->removeChildNodes();
+		$cells[$col_number]->appendText($content);
 	}
 }
 

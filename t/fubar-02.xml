@@ -26,7 +26,467 @@
       <xbrli:endDate>2011-12-31</xbrli:endDate>
     </xbrli:period>
   </xbrli:context>
-  <xbrli:unit id="USD">
+
+
+<!-- Contexts for geography dimension table --> 
+ <xbrli:context id="FROM_Jul01_2012_TO_Sep30_2012_fubar_RevenueByGeographyAxis_UnitedStatesMember">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000000001</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="fubar:RevenueByGeographyAxis">fubar:UnitedStatesMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2012-07-01</xbrli:startDate>
+      <xbrli:endDate>2012-09-30</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="FROM_Jul01_2011_TO_Sep30_2011_fubar_RevenueByGeographyAxis_UnitedStatesMember">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000000001</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="fubar:RevenueByGeographyAxis">fubar:UnitedStatesMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2011-07-01</xbrli:startDate>
+      <xbrli:endDate>2011-09-30</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="FROM_Jan01_2012_TO_Sep30_2012_fubar_RevenueByGeographyAxis_UnitedStatesMember">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000000001</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="fubar:RevenueByGeographyAxis">fubar:UnitedStatesMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2012-01-01</xbrli:startDate>
+      <xbrli:endDate>2012-09-30</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="FROM_Jan01_2011_TO_Sep30_2011_fubar_RevenueByGeographyAxis_UnitedStatesMember">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000000001</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="fubar:RevenueByGeographyAxis">fubar:UnitedStatesMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2011-01-01</xbrli:startDate>
+      <xbrli:endDate>2011-09-30</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="FROM_Jul01_2012_TO_Sep30_2012_fubar_RevenueByGeographyAxis_UnitedKingdomMember">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000000001</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="fubar:RevenueByGeographyAxis">fubar:UnitedKingdomMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2012-07-01</xbrli:startDate>
+      <xbrli:endDate>2012-09-30</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="FROM_Jul01_2011_TO_Sep30_2011_fubar_RevenueByGeographyAxis_UnitedKingdomMember">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000000001</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="fubar:RevenueByGeographyAxis">fubar:UnitedKingdomMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2011-07-01</xbrli:startDate>
+      <xbrli:endDate>2011-09-30</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="FROM_Jan01_2012_TO_Sep30_2012_fubar_RevenueByGeographyAxis_UnitedKingdomMember">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000000001</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="fubar:RevenueByGeographyAxis">fubar:UnitedKingdomMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2012-01-01</xbrli:startDate>
+      <xbrli:endDate>2012-09-30</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="FROM_Jan01_2011_TO_Sep30_2011_fubar_RevenueByGeographyAxis_UnitedKingdomMember">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000000001</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="fubar:RevenueByGeographyAxis">fubar:UnitedKingdomMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2011-01-01</xbrli:startDate>
+      <xbrli:endDate>2011-09-30</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="FROM_Jul01_2012_TO_Sep30_2012_fubar_RevenueByGeographyAxis_GermanyMember">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000000001</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="fubar:RevenueByGeographyAxis">fubar:GermanyMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2012-07-01</xbrli:startDate>
+      <xbrli:endDate>2012-09-30</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="FROM_Jul01_2011_TO_Sep30_2011_fubar_RevenueByGeographyAxis_GermanyMember">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000000001</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="fubar:RevenueByGeographyAxis">fubar:GermanyMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2011-07-01</xbrli:startDate>
+      <xbrli:endDate>2011-09-30</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="FROM_Jan01_2012_TO_Sep30_2012_fubar_RevenueByGeographyAxis_GermanyMember">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000000001</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="fubar:RevenueByGeographyAxis">fubar:GermanyMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2012-01-01</xbrli:startDate>
+      <xbrli:endDate>2012-09-30</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="FROM_Jan01_2011_TO_Sep30_2011_fubar_RevenueByGeographyAxis_GermanyMember">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000000001</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="fubar:RevenueByGeographyAxis">fubar:GermanyMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2011-01-01</xbrli:startDate>
+      <xbrli:endDate>2011-09-30</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="FROM_Jul01_2012_TO_Sep30_2012_fubar_RevenueByGeographyAxis_CanadaMember">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000000001</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="fubar:RevenueByGeographyAxis">fubar:CanadaMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2012-07-01</xbrli:startDate>
+      <xbrli:endDate>2012-09-30</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="FROM_Jul01_2011_TO_Sep30_2011_fubar_RevenueByGeographyAxis_CanadaMember">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000000001</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="fubar:RevenueByGeographyAxis">fubar:CanadaMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2011-07-01</xbrli:startDate>
+      <xbrli:endDate>2011-09-30</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="FROM_Jan01_2012_TO_Sep30_2012_fubar_RevenueByGeographyAxis_CanadaMember">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000000001</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="fubar:RevenueByGeographyAxis">fubar:CanadaMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2012-01-01</xbrli:startDate>
+      <xbrli:endDate>2012-09-30</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="FROM_Jan01_2011_TO_Sep30_2011_fubar_RevenueByGeographyAxis_CanadaMember">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000000001</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="fubar:RevenueByGeographyAxis">fubar:CanadaMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2011-01-01</xbrli:startDate>
+      <xbrli:endDate>2011-09-30</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="FROM_Jul01_2012_TO_Sep30_2012_fubar_RevenueByGeographyAxis_JapanMember">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000000001</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="fubar:RevenueByGeographyAxis">fubar:JapanMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2012-07-01</xbrli:startDate>
+      <xbrli:endDate>2012-09-30</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="FROM_Jul01_2011_TO_Sep30_2011_fubar_RevenueByGeographyAxis_JapanMember">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000000001</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="fubar:RevenueByGeographyAxis">fubar:JapanMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2011-07-01</xbrli:startDate>
+      <xbrli:endDate>2011-09-30</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="FROM_Jan01_2012_TO_Sep30_2012_fubar_RevenueByGeographyAxis_JapanMember">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000000001</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="fubar:RevenueByGeographyAxis">fubar:JapanMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2012-01-01</xbrli:startDate>
+      <xbrli:endDate>2012-09-30</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="FROM_Jan01_2011_TO_Sep30_2011_fubar_RevenueByGeographyAxis_JapanMember">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000000001</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="fubar:RevenueByGeographyAxis">fubar:JapanMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2011-01-01</xbrli:startDate>
+      <xbrli:endDate>2011-09-30</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="FROM_Jul01_2012_TO_Sep30_2012_fubar_RevenueByGeographyAxis_OtherInternationalMember">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000000001</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="fubar:RevenueByGeographyAxis">fubar:OtherInternationalMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2012-07-01</xbrli:startDate>
+      <xbrli:endDate>2012-09-30</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="FROM_Jul01_2011_TO_Sep30_2011_fubar_RevenueByGeographyAxis_OtherInternationalMember">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000000001</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="fubar:RevenueByGeographyAxis">fubar:OtherInternationalMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2011-07-01</xbrli:startDate>
+      <xbrli:endDate>2011-09-30</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="FROM_Jan01_2012_TO_Sep30_2012_fubar_RevenueByGeographyAxis_OtherInternationalMember">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000000001</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="fubar:RevenueByGeographyAxis">fubar:OtherInternationalMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2012-01-01</xbrli:startDate>
+      <xbrli:endDate>2012-09-30</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="FROM_Jan01_2011_TO_Sep30_2011_fubar_RevenueByGeographyAxis_OtherInternationalMember">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000000001</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="fubar:RevenueByGeographyAxis">fubar:OtherInternationalMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2011-01-01</xbrli:startDate>
+      <xbrli:endDate>2011-09-30</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="FROM_Jan01_2011_TO_Sep30_2011_fubar_RevenueByGeographyAxis_TotalInternationalMember">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000000001</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="fubar:RevenueByGeographyAxis">fubar:TotalInternationalMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2011-01-01</xbrli:startDate>
+      <xbrli:endDate>2011-09-30</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="FROM_Jan01_2012_TO_Sep30_2012_fubar_RevenueByGeographyAxis_TotalInternationalMember">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000000001</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="fubar:RevenueByGeographyAxis">fubar:TotalInternationalMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2012-01-01</xbrli:startDate>
+      <xbrli:endDate>2012-09-30</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="FROM_Jul01_2011_TO_Sep30_2011_fubar_RevenueByGeographyAxis_TotalInternationalMember">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000000001</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="fubar:RevenueByGeographyAxis">fubar:TotalInternationalMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2011-07-01</xbrli:startDate>
+      <xbrli:endDate>2011-09-30</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+  <xbrli:context id="FROM_Jul01_2012_TO_Sep30_2012_fubar_RevenueByGeographyAxis_TotalInternationalMember">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000000001</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="fubar:RevenueByGeographyAxis">fubar:TotalInternationalMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2012-07-01</xbrli:startDate>
+      <xbrli:endDate>2012-09-30</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context> 
+
+<!--acquisitions narrative details table --> 
+
+	<xbrli:context id="I2012Q2SD_us-gaap_BusinessAcquisitionAxis_fubar_MassmartHoldingsLimitedMember_us-gaap_StatementGeographicalAxis_fubar_SubSaharanAfricanMember">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000104169</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:BusinessAcquisitionAxis">fubar:MassmartHoldingsLimitedMember</xbrldi:explicitMember>
+        <xbrldi:explicitMember dimension="us-gaap:StatementGeographicalAxis">fubar:SubSaharanAfricanMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2011-06-30</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context> 
+
+  <xbrli:context id="I2012Q1_us-gaap_BusinessAcquisitionAxis_fubar_NettoFoodStoresLimitedMember_us-gaap_StatementGeographicalAxis_country_GB">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000104169</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:BusinessAcquisitionAxis">fubar:NettoFoodStoresLimitedMember</xbrldi:explicitMember>
+        <xbrldi:explicitMember dimension="us-gaap:StatementGeographicalAxis">country:GB</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2011-04-30</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+
+
+ <xbrli:context id="I2012Q2SD_us-gaap_BusinessAcquisitionAxis_fubar_MassmartHoldingsLimitedMember">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000104169</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:BusinessAcquisitionAxis">fubar:MassmartHoldingsLimitedMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2011-06-30</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+
+  <xbrli:context id="D2012Q2SD_us-gaap_BusinessAcquisitionAxis_fubar_MassmartHoldingsLimitedMember">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000104169</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:BusinessAcquisitionAxis">fubar:MassmartHoldingsLimitedMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:startDate>2011-06-01</xbrli:startDate>
+      <xbrli:endDate>2011-06-30</xbrli:endDate>
+    </xbrli:period>
+  </xbrli:context>
+
+
+  <xbrli:context id="I2008Q1SD_us-gaap_BusinessAcquisitionAxis_fubar_BounteousCompanyLimitedMember_fubar_PaymentTypeByAcquisitionAxis_fubar_AdditionalConsiderationMember">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000104169</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:BusinessAcquisitionAxis">fubar:BounteousCompanyLimitedMember</xbrldi:explicitMember>
+        <xbrldi:explicitMember dimension="fubar:PaymentTypeByAcquisitionAxis">fubar:AdditionalConsiderationMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2007-02-28</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+
+ <xbrli:context id="I2008Q1SD_us-gaap_BusinessAcquisitionAxis_fubar_BounteousCompanyLimitedMember_fubar_PaymentTypeByAcquisitionAxis_fubar_InitialInterestMember">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000104169</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:BusinessAcquisitionAxis">fubar:BounteousCompanyLimitedMember</xbrldi:explicitMember>
+        <xbrldi:explicitMember dimension="fubar:PaymentTypeByAcquisitionAxis">fubar:InitialInterestMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2007-02-28</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+  
+	<xbrli:context id="I2013Q3_us-gaap_BusinessAcquisitionAxis_fubar_BounteousCompanyLimitedMember_fubar_PaymentTypeByAcquisitionAxis_fubar_AdditionalConsiderationMember">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000104169</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:BusinessAcquisitionAxis">fubar:BounteousCompanyLimitedMember</xbrldi:explicitMember>
+        <xbrldi:explicitMember dimension="fubar:PaymentTypeByAcquisitionAxis">fubar:AdditionalConsiderationMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2012-10-31</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+
+
+  <xbrli:context id="I2008Q1SD_us-gaap_BusinessAcquisitionAxis_fubar_BounteousCompanyLimitedMember">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000104169</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:BusinessAcquisitionAxis">fubar:BounteousCompanyLimitedMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2007-02-28</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+
+  <xbrli:context id="I2012Q1_us-gaap_BusinessAcquisitionAxis_fubar_NettoFoodStoresLimitedMember">
+    <xbrli:entity>
+      <xbrli:identifier scheme="http://www.sec.gov/CIK">0000104169</xbrli:identifier>
+      <xbrli:segment>
+        <xbrldi:explicitMember dimension="us-gaap:BusinessAcquisitionAxis">fubar:NettoFoodStoresLimitedMember</xbrldi:explicitMember>
+      </xbrli:segment>
+    </xbrli:entity>
+    <xbrli:period>
+      <xbrli:instant>2011-04-30</xbrli:instant>
+    </xbrli:period>
+  </xbrli:context>
+
+
+ <xbrli:unit id="USD">
     <xbrli:measure>iso4217:USD</xbrli:measure>
   </xbrli:unit>
   <xbrli:unit id="USDPerShare">
@@ -95,4 +555,86 @@
   <dei:DocumentPeriodEndDate contextRef="First">2011-12-31</dei:DocumentPeriodEndDate>
   <dei:AmendmentFlag contextRef="First">false</dei:AmendmentFlag>
   <dei:CurrentFiscalYearEndDate contextRef="First">--03-31</dei:CurrentFiscalYearEndDate>
+	<dei:EntityRegistrantName id="ID_7911b" contextRef="First">FUBAR Inc.</dei:EntityRegistrantName>
+
+<us-gaap:EntityWideDisclosureOnGeographicAreasRevenueFromExternalCustomersAttributedToEntitysCountryOfDomicile id="ID_8060_USD_Millions" decimals="-5" contextRef="FROM_Jul01_2012_TO_Sep30_2012_fubar_RevenueByGeographyAxis_UnitedStatesMember" unitRef="USD">475200000</us-gaap:EntityWideDisclosureOnGeographicAreasRevenueFromExternalCustomersAttributedToEntitysCountryOfDomicile>
+  <us-gaap:EntityWideDisclosureOnGeographicAreasRevenueFromExternalCustomersAttributedToEntitysCountryOfDomicile id="ID_8061_USD_Millions" decimals="-5" contextRef="FROM_Jul01_2011_TO_Sep30_2011_fubar_RevenueByGeographyAxis_UnitedStatesMember" unitRef="USD">483100000</us-gaap:EntityWideDisclosureOnGeographicAreasRevenueFromExternalCustomersAttributedToEntitysCountryOfDomicile>
+  <us-gaap:EntityWideDisclosureOnGeographicAreasRevenueFromExternalCustomersAttributedToEntitysCountryOfDomicile id="ID_8062_USD_Millions" decimals="-5" contextRef="FROM_Jan01_2012_TO_Sep30_2012_fubar_RevenueByGeographyAxis_UnitedStatesMember" unitRef="USD">1426000000</us-gaap:EntityWideDisclosureOnGeographicAreasRevenueFromExternalCustomersAttributedToEntitysCountryOfDomicile>
+  <us-gaap:EntityWideDisclosureOnGeographicAreasRevenueFromExternalCustomersAttributedToEntitysCountryOfDomicile id="ID_8063_USD_Millions" decimals="-5" contextRef="FROM_Jan01_2011_TO_Sep30_2011_fubar_RevenueByGeographyAxis_UnitedStatesMember" unitRef="USD">1480900000</us-gaap:EntityWideDisclosureOnGeographicAreasRevenueFromExternalCustomersAttributedToEntitysCountryOfDomicile>
+  <us-gaap:EntityWideDisclosureOnGeographicAreasRevenueFromExternalCustomersAttributedToEntitysCountryOfDomicile id="ID_8064_USD_Millions" decimals="-5" contextRef="FROM_Jul01_2012_TO_Sep30_2012_fubar_RevenueByGeographyAxis_UnitedKingdomMember" unitRef="USD">23500000</us-gaap:EntityWideDisclosureOnGeographicAreasRevenueFromExternalCustomersAttributedToEntitysCountryOfDomicile>
+  <us-gaap:EntityWideDisclosureOnGeographicAreasRevenueFromExternalCustomersAttributedToEntitysCountryOfDomicile id="ID_8065_USD_Millions" decimals="-5" contextRef="FROM_Jul01_2011_TO_Sep30_2011_fubar_RevenueByGeographyAxis_UnitedKingdomMember" unitRef="USD">24400000</us-gaap:EntityWideDisclosureOnGeographicAreasRevenueFromExternalCustomersAttributedToEntitysCountryOfDomicile>
+  <us-gaap:EntityWideDisclosureOnGeographicAreasRevenueFromExternalCustomersAttributedToEntitysCountryOfDomicile id="ID_8066_USD_Millions" decimals="-5" contextRef="FROM_Jan01_2012_TO_Sep30_2012_fubar_RevenueByGeographyAxis_UnitedKingdomMember" unitRef="USD">71100000</us-gaap:EntityWideDisclosureOnGeographicAreasRevenueFromExternalCustomersAttributedToEntitysCountryOfDomicile>
+  <us-gaap:EntityWideDisclosureOnGeographicAreasRevenueFromExternalCustomersAttributedToEntitysCountryOfDomicile id="ID_8067_USD_Millions" decimals="-5" contextRef="FROM_Jan01_2011_TO_Sep30_2011_fubar_RevenueByGeographyAxis_UnitedKingdomMember" unitRef="USD">73300000</us-gaap:EntityWideDisclosureOnGeographicAreasRevenueFromExternalCustomersAttributedToEntitysCountryOfDomicile>
+  <us-gaap:EntityWideDisclosureOnGeographicAreasRevenueFromExternalCustomersAttributedToEntitysCountryOfDomicile id="ID_8068_USD_Millions" decimals="-5" contextRef="FROM_Jul01_2012_TO_Sep30_2012_fubar_RevenueByGeographyAxis_GermanyMember" unitRef="USD">7300000</us-gaap:EntityWideDisclosureOnGeographicAreasRevenueFromExternalCustomersAttributedToEntitysCountryOfDomicile>
+  <us-gaap:EntityWideDisclosureOnGeographicAreasRevenueFromExternalCustomersAttributedToEntitysCountryOfDomicile id="ID_8069_USD_Millions" decimals="-5" contextRef="FROM_Jul01_2011_TO_Sep30_2011_fubar_RevenueByGeographyAxis_GermanyMember" unitRef="USD">9200000</us-gaap:EntityWideDisclosureOnGeographicAreasRevenueFromExternalCustomersAttributedToEntitysCountryOfDomicile>
+  <us-gaap:EntityWideDisclosureOnGeographicAreasRevenueFromExternalCustomersAttributedToEntitysCountryOfDomicile id="ID_8070_USD_Millions" decimals="-5" contextRef="FROM_Jan01_2012_TO_Sep30_2012_fubar_RevenueByGeographyAxis_GermanyMember" unitRef="USD">24400000</us-gaap:EntityWideDisclosureOnGeographicAreasRevenueFromExternalCustomersAttributedToEntitysCountryOfDomicile>
+  <us-gaap:EntityWideDisclosureOnGeographicAreasRevenueFromExternalCustomersAttributedToEntitysCountryOfDomicile id="ID_8071_USD_Millions" decimals="-5" contextRef="FROM_Jan01_2011_TO_Sep30_2011_fubar_RevenueByGeographyAxis_GermanyMember" unitRef="USD">28200000</us-gaap:EntityWideDisclosureOnGeographicAreasRevenueFromExternalCustomersAttributedToEntitysCountryOfDomicile>
+  <us-gaap:EntityWideDisclosureOnGeographicAreasRevenueFromExternalCustomersAttributedToEntitysCountryOfDomicile id="ID_8072_USD_Millions" decimals="-5" contextRef="FROM_Jul01_2012_TO_Sep30_2012_fubar_RevenueByGeographyAxis_CanadaMember" unitRef="USD">10700000</us-gaap:EntityWideDisclosureOnGeographicAreasRevenueFromExternalCustomersAttributedToEntitysCountryOfDomicile>
+  <us-gaap:EntityWideDisclosureOnGeographicAreasRevenueFromExternalCustomersAttributedToEntitysCountryOfDomicile id="ID_8073_USD_Millions" decimals="-5" contextRef="FROM_Jul01_2011_TO_Sep30_2011_fubar_RevenueByGeographyAxis_CanadaMember" unitRef="USD">9300000</us-gaap:EntityWideDisclosureOnGeographicAreasRevenueFromExternalCustomersAttributedToEntitysCountryOfDomicile>
+  <us-gaap:EntityWideDisclosureOnGeographicAreasRevenueFromExternalCustomersAttributedToEntitysCountryOfDomicile id="ID_8074_USD_Millions" decimals="-5" contextRef="FROM_Jan01_2012_TO_Sep30_2012_fubar_RevenueByGeographyAxis_CanadaMember" unitRef="USD">27700000</us-gaap:EntityWideDisclosureOnGeographicAreasRevenueFromExternalCustomersAttributedToEntitysCountryOfDomicile>
+  <us-gaap:EntityWideDisclosureOnGeographicAreasRevenueFromExternalCustomersAttributedToEntitysCountryOfDomicile id="ID_8075_USD_Millions" decimals="-5" contextRef="FROM_Jan01_2011_TO_Sep30_2011_fubar_RevenueByGeographyAxis_CanadaMember" unitRef="USD">27200000</us-gaap:EntityWideDisclosureOnGeographicAreasRevenueFromExternalCustomersAttributedToEntitysCountryOfDomicile>
+  <us-gaap:EntityWideDisclosureOnGeographicAreasRevenueFromExternalCustomersAttributedToEntitysCountryOfDomicile id="ID_8076_USD_Millions" decimals="-5" contextRef="FROM_Jul01_2012_TO_Sep30_2012_fubar_RevenueByGeographyAxis_JapanMember" unitRef="USD">9800000</us-gaap:EntityWideDisclosureOnGeographicAreasRevenueFromExternalCustomersAttributedToEntitysCountryOfDomicile>
+  <us-gaap:EntityWideDisclosureOnGeographicAreasRevenueFromExternalCustomersAttributedToEntitysCountryOfDomicile id="ID_8077_USD_Millions" decimals="-5" contextRef="FROM_Jul01_2011_TO_Sep30_2011_fubar_RevenueByGeographyAxis_JapanMember" unitRef="USD">200000</us-gaap:EntityWideDisclosureOnGeographicAreasRevenueFromExternalCustomersAttributedToEntitysCountryOfDomicile>
+  <us-gaap:EntityWideDisclosureOnGeographicAreasRevenueFromExternalCustomersAttributedToEntitysCountryOfDomicile id="ID_8078_USD_Millions" decimals="-5" contextRef="FROM_Jan01_2012_TO_Sep30_2012_fubar_RevenueByGeographyAxis_JapanMember" unitRef="USD">24700000</us-gaap:EntityWideDisclosureOnGeographicAreasRevenueFromExternalCustomersAttributedToEntitysCountryOfDomicile>
+  <us-gaap:EntityWideDisclosureOnGeographicAreasRevenueFromExternalCustomersAttributedToEntitysCountryOfDomicile id="ID_8079_USD_Millions" decimals="-5" contextRef="FROM_Jan01_2011_TO_Sep30_2011_fubar_RevenueByGeographyAxis_JapanMember" unitRef="USD">700000</us-gaap:EntityWideDisclosureOnGeographicAreasRevenueFromExternalCustomersAttributedToEntitysCountryOfDomicile>
+  <us-gaap:EntityWideDisclosureOnGeographicAreasRevenueFromExternalCustomersAttributedToEntitysCountryOfDomicile id="ID_8080_USD_Millions" decimals="-5" contextRef="FROM_Jul01_2012_TO_Sep30_2012_fubar_RevenueByGeographyAxis_OtherInternationalMember" unitRef="USD">5200000</us-gaap:EntityWideDisclosureOnGeographicAreasRevenueFromExternalCustomersAttributedToEntitysCountryOfDomicile>
+  <us-gaap:EntityWideDisclosureOnGeographicAreasRevenueFromExternalCustomersAttributedToEntitysCountryOfDomicile id="ID_8081_USD_Millions" decimals="-5" contextRef="FROM_Jul01_2011_TO_Sep30_2011_fubar_RevenueByGeographyAxis_OtherInternationalMember" unitRef="USD">5500000</us-gaap:EntityWideDisclosureOnGeographicAreasRevenueFromExternalCustomersAttributedToEntitysCountryOfDomicile>
+  <us-gaap:EntityWideDisclosureOnGeographicAreasRevenueFromExternalCustomersAttributedToEntitysCountryOfDomicile id="ID_8082_USD_Millions" decimals="-5" contextRef="FROM_Jan01_2012_TO_Sep30_2012_fubar_RevenueByGeographyAxis_OtherInternationalMember" unitRef="USD">18300000</us-gaap:EntityWideDisclosureOnGeographicAreasRevenueFromExternalCustomersAttributedToEntitysCountryOfDomicile>
+  <us-gaap:EntityWideDisclosureOnGeographicAreasRevenueFromExternalCustomersAttributedToEntitysCountryOfDomicile id="ID_8083_USD_Millions" decimals="-5" contextRef="FROM_Jan01_2011_TO_Sep30_2011_fubar_RevenueByGeographyAxis_OtherInternationalMember" unitRef="USD">15000000</us-gaap:EntityWideDisclosureOnGeographicAreasRevenueFromExternalCustomersAttributedToEntitysCountryOfDomicile>
+  <us-gaap:EntityWideDisclosureOnGeographicAreasRevenueFromExternalCustomersAttributedToEntitysCountryOfDomicile id="ID_8084_USD_Millions" decimals="-5" contextRef="FROM_Jan01_2011_TO_Sep30_2011_fubar_RevenueByGeographyAxis_TotalInternationalMember" unitRef="USD">144400000</us-gaap:EntityWideDisclosureOnGeographicAreasRevenueFromExternalCustomersAttributedToEntitysCountryOfDomicile>
+  <us-gaap:EntityWideDisclosureOnGeographicAreasRevenueFromExternalCustomersAttributedToEntitysCountryOfDomicile id="ID_8085_USD_Millions" decimals="-5" contextRef="FROM_Jan01_2012_TO_Sep30_2012_fubar_RevenueByGeographyAxis_TotalInternationalMember" unitRef="USD">166200000</us-gaap:EntityWideDisclosureOnGeographicAreasRevenueFromExternalCustomersAttributedToEntitysCountryOfDomicile>
+  <us-gaap:EntityWideDisclosureOnGeographicAreasRevenueFromExternalCustomersAttributedToEntitysCountryOfDomicile id="ID_8086_USD_Millions" decimals="-5" contextRef="FROM_Jul01_2011_TO_Sep30_2011_fubar_RevenueByGeographyAxis_TotalInternationalMember" unitRef="USD">48600000</us-gaap:EntityWideDisclosureOnGeographicAreasRevenueFromExternalCustomersAttributedToEntitysCountryOfDomicile>
+  <us-gaap:EntityWideDisclosureOnGeographicAreasRevenueFromExternalCustomersAttributedToEntitysCountryOfDomicile id="ID_8087_USD_Millions" decimals="-5" contextRef="FROM_Jul01_2012_TO_Sep30_2012_fubar_RevenueByGeographyAxis_TotalInternationalMember" unitRef="USD">56500000</us-gaap:EntityWideDisclosureOnGeographicAreasRevenueFromExternalCustomersAttributedToEntitysCountryOfDomicile>
+
+	<!-- AcquisitionsNarrativeDetails -->
+
+<us-gaap:EquityMethodInvestmentOwnershipPercentage contextRef="I2012Q2SD_us-gaap_BusinessAcquisitionAxis_fubar_MassmartHoldingsLimitedMember" decimals="2" id="Fact-CC909E68D8D7A5BEB0EC1DCB58EC8907" unitRef="number">0.51</us-gaap:EquityMethodInvestmentOwnershipPercentage>
+ <us-gaap:BusinessAcquisitionCostOfAcquiredEntityCashPaid contextRef="I2013Q3_us-gaap_BusinessAcquisitionAxis_fubar_BounteousCompanyLimitedMember_fubar_PaymentTypeByAcquisitionAxis_fubar_AdditionalConsiderationMember" decimals="-6" id="Fact-78DF232EAE8320F401C41DCB58FCB1B3" unitRef="usd">101000000</us-gaap:BusinessAcquisitionCostOfAcquiredEntityCashPaid>
+  <us-gaap:BusinessAcquisitionCostOfAcquiredEntityCashPaid contextRef="I2008Q1SD_us-gaap_BusinessAcquisitionAxis_fubar_BounteousCompanyLimitedMember_fubar_PaymentTypeByAcquisitionAxis_fubar_InitialInterestMember" decimals="-6" id="Fact-C68952B78428C56743B51DCB58ECCD9B" unitRef="usd">264000000</us-gaap:BusinessAcquisitionCostOfAcquiredEntityCashPaid>
+  <us-gaap:BusinessAcquisitionCostOfAcquiredEntityCashPaid contextRef="I2008Q1SD_us-gaap_BusinessAcquisitionAxis_fubar_BounteousCompanyLimitedMember_fubar_PaymentTypeByAcquisitionAxis_fubar_AdditionalConsiderationMember" decimals="-6" id="Fact-DA816ACA9684AF5C2BF21DCB58FC9368" unitRef="usd">376000000</us-gaap:BusinessAcquisitionCostOfAcquiredEntityCashPaid>
+<fubar:EquityMethodInvestmentAdditionalOwnershipPercentage contextRef="I2008Q1SD_us-gaap_BusinessAcquisitionAxis_fubar_BounteousCompanyLimitedMember" decimals="INF" id="Fact-72A546C1E150514C30151DCB58EC0F8E" unitRef="number">0.30</fubar:EquityMethodInvestmentAdditionalOwnershipPercentage>
+  <us-gaap:BusinessAcquisitionCostOfAcquiredEntityPurchasePrice contextRef="I2012Q1_us-gaap_BusinessAcquisitionAxis_fubar_NettoFoodStoresLimitedMember" decimals="-8" id="Fact-09C3ADC4659A7CB4DB921DCB58EC36AE" unitRef="usd">1200000000</us-gaap:BusinessAcquisitionCostOfAcquiredEntityPurchasePrice>
+  <us-gaap:BusinessAcquisitionCostOfAcquiredEntityPurchasePrice contextRef="I2012Q2SD_us-gaap_BusinessAcquisitionAxis_fubar_MassmartHoldingsLimitedMember" decimals="-8" id="Fact-89C05C5B49A5A371D49B1DCB58EC9497" unitRef="Unit14">16900000000</us-gaap:BusinessAcquisitionCostOfAcquiredEntityPurchasePrice>
+  <us-gaap:BusinessAcquisitionCostOfAcquiredEntityPurchasePrice contextRef="I2012Q1_us-gaap_BusinessAcquisitionAxis_fubar_NettoFoodStoresLimitedMember" decimals="-6" id="Fact-AE65B787007BF420DBF81DCB58EC03AB" unitRef="Unit13">750000000</us-gaap:BusinessAcquisitionCostOfAcquiredEntityPurchasePrice>
+  <us-gaap:BusinessAcquisitionCostOfAcquiredEntityPurchasePrice contextRef="I2012Q2SD_us-gaap_BusinessAcquisitionAxis_fubar_MassmartHoldingsLimitedMember" decimals="-8" id="Fact-6E38A90A9D4336CC904D1DCB58ECAB5A" unitRef="usd">2500000000</us-gaap:BusinessAcquisitionCostOfAcquiredEntityPurchasePrice>
+
+  <us-gaap:BusinessAcquisitionPurchasePriceAllocationAssetsAcquired contextRef="I2012Q2SD_us-gaap_BusinessAcquisitionAxis_fubar_MassmartHoldingsLimitedMember" decimals="-8" id="Fact-8CDE0B01577221CB860C1DCB58EC1218" unitRef="usd">6900000000</us-gaap:BusinessAcquisitionPurchasePriceAllocationAssetsAcquired>
+  <us-gaap:BusinessAcquisitionPurchasePriceAllocationAssetsAcquired contextRef="I2012Q1_us-gaap_BusinessAcquisitionAxis_fubar_NettoFoodStoresLimitedMember" decimals="-8" id="Fact-CCF3D0FAEBDB27C5C0241DCB58EC8A0C" unitRef="usd">1300000000</us-gaap:BusinessAcquisitionPurchasePriceAllocationAssetsAcquired>
+  <us-gaap:BusinessAcquisitionPurchasePriceAllocationGoodwillAmount contextRef="I2012Q2SD_us-gaap_BusinessAcquisitionAxis_fubar_MassmartHoldingsLimitedMember" decimals="-8" id="Fact-7643948DE2BA5388887B1DCB58EC1F01" unitRef="usd">3100000000</us-gaap:BusinessAcquisitionPurchasePriceAllocationGoodwillAmount>
+  <us-gaap:BusinessAcquisitionPurchasePriceAllocationGoodwillAmount contextRef="I2012Q1_us-gaap_BusinessAcquisitionAxis_fubar_NettoFoodStoresLimitedMember" decimals="-6" id="Fact-A34A2C1D568F00A491D41DCB58FC2E7F" unitRef="usd">748000000</us-gaap:BusinessAcquisitionPurchasePriceAllocationGoodwillAmount>
+ <us-gaap:BusinessAcquisitionPurchasePriceAllocationLiabilitiesAssumed contextRef="I2012Q1_us-gaap_BusinessAcquisitionAxis_fubar_NettoFoodStoresLimitedMember" decimals="-6" id="Fact-D145AE969CFA137C54D81DCB58EC3639" unitRef="usd">103000000</us-gaap:BusinessAcquisitionPurchasePriceAllocationLiabilitiesAssumed>
+  <us-gaap:BusinessAcquisitionPurchasePriceAllocationLiabilitiesAssumed contextRef="I2012Q2SD_us-gaap_BusinessAcquisitionAxis_fubar_MassmartHoldingsLimitedMember" decimals="-8" id="Fact-088B3C52B704DFD24E101DCB58ECEE2A" unitRef="usd">2400000000</us-gaap:BusinessAcquisitionPurchasePriceAllocationLiabilitiesAssumed>
+
+  <us-gaap:PaymentsToAcquireAdditionalInterestInSubsidiaries contextRef="D2012Q2SD_us-gaap_BusinessAcquisitionAxis_fubar_MassmartHoldingsLimitedMember" decimals="-8" id="Fact-B3EB12D99B0A92F67DB01DCB58FCED26" unitRef="usd">2000000000</us-gaap:PaymentsToAcquireAdditionalInterestInSubsidiaries>
+
+	<!--Acquisition Narritive items -->
+  <us-gaap:NumberOfStores contextRef="I2012Q2SD_us-gaap_BusinessAcquisitionAxis_fubar_MassmartHoldingsLimitedMember_us-gaap_StatementGeographicalAxis_fubar_SubSaharanAfricanMember" decimals="INF" id="Fact-2DF2ECB7303DEE9B5CCA1DCB58EC2F31" unitRef="Unit18">290</us-gaap:NumberOfStores>
+ <us-gaap:NumberOfStores contextRef="I2012Q1_us-gaap_BusinessAcquisitionAxis_fubar_NettoFoodStoresLimitedMember_us-gaap_StatementGeographicalAxis_country_GB" decimals="INF" id="Fact-F4C39BA8A5D5A4EF53B61DCB58FCA170" unitRef="Unit18">147</us-gaap:NumberOfStores>	
+
+  <us-gaap:BusinessAcquisitionCostOfAcquiredEntityPurchasePrice contextRef="I2012Q2SD_us-gaap_BusinessAcquisitionAxis_fubar_MassmartHoldingsLimitedMember" decimals="-8" id="Fact-89C05C5B49A5A371D49B1DCB58EC9497" unitRef="Unit14">16900000000</us-gaap:BusinessAcquisitionCostOfAcquiredEntityPurchasePrice>
+
+  <us-gaap:BusinessAcquisitionCostOfAcquiredEntityPurchasePrice contextRef="I2012Q2SD_us-gaap_BusinessAcquisitionAxis_fubar_MassmartHoldingsLimitedMember" decimals="-8" id="Fact-6E38A90A9D4336CC904D1DCB58ECAB5A" unitRef="usd">2500000000</us-gaap:BusinessAcquisitionCostOfAcquiredEntityPurchasePrice>
+  <us-gaap:BusinessAcquisitionPurchasePriceAllocationAssetsAcquired contextRef="I2012Q2SD_us-gaap_BusinessAcquisitionAxis_fubar_MassmartHoldingsLimitedMember" decimals="-8" id="Fact-8CDE0B01577221CB860C1DCB58EC1218" unitRef="usd">6900000000</us-gaap:BusinessAcquisitionPurchasePriceAllocationAssetsAcquired>
+  <us-gaap:BusinessAcquisitionPurchasePriceAllocationGoodwillAmount contextRef="I2012Q2SD_us-gaap_BusinessAcquisitionAxis_fubar_MassmartHoldingsLimitedMember" decimals="-8" id="Fact-7643948DE2BA5388887B1DCB58EC1F01" unitRef="usd">3100000000</us-gaap:BusinessAcquisitionPurchasePriceAllocationGoodwillAmount>
+  <us-gaap:BusinessAcquisitionPurchasePriceAllocationLiabilitiesAssumed contextRef="I2012Q2SD_us-gaap_BusinessAcquisitionAxis_fubar_MassmartHoldingsLimitedMember" decimals="-8" id="Fact-088B3C52B704DFD24E101DCB58ECEE2A" unitRef="usd">2400000000</us-gaap:BusinessAcquisitionPurchasePriceAllocationLiabilitiesAssumed>
+ <us-gaap:EquityMethodInvestmentOwnershipPercentage contextRef="I2012Q2SD_us-gaap_BusinessAcquisitionAxis_fubar_MassmartHoldingsLimitedMember" decimals="2" id="Fact-CC909E68D8D7A5BEB0EC1DCB58EC8907" unitRef="number">0.51</us-gaap:EquityMethodInvestmentOwnershipPercentage>
+	 <us-gaap:PaymentsToAcquireAdditionalInterestInSubsidiaries contextRef="D2012Q2SD_us-gaap_BusinessAcquisitionAxis_fubar_MassmartHoldingsLimitedMember" decimals="-8" id="Fact-B3EB12D99B0A92F67DB01DCB58FCED26" unitRef="usd">2000000000</us-gaap:PaymentsToAcquireAdditionalInterestInSubsidiaries>
+	  <us-gaap:BusinessAcquisitionCostOfAcquiredEntityCashPaid contextRef="I2008Q1SD_us-gaap_BusinessAcquisitionAxis_fubar_BounteousCompanyLimitedMember_fubar_PaymentTypeByAcquisitionAxis_fubar_AdditionalConsiderationMember" decimals="-6" id="Fact-DA816ACA9684AF5C2BF21DCB58FC9368" unitRef="usd">376000000</us-gaap:BusinessAcquisitionCostOfAcquiredEntityCashPaid>
+	
+  <us-gaap:BusinessAcquisitionCostOfAcquiredEntityCashPaid contextRef="I2008Q1SD_us-gaap_BusinessAcquisitionAxis_fubar_BounteousCompanyLimitedMember_fubar_PaymentTypeByAcquisitionAxis_fubar_InitialInterestMember" decimals="-6" id="Fact-C68952B78428C56743B51DCB58ECCD9B" unitRef="usd">264000000</us-gaap:BusinessAcquisitionCostOfAcquiredEntityCashPaid>
+	<us-gaap:BusinessAcquisitionCostOfAcquiredEntityCashPaid contextRef="I2013Q3_us-gaap_BusinessAcquisitionAxis_fubar_BounteousCompanyLimitedMember_fubar_PaymentTypeByAcquisitionAxis_fubar_AdditionalConsiderationMember" decimals="-6" id="Fact-78DF232EAE8320F401C41DCB58FCB1B3" unitRef="usd">101000000</us-gaap:BusinessAcquisitionCostOfAcquiredEntityCashPaid>
+
+  <us-gaap:BusinessAcquisitionCostOfAcquiredEntityCashPaid contextRef="I2008Q1SD_us-gaap_BusinessAcquisitionAxis_fubar_BounteousCompanyLimitedMember_fubar_PaymentTypeByAcquisitionAxis_fubar_InitialInterestMember" decimals="-6" id="Fact-C68952B78428C56743B51DCB58ECCD9B" unitRef="usd">264000000</us-gaap:BusinessAcquisitionCostOfAcquiredEntityCashPaid>
+  <us-gaap:BusinessAcquisitionCostOfAcquiredEntityCashPaid contextRef="I2008Q1SD_us-gaap_BusinessAcquisitionAxis_fubar_BounteousCompanyLimitedMember_fubar_PaymentTypeByAcquisitionAxis_fubar_AdditionalConsiderationMember" decimals="-6" id="Fact-DA816ACA9684AF5C2BF21DCB58FC9368" unitRef="usd">376000000</us-gaap:BusinessAcquisitionCostOfAcquiredEntityCashPaid>
+<fubar:EquityMethodInvestmentAdditionalOwnershipPercentage contextRef="I2008Q1SD_us-gaap_BusinessAcquisitionAxis_fubar_BounteousCompanyLimitedMember" decimals="INF" id="Fact-72A546C1E150514C30151DCB58EC0F8E" unitRef="number">0.30</fubar:EquityMethodInvestmentAdditionalOwnershipPercentage>
+
+	  <us-gaap:BusinessAcquisitionCostOfAcquiredEntityPurchasePrice contextRef="I2012Q1_us-gaap_BusinessAcquisitionAxis_fubar_NettoFoodStoresLimitedMember" decimals="-8" id="Fact-09C3ADC4659A7CB4DB921DCB58EC36AE" unitRef="usd">1200000000</us-gaap:BusinessAcquisitionCostOfAcquiredEntityPurchasePrice>
+
+ <us-gaap:BusinessAcquisitionCostOfAcquiredEntityPurchasePrice contextRef="I2012Q1_us-gaap_BusinessAcquisitionAxis_fubar_NettoFoodStoresLimitedMember" decimals="-6" id="Fact-AE65B787007BF420DBF81DCB58EC03AB" unitRef="Unit13">750000000</us-gaap:BusinessAcquisitionCostOfAcquiredEntityPurchasePrice>
+
+<us-gaap:BusinessAcquisitionPurchasePriceAllocationAssetsAcquired contextRef="I2012Q1_us-gaap_BusinessAcquisitionAxis_fubar_NettoFoodStoresLimitedMember" decimals="-8" id="Fact-CCF3D0FAEBDB27C5C0241DCB58EC8A0C" unitRef="usd">1300000000</us-gaap:BusinessAcquisitionPurchasePriceAllocationAssetsAcquired>
+	<us-gaap:BusinessAcquisitionPurchasePriceAllocationGoodwillAmount contextRef="I2012Q1_us-gaap_BusinessAcquisitionAxis_fubar_NettoFoodStoresLimitedMember" decimals="-6" id="Fact-A34A2C1D568F00A491D41DCB58FC2E7F" unitRef="usd">748000000</us-gaap:BusinessAcquisitionPurchasePriceAllocationGoodwillAmount>
+
+<us-gaap:BusinessAcquisitionPurchasePriceAllocationLiabilitiesAssumed contextRef="I2012Q1_us-gaap_BusinessAcquisitionAxis_fubar_NettoFoodStoresLimitedMember" decimals="-6" id="Fact-D145AE969CFA137C54D81DCB58EC3639" unitRef="usd">103000000</us-gaap:BusinessAcquisitionPurchasePriceAllocationLiabilitiesAssumed>
+
 </xbrli:xbrl>

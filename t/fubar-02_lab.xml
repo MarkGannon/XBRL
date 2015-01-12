@@ -766,5 +766,56 @@ xmlns:xlink="http://www.w3.org/1999/xlink">
     xlink:title="label_AccruedLiabilitiesCurrent" xml:lang="en-US"
     id="label_AccruedLiabilitiesCurrent_2">Accrued
     Liabilities</link:label>
-  </link:labelLink>
+  
+	   <loc xlink:type="locator" xlink:href="http://xbrl.fasb.org/us-gaap/2011/elts/us-gaap-2011-01-31.xsd#us-gaap_EntityWideDisclosureOnGeographicAreasRevenueFromExternalCustomersAttributedToEntitysCountryOfDomicile" xlink:label="element261" />
+    <label xlink:type="resource" xlink:label="label261" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US" id="label_us-gaap_EntityWideDisclosureOnGeographicAreasRevenueFromExternalCustomersAttributedToEntitysCountryOfDomicile_en-US">Entity Wide Disclosure On Geographic Areas Revenue From External Customers Attributed To Entitys Country Of Domicile</label>
+    <labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="element261" xlink:to="label261" />
+	<labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="element596" xlink:to="label596" />
+    <loc xlink:type="locator" xlink:href="http://xbrl.sec.gov/dei/2011/dei-2011-01-31.xsd#dei_AmendmentDescription" xlink:label="element597" />
+    <label xlink:type="resource" xlink:label="label597" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US" id="label_dei_AmendmentDescription_en-US">Amendment description</label>
+    <labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="element597" xlink:to="label597" />
+    <loc xlink:type="locator" xlink:href="http://xbrl.sec.gov/dei/2011/dei-2011-01-31.xsd#dei_AmendmentFlag" xlink:label="element598" />
+    <label xlink:type="resource" xlink:label="label598" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US" id="label_dei_AmendmentFlag_en-US">Amendment flag</label>
+    <labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="element598" xlink:to="label598" />
+    <loc xlink:type="locator" xlink:href="http://xbrl.sec.gov/dei/2011/dei-2011-01-31.xsd#dei_CurrentFiscalYearEndDate" xlink:label="element599" />
+    <label xlink:type="resource" xlink:label="label599" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US" id="label_dei_CurrentFiscalYearEndDate_en-US">Current fiscal year end date</label>
+    <labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="element599" xlink:to="label599" />
+    <loc xlink:type="locator" xlink:href="http://xbrl.sec.gov/dei/2011/dei-2011-01-31.xsd#dei_DocumentPeriodEndDate" xlink:label="element600" />
+    <label xlink:type="resource" xlink:label="label600" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US" id="label_dei_DocumentPeriodEndDate_en-US">Document period end date</label>
+    <labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="element600" xlink:to="label600" />
+    <loc xlink:type="locator" xlink:href="http://xbrl.sec.gov/dei/2011/dei-2011-01-31.xsd#dei_EntityWellKnownSeasonedIssuer" xlink:label="element601" />
+    <label xlink:type="resource" xlink:label="label601" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US" id="label_dei_EntityWellKnownSeasonedIssuer_en-US">Entity well known seasoned issuer</label>
+    <labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="element601" xlink:to="label601" />
+    <loc xlink:type="locator" xlink:href="http://xbrl.sec.gov/dei/2011/dei-2011-01-31.xsd#dei_EntityVoluntaryFilers" xlink:label="element602" />
+    <label xlink:type="resource" xlink:label="label602" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US" id="label_dei_EntityVoluntaryFilers_en-US">Entity voluntary filers</label>
+    <labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="element602" xlink:to="label602" />
+    <loc xlink:type="locator" xlink:href="http://xbrl.sec.gov/dei/2011/dei-2011-01-31.xsd#dei_EntityCurrentReportingStatus" xlink:label="element603" />
+    <label xlink:type="resource" xlink:label="label603" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US" id="label_dei_EntityCurrentReportingStatus_en-US">Entity current reporting status</label>
+    <labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="element603" xlink:to="label603" />
+    <loc xlink:type="locator" xlink:href="http://xbrl.sec.gov/dei/2011/dei-2011-01-31.xsd#dei_EntityFilerCategory" xlink:label="element604" />
+    <label xlink:type="resource" xlink:label="label604" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US" id="label_dei_EntityFilerCategory_en-US">Entity filer category</label>
+    <labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="element604" xlink:to="label604" />
+    <loc xlink:type="locator" xlink:href="http://xbrl.sec.gov/dei/2011/dei-2011-01-31.xsd#dei_EntityPublicFloat" xlink:label="element605" />
+    <label xlink:type="resource" xlink:label="label605" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US" id="label_dei_EntityPublicFloat_en-US">Entity public float</label>
+    <labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="element605" xlink:to="label605" />
+    <loc xlink:type="locator" xlink:href="http://xbrl.sec.gov/dei/2011/dei-2011-01-31.xsd#dei_EntityRegistrantName" xlink:label="element606" />
+    <label xlink:type="resource" xlink:label="label606" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US" id="label_dei_EntityRegistrantName_en-US">Entity registrant name</label>
+    <labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="element606" xlink:to="label606" />
+    <loc xlink:type="locator" xlink:href="http://xbrl.sec.gov/dei/2011/dei-2011-01-31.xsd#dei_EntityCentralIndexKey" xlink:label="element607" />
+    <label xlink:type="resource" xlink:label="label607" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US" id="label_dei_EntityCentralIndexKey_en-US">Entity central index key</label>
+    <labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="element607" xlink:to="label607" />
+    <loc xlink:type="locator" xlink:href="http://xbrl.sec.gov/dei/2011/dei-2011-01-31.xsd#dei_EntityCommonStockSharesOutstanding" xlink:label="element608" />
+    <label xlink:type="resource" xlink:label="label608" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US" id="label_dei_EntityCommonStockSharesOutstanding_en-US">Entity common stock shares outstanding</label>
+    <labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="element608" xlink:to="label608" />
+    <loc xlink:type="locator" xlink:href="http://xbrl.sec.gov/dei/2011/dei-2011-01-31.xsd#dei_DocumentFiscalYearFocus" xlink:label="element609" />
+    <label xlink:type="resource" xlink:label="label609" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US" id="label_dei_DocumentFiscalYearFocus_en-US">DocumentFiscalYearFocus</label>
+    <labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="element609" xlink:to="label609" />
+    <loc xlink:type="locator" xlink:href="http://xbrl.sec.gov/dei/2011/dei-2011-01-31.xsd#dei_DocumentFiscalPeriodFocus" xlink:label="element610" />
+    <label xlink:type="resource" xlink:label="label610" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US" id="label_dei_DocumentFiscalPeriodFocus_en-US">Document Period end focus</label>
+    <labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="element610" xlink:to="label610" />
+    <loc xlink:type="locator" xlink:href="http://xbrl.sec.gov/dei/2011/dei-2011-01-31.xsd#dei_DocumentType" xlink:label="element611" />
+    <label xlink:type="resource" xlink:label="label611" xlink:role="http://www.xbrl.org/2003/role/label" xml:lang="en-US" id="label_dei_DocumentType_en-US">Document Type</label>
+    <labelArc xlink:type="arc" xlink:arcrole="http://www.xbrl.org/2003/arcrole/concept-label" xlink:from="element611" xlink:to="label611" />
+
+	</link:labelLink>
 </link:linkbase>

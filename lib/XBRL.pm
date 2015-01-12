@@ -669,21 +669,21 @@ sub get_income_statement() {
 					($title =~ m/loss/i) ) && 	
 					($title !~ m/parenthetical/i)) {
 						$income_uri = $sect->{'uri'};	
-					}
-					if ($income_uri) {
-						last FOO;
-					}
 				}
-			}	
+				if ($income_uri) {
+						last FOO;
+				}
+		}
+	}	
 		
-			if ($tax->in_def($income_uri)) {
-				my $dim = XBRL::Dimension->new($self, $income_uri);
-				return($dim->get_xml_table($income_uri));
-			}
-			else {
-				my $pres_table = XBRL::Table->new($self, $income_uri);
-				return($pres_table->get_xml_table($income_uri));	
-			}
+	if ($tax->in_def($income_uri)) {
+		my $dim = XBRL::Dimension->new($self, $income_uri);
+		return($dim->get_xml_table());
+	}
+	else {
+		my $pres_table = XBRL::Table->new($self, $income_uri);
+		return($pres_table->get_xml_table($income_uri));	
+	}
 
 }
 
